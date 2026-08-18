@@ -1,0 +1,2457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>PSDX Player Editor</title>
+
+<style>
+body{
+    background:#3E3546;
+    margin:0;
+    padding:40px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    font-family:Arial,sans-serif;
+}
+.panel{
+    width:1000px;
+    background:#694F62;
+    border:4px solid #2E222F;
+    box-shadow:6px 6px 0 #2E222F;
+    padding:20px;
+    box-sizing:border-box;
+}
+.titulo{
+    height:50px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    padding:5px;
+    box-sizing:border-box;
+}
+.contenido-principal{
+    margin-top:20px;
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+}
+.contenido{
+    width:520px;
+    background:#514859;
+    border:3px solid #2E222F;
+    padding:15px;
+    box-sizing:border-box;
+    position:relative;
+}
+
+/* BANDERAS */
+.selector-bandera{
+    position:relative;
+    width:250px;
+    margin-bottom:12px;
+    z-index:10;
+}
+.selector-actual{
+    width:100%;
+    height:38px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    padding:3px;
+    position:relative;
+}
+.selector-actual:hover{background:#453B4C}
+.selector-bandera-img{
+    width:30px;
+    height:23px;
+    object-fit:fill;
+    image-rendering:pixelated;
+    margin-right:8px;
+}
+.selector-texto{
+    display:flex;
+    align-items:center;
+    height:100%;
+}
+.selector-flecha{
+    position:absolute;
+    right:8px;
+    top:6px;
+    color:#B59B4A;
+    font-size:18px;
+    pointer-events:none;
+}
+.lista-bandera{
+    display:none;
+    position:absolute;
+    left:0;
+    top:41px;
+    width:100%;
+    max-height:300px;
+    overflow-y:auto;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-sizing:border-box;
+    box-shadow:5px 5px 0 #2E222F;
+}
+.lista-bandera.abierta{display:block}
+.opcion-bandera{
+    height:42px;
+    background:#3E3546;
+    border-bottom:2px solid #2E222F;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    padding:4px;
+    cursor:pointer;
+}
+.opcion-bandera:last-child{border-bottom:none}
+.opcion-bandera:hover{background:#694F62}
+.opcion-bandera.seleccionada{background:#514859}
+.opcion-img{
+    width:38px;
+    height:30px;
+    object-fit:fill;
+    image-rendering:pixelated;
+    margin-right:8px;
+}
+.opcion-texto{display:flex;align-items:center}
+.lista-bandera::-webkit-scrollbar{width:10px}
+.lista-bandera::-webkit-scrollbar-track{background:#2E222F}
+.lista-bandera::-webkit-scrollbar-thumb{
+    background:#694F62;
+    border:2px solid #2E222F;
+}
+
+/* BANDERA GRANDE */
+#banderaCanvas{
+    display:block;
+    image-rendering:pixelated;
+    margin-bottom:10px;
+}
+
+/* NOMBRE */
+.editor-nombre{
+    position:relative;
+    min-height:30px;
+}
+#nombreInput{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:35px;
+    opacity:0;
+    cursor:text;
+    z-index:2;
+    border:none;
+    outline:none;
+}
+#nombreCanvas{
+    position:relative;
+    z-index:1;
+    pointer-events:none;
+}
+
+/* POSICIÓN */
+.editor-posicion{
+    margin-top:15px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.boton-posicion{
+    height:40px;
+    min-width:120px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-shadow:3px 3px 0 #2E222F;
+    cursor:pointer;
+    padding:4px 8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.boton-posicion:hover{background:#453B4C}
+#posicionActual{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* JUGADOR */
+.editor-jugador{
+    width:420px;
+    background:#514859;
+    border:3px solid #2E222F;
+    padding:15px;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.jugador-titulo{
+    width:100%;
+    height:40px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    padding-left:8px;
+    margin-bottom:15px;
+}
+.jugador-zona{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:15px;
+}
+.jugador-preview{
+    width:180px;
+    height:324px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    image-rendering:pixelated;
+}
+#jugadorCanvas{
+    width:160px;
+    height:288px;
+    image-rendering:pixelated;
+    image-rendering:crisp-edges;
+}
+.colores-jugador{
+    width:180px;
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+.color-control{
+    height:38px;
+    background:#3E3546;
+    border:2px solid #2E222F;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:4px 6px;
+}
+.color-nombre{
+    display:flex;
+    align-items:center;
+    height:100%;
+    pointer-events:none;
+}
+.color-control input[type="color"]{
+    width:35px;
+    height:27px;
+    padding:0;
+    border:2px solid #2E222F;
+    background:transparent;
+    cursor:pointer;
+}
+
+/* STATS */
+.stats{
+    margin-top:20px;
+    background:#514859;
+    border:3px solid #2E222F;
+    padding:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+}
+.stat{
+    height:65px;
+    background:#3E3546;
+    border:2px solid #2E222F;
+    padding:5px;
+    box-sizing:border-box;
+    position:relative;
+    cursor:text;
+}
+.stat canvas{display:block;pointer-events:none}
+.stat input{
+    position:absolute;
+    left:5px;
+    top:5px;
+    width:100px;
+    height:25px;
+    opacity:0;
+    z-index:5;
+    cursor:text;
+    border:none;
+    outline:none;
+}
+.stat-buttons{
+    position:absolute;
+    right:5px;
+    top:5px;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    z-index:8;
+}
+.stat-button{
+    width:20px;
+    height:13px;
+    padding:0;
+    border:2px solid #2E222F;
+    background:#694F62;
+    color:#E3D8E1;
+    font-size:9px;
+    line-height:8px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    box-sizing:border-box;
+}
+.stat-button:hover{background:#806176}
+.stat-button:active{background:#514859}
+.barra{
+    display:flex;
+    gap:2px;
+    margin-top:4px;
+    height:10px;
+}
+.bloque{
+    width:12px;
+    height:10px;
+    background:#2E222F;
+}
+canvas{
+    display:block;
+    image-rendering:pixelated;
+}
+
+/* GUARDADOS */
+.jugadores-guardados{
+    margin-top:20px;
+    background:#514859;
+    border:3px solid #2E222F;
+    padding:10px;
+    box-sizing:border-box;
+}
+.jugadores-titulo{
+    height:38px;
+    background:#3E3546;
+    border:2px solid #2E222F;
+    display:flex;
+    align-items:center;
+    padding-left:8px;
+    box-sizing:border-box;
+}
+.lista-jugadores{
+    margin-top:8px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    max-height:220px;
+    overflow-y:auto;
+}
+.jugador-guardado{
+    min-height:42px;
+    background:#3E3546;
+    border:2px solid #2E222F;
+    display:flex;
+    align-items:center;
+    padding:4px 6px;
+    box-sizing:border-box;
+    cursor:pointer;
+}
+.jugador-guardado:hover{background:#694F62}
+.jugador-guardado.seleccionado{background:#806176}
+.jugador-guardado-info{
+    flex:1;
+    display:flex;
+    align-items:center;
+}
+.jugador-guardado-nombre,
+.jugador-guardado-pais,
+.jugador-guardado-posicion{
+    display:flex;
+    align-items:center;
+}
+.jugador-guardado-pais,
+.jugador-guardado-posicion{margin-left:12px}
+.boton-eliminar-jugador{
+    width:28px;
+    height:28px;
+    background:#694F62;
+    border:2px solid #2E222F;
+    color:#E8E1E8;
+    cursor:pointer;
+    font-weight:bold;
+}
+.boton-eliminar-jugador:hover{background:#B85C5C}
+.botones-jugadores{
+    margin-top:8px;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:6px;
+}
+.boton-jugador{
+    height:38px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-shadow:3px 3px 0 #2E222F;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.boton-jugador:hover{background:#453B4C}
+.boton-jugador:active{
+    box-shadow:none;
+    transform:translate(3px,3px);
+}
+.mensaje-jugadores{
+    min-height:28px;
+    margin-top:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* MODAL */
+.modal-posicion{
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(30,22,31,.75);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+}
+.modal-posicion.abierta{display:flex}
+.ventana-posicion{
+    width:520px;
+    background:#694F62;
+    border:4px solid #2E222F;
+    box-shadow:7px 7px 0 #2E222F;
+    padding:15px;
+    box-sizing:border-box;
+    position:relative;
+}
+.titulo-posicion{
+    height:42px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    padding:5px;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+}
+.cerrar-posicion{
+    position:absolute;
+    right:12px;
+    top:12px;
+    width:28px;
+    height:28px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    color:#E8E1E8;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:10;
+}
+.cerrar-posicion:hover{background:#B85C5C}
+.cancha-contenedor{
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+}
+.cancha{
+    width:440px;
+    height:300px;
+    background:#4E704F;
+    border:4px solid #FFF;
+    box-sizing:border-box;
+    position:relative;
+}
+.cancha::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:0;
+    width:4px;
+    height:100%;
+    background:#FFF;
+    transform:translateX(-50%);
+}
+.circulo-central{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:80px;
+    height:80px;
+    border:4px solid #FFF;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    box-sizing:border-box;
+}
+.punto-central{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:6px;
+    height:6px;
+    background:#FFF;
+    transform:translate(-50%,-50%);
+}
+.area-izquierda{
+    position:absolute;
+    left:-4px;
+    top:75px;
+    width:70px;
+    height:142px;
+    border:4px solid #FFF;
+    border-left:none;
+    box-sizing:border-box;
+}
+.area-derecha{
+    position:absolute;
+    right:-4px;
+    top:75px;
+    width:70px;
+    height:142px;
+    border:4px solid #FFF;
+    border-right:none;
+    box-sizing:border-box;
+}
+.punto-posicion{
+    position:absolute;
+    width:38px;
+    height:38px;
+    background:#3E3546;
+    border:3px solid #FFF;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:5;
+}
+.punto-posicion:hover{
+    background:#694F62;
+    transform:scale(1.08);
+}
+.punto-posicion.seleccionado{
+    background:#B59B4A;
+    border-color:#FFF;
+}
+.pos-gk{left:10px;top:131px}
+.pos-lb{left:75px;top:45px}
+.pos-cb{left:75px;top:131px}
+.pos-rb{left:75px;top:217px}
+.pos-cdm{left:160px;top:131px}
+.pos-lm{left:190px;top:45px}
+.pos-cm{left:215px;top:131px}
+.pos-rm{left:190px;top:217px}
+.pos-cam{right:120px;top:131px}
+.pos-lw{right:55px;top:45px}
+.pos-rw{right:55px;top:217px}
+.pos-st{right:10px;top:131px}
+.seleccion-posicion{
+    margin-top:15px;
+    min-height:40px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+}
+#posicionSeleccionada{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.boton-aceptar{
+    margin-top:12px;
+    width:100%;
+    height:40px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-shadow:3px 3px 0 #2E222F;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.boton-aceptar:hover{background:#453B4C}
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+
+<div class="titulo" id="titulo"></div>
+
+<div class="contenido-principal">
+
+<div class="contenido">
+
+<div class="selector-bandera" id="selectorBandera">
+<div class="selector-actual" id="selectorActual">
+<img id="selectorImagen" class="selector-bandera-img">
+<div class="selector-texto" id="selectorTexto"></div>
+<div class="selector-flecha">▼</div>
+</div>
+<div class="lista-bandera" id="listaBandera"></div>
+</div>
+
+<canvas id="banderaCanvas"></canvas>
+
+<div class="editor-nombre">
+<input id="nombreInput" type="text" value="" maxlength="15" autocomplete="off">
+<div id="nombreCanvas"></div>
+</div>
+
+<div class="editor-posicion">
+<div class="boton-posicion" id="abrirPosicion">
+<div id="posicionActual"></div>
+</div>
+</div>
+
+</div>
+
+<div class="editor-jugador">
+
+<div class="jugador-titulo" id="jugadorTitulo"></div>
+
+<div class="jugador-zona">
+
+<div class="jugador-preview">
+<canvas id="jugadorCanvas" width="20" height="36"></canvas>
+</div>
+
+<div class="colores-jugador">
+
+<div class="color-control">
+<div class="color-nombre" data-texto="SHIRT 1"></div>
+<input type="color" id="shirtColor1">
+</div>
+
+<div class="color-control">
+<div class="color-nombre" data-texto="SHIRT 2"></div>
+<input type="color" id="shirtColor2">
+</div>
+
+<div class="color-control">
+<div class="color-nombre" data-texto="HAIR"></div>
+<input type="color" id="hairColor1">
+</div>
+
+<div class="color-control">
+<div class="color-nombre" data-texto="SKIN"></div>
+<input type="color" id="skinColor1">
+</div>
+
+<div class="color-control">
+<div class="color-nombre" data-texto="LOGO"></div>
+<input type="color" id="logoColor1">
+</div>
+
+<div class="color-control">
+<div class="color-nombre" data-texto="SHORTS"></div>
+<input type="color" id="shortsColor1">
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="stats">
+
+<div class="stat" data-stat="spd">
+<input type="number" min="0" max="10">
+<div class="statCanvas"></div>
+<div class="stat-buttons">
+<button class="stat-button subir">▲</button>
+<button class="stat-button bajar">▼</button>
+</div>
+</div>
+
+<div class="stat" data-stat="pow">
+<input type="number" min="0" max="10">
+<div class="statCanvas"></div>
+<div class="stat-buttons">
+<button class="stat-button subir">▲</button>
+<button class="stat-button bajar">▼</button>
+</div>
+</div>
+
+<div class="stat" data-stat="sta">
+<input type="number" min="0" max="10">
+<div class="statCanvas"></div>
+<div class="stat-buttons">
+<button class="stat-button subir">▲</button>
+<button class="stat-button bajar">▼</button>
+</div>
+</div>
+
+<div class="stat" data-stat="dri">
+<input type="number" min="0" max="10">
+<div class="statCanvas"></div>
+<div class="stat-buttons">
+<button class="stat-button subir">▲</button>
+<button class="stat-button bajar">▼</button>
+</div>
+</div>
+
+<div class="stat" data-stat="def">
+<input type="number" min="0" max="10">
+<div class="statCanvas"></div>
+<div class="stat-buttons">
+<button class="stat-button subir">▲</button>
+<button class="stat-button bajar">▼</button>
+</div>
+</div>
+
+<div class="stat" data-stat="tec">
+<input type="number" min="0" max="10">
+<div class="statCanvas"></div>
+<div class="stat-buttons">
+<button class="stat-button subir">▲</button>
+<button class="stat-button bajar">▼</button>
+</div>
+</div>
+
+<div class="stat" data-stat="kep">
+<input type="number" min="0" max="10">
+<div class="statCanvas"></div>
+<div class="stat-buttons">
+<button class="stat-button subir">▲</button>
+<button class="stat-button bajar">▼</button>
+</div>
+</div>
+
+</div>
+
+<div class="jugadores-guardados">
+
+<div class="jugadores-titulo" id="jugadoresTitulo"></div>
+<div class="lista-jugadores" id="listaJugadores"></div>
+
+<div class="botones-jugadores">
+<div class="boton-jugador" id="nuevoJugador"></div>
+<div class="boton-jugador" id="guardarJugador"></div>
+<div class="boton-jugador" id="cargarJugador"></div>
+</div>
+
+<div class="mensaje-jugadores" id="mensajeJugadores"></div>
+
+</div>
+</div>
+
+<!-- MODAL DE POSICIÓN -->
+
+<div class="modal-posicion" id="modalPosicion">
+
+<div class="ventana-posicion">
+
+<button class="cerrar-posicion" id="cerrarPosicion">X</button>
+
+<div class="titulo-posicion">
+<div id="tituloPosicion"></div>
+</div>
+
+<div class="cancha-contenedor">
+<div class="cancha">
+
+<div class="area-izquierda"></div>
+<div class="area-derecha"></div>
+<div class="circulo-central"></div>
+<div class="punto-central"></div>
+
+<div class="punto-posicion pos-gk" data-position="GK"></div>
+<div class="punto-posicion pos-lb" data-position="LB"></div>
+<div class="punto-posicion pos-cb" data-position="CB"></div>
+<div class="punto-posicion pos-rb" data-position="RB"></div>
+<div class="punto-posicion pos-cdm" data-position="CDM"></div>
+<div class="punto-posicion pos-lm" data-position="LM"></div>
+<div class="punto-posicion pos-cm" data-position="CM"></div>
+<div class="punto-posicion pos-rm" data-position="RM"></div>
+<div class="punto-posicion pos-cam" data-position="CAM"></div>
+<div class="punto-posicion pos-lw" data-position="LW"></div>
+<div class="punto-posicion pos-rw" data-position="RW"></div>
+<div class="punto-posicion pos-st" data-position="ST"></div>
+
+</div>
+</div>
+
+<div class="seleccion-posicion">
+<div id="posicionSeleccionada"></div>
+</div>
+
+<div class="boton-aceptar" id="aceptarPosicion">
+<div id="textoAceptar"></div>
+</div>
+
+</div>
+</div>
+
+<script>
+
+fetch("PSDX_Font1.fnt")
+.then(response=>response.text())
+.then(data=>{
+
+const lineas=data.split("\n");
+const imagen=new Image();
+imagen.src="PSDX_Font1.png";
+
+imagen.onload=()=>{
+
+const ESCALA=.25;
+
+function obtenerGlifos(texto){
+const glifos={};
+
+for(const caracter of texto){
+
+if(glifos[caracter])continue;
+
+const id=caracter.charCodeAt(0);
+
+const linea=lineas.find(l=>l.startsWith(`char id=${id} `));
+
+if(!linea)continue;
+
+const datos={};
+
+linea.match(/(\w+)=([^\s]+)/g).forEach(parte=>{
+const [clave,valor]=parte.split("=");
+datos[clave]=Number(valor);
+});
+
+glifos[caracter]=datos;
+}
+
+return glifos;
+}
+
+function crearTexto(texto){
+
+const glifos=obtenerGlifos(texto);
+let anchoTotal=0;
+let cursorCalculo=0;
+
+for(const caracter of texto){
+
+const datos=glifos[caracter];
+if(!datos)continue;
+
+const derecha=cursorCalculo+datos.xoffset+datos.width;
+
+if(derecha>anchoTotal)anchoTotal=derecha;
+
+cursorCalculo+=datos.xadvance;
+}
+
+const canvas=document.createElement("canvas");
+
+canvas.width=Math.max(1,anchoTotal*ESCALA);
+canvas.height=112*ESCALA;
+
+const ctx=canvas.getContext("2d");
+ctx.imageSmoothingEnabled=false;
+
+let cursorX=0;
+
+for(const caracter of texto){
+
+const datos=glifos[caracter];
+if(!datos)continue;
+
+ctx.drawImage(
+imagen,
+datos.x,datos.y,datos.width,datos.height,
+cursorX+datos.xoffset*ESCALA,
+datos.yoffset*ESCALA,
+datos.width*ESCALA,
+datos.height*ESCALA
+);
+
+cursorX+=datos.xadvance*ESCALA;
+}
+
+return canvas;
+}
+
+/* ==================================================
+   ETIQUETAS
+================================================== */
+
+document.querySelectorAll(".color-nombre").forEach(e=>{
+e.innerHTML="";
+e.appendChild(crearTexto(e.dataset.texto));
+});
+
+/* ==================================================
+   PAÍSES
+================================================== */
+
+const paises=[
+["ALG"],["ARG"],["AUS"],["AUT"],["BEL"],["BIH"],["BRA"],
+["CAN"],["CHI"],["CIV"],["CMR"],["COD"],["COL"],["CPV"],
+["CRC"],["CRO"],["CUW"],["CZE"],["DEN"],["ECU"],["EGY"],
+["ENG"],["ESP"],["FRA"],["GER"],["GHA"],["GRE"],["HAI"],
+["HON"],["IRN"],["IRQ"],["ISL"],["ITA"],["JOR"],["JPN"],
+["KOR"],["KSA"],["MAR"],["MEX"],["NED"],["NGA"],["NOR"],
+["NZL"],["PAN"],["PAR"],["PER"],["POL"],["POR"],["PRK"],
+["QAT"],["RSA"],["RUS"],["SCO"],["SEN"],["SRB"],["SUI"],
+["SVK"],["SVN"],["SWE"],["TUN"],["TUR"],["URU"],["USA"],
+["UZB"],["WAL"]
+].map(x=>({
+nombre:x[0],
+archivo:x[0]+".png"
+}));
+
+let paisActual="MEX";
+
+const RECORTE_X=88;
+const RECORTE_Y=149;
+const RECORTE_ANCHO=590;
+const RECORTE_ALTO=470;
+const ESCALA_BANDERA=.15;
+
+const selectorActual=document.getElementById("selectorActual");
+const listaBandera=document.getElementById("listaBandera");
+const selectorImagen=document.getElementById("selectorImagen");
+const selectorTexto=document.getElementById("selectorTexto");
+const selectorBandera=document.getElementById("selectorBandera");
+
+function crearMiniaturaBandera(archivo){
+
+const canvas=document.createElement("canvas");
+canvas.width=38;
+canvas.height=30;
+canvas.className="opcion-img";
+
+const img=new Image();
+img.src="FLAGS PSDX/"+archivo;
+
+img.onload=()=>{
+const ctx=canvas.getContext("2d");
+ctx.imageSmoothingEnabled=false;
+
+ctx.drawImage(
+img,
+RECORTE_X,RECORTE_Y,
+RECORTE_ANCHO,RECORTE_ALTO,
+0,0,38,30
+);
+};
+
+return canvas;
+}
+
+function crearOpcionPais(pais){
+
+const opcion=document.createElement("div");
+opcion.className="opcion-bandera";
+
+if(pais.nombre===paisActual)
+opcion.classList.add("seleccionada");
+
+opcion.appendChild(crearMiniaturaBandera(pais.archivo));
+
+const texto=document.createElement("div");
+texto.className="opcion-texto";
+texto.appendChild(crearTexto(pais.nombre));
+
+opcion.appendChild(texto);
+
+opcion.addEventListener("click",()=>seleccionarPais(pais));
+
+listaBandera.appendChild(opcion);
+}
+
+function seleccionarPais(pais){
+
+paisActual=pais.nombre;
+
+selectorImagen.src="FLAGS PSDX/"+pais.archivo;
+
+selectorTexto.innerHTML="";
+selectorTexto.appendChild(crearTexto(pais.nombre));
+
+listaBandera.innerHTML="";
+paises.forEach(crearOpcionPais);
+
+listaBandera.classList.remove("abierta");
+
+cargarBanderaGrande(pais.archivo);
+}
+
+paises.forEach(crearOpcionPais);
+
+selectorActual.addEventListener("click",e=>{
+e.stopPropagation();
+listaBandera.classList.toggle("abierta");
+});
+
+document.addEventListener("click",e=>{
+if(!selectorBandera.contains(e.target))
+listaBandera.classList.remove("abierta");
+});
+
+function cargarBanderaGrande(archivo){
+
+const bandera=new Image();
+
+bandera.src="FLAGS PSDX/"+archivo;
+
+bandera.onload=()=>{
+
+const canvas=document.getElementById("banderaCanvas");
+
+canvas.width=RECORTE_ANCHO*ESCALA_BANDERA;
+canvas.height=RECORTE_ALTO*ESCALA_BANDERA;
+
+const ctx=canvas.getContext("2d");
+ctx.imageSmoothingEnabled=false;
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.drawImage(
+bandera,
+RECORTE_X,RECORTE_Y,
+RECORTE_ANCHO,RECORTE_ALTO,
+0,0,
+RECORTE_ANCHO*ESCALA_BANDERA,
+RECORTE_ALTO*ESCALA_BANDERA
+);
+};
+}
+
+/* ==================================================
+   NOMBRE
+================================================== */
+
+const nombreInput=document.getElementById("nombreInput");
+const nombreCanvas=document.getElementById("nombreCanvas");
+
+function actualizarNombre(){
+
+nombreCanvas.innerHTML="";
+nombreCanvas.appendChild(
+crearTexto(nombreInput.value)
+);
+}
+
+nombreInput.addEventListener("input",actualizarNombre);
+
+/* ==================================================
+   TÍTULOS
+================================================== */
+
+document.getElementById("titulo").appendChild(crearTexto("PSDX Player Editor"));
+document.getElementById("jugadorTitulo").appendChild(crearTexto("PLAYER"));
+document.getElementById("jugadoresTitulo").appendChild(crearTexto("SAVED PLAYERS"));
+document.getElementById("nuevoJugador").appendChild(crearTexto("NEW PLAYER"));
+document.getElementById("guardarJugador").appendChild(crearTexto("SAVE PLAYER"));
+document.getElementById("cargarJugador").appendChild(crearTexto("LOAD PLAYER"));
+document.getElementById("tituloPosicion").appendChild(crearTexto("POSITION"));
+document.getElementById("textoAceptar").appendChild(crearTexto("ACCEPT"));
+
+/* ==================================================
+   POSICIONES
+================================================== */
+
+let posicionTemporal="ST";
+let posicionActual="ST";
+
+const modalPosicion=document.getElementById("modalPosicion");
+const abrirPosicion=document.getElementById("abrirPosicion");
+const cerrarPosicion=document.getElementById("cerrarPosicion");
+const aceptarPosicion=document.getElementById("aceptarPosicion");
+const posicionSeleccionada=document.getElementById("posicionSeleccionada");
+const posicionActualElemento=document.getElementById("posicionActual");
+
+function mostrarPosicion(elemento,posicion){
+
+elemento.innerHTML="";
+elemento.appendChild(crearTexto(posicion));
+}
+
+function marcarPosicion(posicion){
+
+document.querySelectorAll(".punto-posicion").forEach(p=>{
+p.classList.toggle(
+"seleccionado",
+p.dataset.position===posicion
+);
+});
+}
+
+mostrarPosicion(posicionActualElemento,posicionActual);
+mostrarPosicion(posicionSeleccionada,posicionTemporal);
+marcarPosicion(posicionActual);
+
+abrirPosicion.addEventListener("click",()=>{
+
+posicionTemporal=posicionActual;
+marcarPosicion(posicionTemporal);
+mostrarPosicion(posicionSeleccionada,posicionTemporal);
+modalPosicion.classList.add("abierta");
+});
+
+document.querySelectorAll(".punto-posicion").forEach(punto=>{
+
+punto.addEventListener("click",e=>{
+
+e.stopPropagation();
+
+posicionTemporal=punto.dataset.position;
+marcarPosicion(posicionTemporal);
+mostrarPosicion(posicionSeleccionada,posicionTemporal);
+});
+});
+
+aceptarPosicion.addEventListener("click",()=>{
+
+posicionActual=posicionTemporal;
+
+mostrarPosicion(posicionActualElemento,posicionActual);
+
+modalPosicion.classList.remove("abierta");
+});
+
+cerrarPosicion.addEventListener("click",()=>{
+modalPosicion.classList.remove("abierta");
+});
+
+modalPosicion.addEventListener("click",e=>{
+if(e.target===modalPosicion)
+modalPosicion.classList.remove("abierta");
+});
+
+/* ==================================================
+   JUGADOR PIXEL ART
+================================================== */
+
+const jugadorCanvas=document.getElementById("jugadorCanvas");
+const jugadorCtx=jugadorCanvas.getContext("2d");
+
+jugadorCtx.imageSmoothingEnabled=false;
+
+const jugadorCapas=[
+{id:"shirt_color1",archivo:"shirt_color1.png"},
+{id:"shirt_color2",archivo:"shirt_color2.png"},
+{id:"hair_color1",archivo:"hair_color1.png"},
+{id:"skin_color1",archivo:"skin_color1.png"},
+{id:"logo_color1",archivo:"logo_color1.png"},
+{id:"shorts_color1",archivo:"shorts_color1.png"},
+{id:"player_base",archivo:"player_base.png"}
+];
+
+const imagenesJugador={};
+
+function cargarImagenJugador(capa){
+
+return new Promise((resolve,reject)=>{
+
+const img=new Image();
+
+img.onload=()=>{
+imagenesJugador[capa.id]=img;
+resolve();
+};
+
+img.onerror=()=>{
+console.error("NO SE PUDO CARGAR:","player/"+capa.archivo);
+reject(capa.archivo);
+};
+
+img.src="player/"+capa.archivo;
+});
+}
+
+function obtenerIdColor(id){
+
+return{
+shirt_color1:"shirtColor1",
+shirt_color2:"shirtColor2",
+hair_color1:"hairColor1",
+skin_color1:"skinColor1",
+logo_color1:"logoColor1",
+shorts_color1:"shortsColor1"
+}[id];
+}
+
+function colorearCapa(imagen,color){
+
+const canvas=document.createElement("canvas");
+canvas.width=20;
+canvas.height=36;
+
+const ctx=canvas.getContext("2d");
+ctx.imageSmoothingEnabled=false;
+
+ctx.drawImage(imagen,0,0,20,36);
+
+ctx.globalCompositeOperation="source-in";
+ctx.fillStyle=color;
+ctx.fillRect(0,0,20,36);
+ctx.globalCompositeOperation="source-over";
+
+return canvas;
+}
+
+function dibujarJugador(){
+
+jugadorCtx.clearRect(
+0,0,
+jugadorCanvas.width,
+jugadorCanvas.height
+);
+
+for(const capa of jugadorCapas){
+
+if(capa.id==="player_base")continue;
+
+const imagen=imagenesJugador[capa.id];
+if(!imagen)continue;
+
+const control=document.getElementById(
+obtenerIdColor(capa.id)
+);
+
+if(!control)continue;
+
+jugadorCtx.drawImage(
+colorearCapa(imagen,control.value),
+0,0
+);
+}
+
+const base=imagenesJugador.player_base;
+
+if(base)
+jugadorCtx.drawImage(base,0,0,20,36);
+}
+
+Promise.all(jugadorCapas.map(cargarImagenJugador))
+.then(()=>{
+
+document.querySelectorAll(
+'.color-control input[type="color"]'
+).forEach(input=>{
+input.addEventListener("input",dibujarJugador);
+});
+
+dibujarJugador();
+});
+
+/* ==================================================
+   STATS
+================================================== */
+
+const nombres={
+spd:"SPD",
+pow:"POW",
+sta:"STA",
+dri:"DRI",
+def:"DEF",
+tec:"TEC",
+kep:"KEP"
+};
+
+document.querySelectorAll(".stat").forEach(stat=>{
+
+const id=stat.dataset.stat;
+const input=stat.querySelector("input");
+const contenedor=stat.querySelector(".statCanvas");
+
+function crearBarra(valor){
+
+const barra=document.createElement("div");
+barra.className="barra";
+
+let color=null;
+
+if(valor>=8)color="#6FAF5F";
+else if(valor>=5)color="#B59B4A";
+else if(valor>=1)color="#B85C5C";
+
+for(let i=0;i<10;i++){
+
+const bloque=document.createElement("div");
+bloque.className="bloque";
+
+if(i<valor)
+bloque.style.background=color;
+
+barra.appendChild(bloque);
+}
+
+return barra;
+}
+
+function actualizarStat(){
+
+let valor=Number(input.value);
+
+if(isNaN(valor))valor=0;
+
+valor=Math.max(0,Math.min(10,valor));
+input.value=valor;
+
+contenedor.innerHTML="";
+
+contenedor.appendChild(
+crearTexto(nombres[id]+" "+valor)
+);
+
+contenedor.appendChild(
+crearBarra(valor)
+);
+}
+
+input.addEventListener("input",actualizarStat);
+
+stat.addEventListener("click",e=>{
+if(!e.target.classList.contains("stat-button"))
+input.focus();
+});
+
+stat.querySelector(".subir").addEventListener("click",e=>{
+
+e.stopPropagation();
+
+let valor=Number(input.value);
+
+if(valor<10)valor++;
+
+input.value=valor;
+actualizarStat();
+});
+
+stat.querySelector(".bajar").addEventListener("click",e=>{
+
+e.stopPropagation();
+
+let valor=Number(input.value);
+
+if(valor>0)valor--;
+
+input.value=valor;
+actualizarStat();
+});
+
+});
+
+/* ==================================================
+   JUGADORES PREDETERMINADOS
+================================================== */
+
+const jugadoresPredeterminados=[
+
+{
+nombre:"MESSIN",
+pais:"ARG",
+posicion:"RW",
+
+colores:{
+shirtColor1:"#6bbae2",
+shirtColor2:"#ffffff",
+hairColor1:"#261d1f",
+skinColor1:"#d4a68f",
+logoColor1:"#efce63",
+shortsColor1:"#3b3d3a"
+},
+
+stats:{
+spd:8,
+pow:8,
+sta:6,
+dri:10,
+def:2,
+tec:10,
+kep:0
+}
+},
+
+{
+nombre:"RONALDON",
+pais:"POR",
+posicion:"ST",
+
+colores:{
+shirtColor1:"#c43d3a",
+shirtColor2:"#ce3d42",
+hairColor1:"#1b1617",
+skinColor1:"#d29b8e",
+logoColor1:"#498138",
+shortsColor1:"#c63c3a"
+},
+
+stats:{
+spd:7,
+pow:9,
+sta:7,
+dri:8,
+def:2,
+tec:8,
+kep:0
+}
+},
+
+{
+nombre:"MBAPPEN",
+pais:"FRA",
+posicion:"ST",
+
+colores:{
+shirtColor1:"#2a517c",
+shirtColor2:"#2a517c",
+hairColor1:"#1e1913",
+skinColor1:"#b47b5b",
+logoColor1:"#efd252",
+shortsColor1:"#ffffff"
+},
+
+stats:{
+spd:10,
+pow:9,
+sta:8,
+dri:9,
+def:2,
+tec:8,
+kep:0
+}
+},
+
+{
+nombre:"HAALANDN",
+pais:"NOR",
+posicion:"ST",
+
+colores:{
+shirtColor1:"#c5130f",
+shirtColor2:"#bd140f",
+hairColor1:"#cecdae",
+skinColor1:"#debaa8",
+logoColor1:"#1051c7",
+shortsColor1:"#f6fbf7"
+},
+
+stats:{
+spd:9,
+pow:9,
+sta:8,
+dri:8,
+def:2,
+tec:7,
+kep:0
+}
+},
+
+{
+nombre:"YAMALN",
+pais:"ESP",
+posicion:"RW",
+
+colores:{
+shirtColor1:"#df282a",
+shirtColor2:"#df3d3a",
+hairColor1:"#d5bb84",
+skinColor1:"#c58453",
+logoColor1:"#e6d642",
+shortsColor1:"#2a4574"
+},
+
+stats:{
+spd:8,
+pow:8,
+sta:7,
+dri:9,
+def:2,
+tec:9,
+kep:0
+}
+},
+
+{
+nombre:"KANEN",
+pais:"ENG",
+posicion:"ST",
+
+colores:{
+shirtColor1:"#ffffff",
+shirtColor2:"#ffffff",
+hairColor1:"#724832",
+skinColor1:"#ecb39f",
+logoColor1:"#425d8c",
+shortsColor1:"#f7f7f7"
+},
+
+stats:{
+spd:6,
+pow:9,
+sta:8,
+dri:8,
+def:3,
+tec:8,
+kep:0
+}
+},
+
+{
+nombre:"OYARZABALN",
+pais:"ESP",
+posicion:"ST",
+
+colores:{
+shirtColor1:"#df282a",
+shirtColor2:"#df3d3a",
+hairColor1:"#2d1d18",
+skinColor1:"#e3a88c",
+logoColor1:"#e6d642",
+shortsColor1:"#2a4574"
+},
+
+stats:{
+spd:7,
+pow:8,
+sta:8,
+dri:8,
+def:3,
+tec:8,
+kep:0
+}
+},
+
+{
+nombre:"QUIÑONESN",
+pais:"MEX",
+posicion:"ST",
+
+colores:{
+shirtColor1:"#3a9663",
+shirtColor2:"#31815a",
+hairColor1:"#141812",
+skinColor1:"#403426",
+logoColor1:"#ff3129",
+shortsColor1:"#ffffff"
+},
+
+stats:{
+spd:9,
+pow:7,
+sta:8,
+dri:7,
+def:2,
+tec:7,
+kep:0
+}
+},
+
+{
+nombre:"NEYMARN",
+pais:"BRA",
+posicion:"ST",
+
+colores:{
+shirtColor1:"#f7da10",
+shirtColor2:"#f7da10",
+hairColor1:"#362222",
+skinColor1:"#bf7d62",
+logoColor1:"#318629",
+shortsColor1:"#2179e5"
+},
+
+stats:{
+spd:8,
+pow:8,
+sta:7,
+dri:9,
+def:2,
+tec:10,
+kep:0
+}
+},
+
+{
+nombre:"VOZINNHAN",
+pais:"CPV",
+posicion:"GK",
+
+colores:{
+shirtColor1:"#dea2c4",
+shirtColor2:"#dea2c4",
+hairColor1:"#292522",
+skinColor1:"#b48564",
+logoColor1:"#fe130f",
+shortsColor1:"#dea2c4"
+},
+
+stats:{
+spd:5,
+pow:7,
+sta:5,
+dri:2,
+def:5,
+tec:5,
+kep:6
+}
+}
+
+];
+
+/* ==================================================
+   CARGAR JUGADOR PREDETERMINADO
+================================================== */
+
+function cargarJugadorPredeterminado(jugador){
+
+nombreInput.value=jugador.nombre;
+actualizarNombre();
+
+const pais=paises.find(
+p=>p.nombre===jugador.pais
+);
+
+if(pais)
+seleccionarPais(pais);
+
+posicionActual=jugador.posicion;
+posicionTemporal=jugador.posicion;
+
+mostrarPosicion(
+posicionActualElemento,
+posicionActual
+);
+
+mostrarPosicion(
+posicionSeleccionada,
+posicionTemporal
+);
+
+marcarPosicion(posicionActual);
+
+/* COLORES FIJOS DEL JUGADOR */
+
+document.getElementById("shirtColor1").value=
+jugador.colores.shirtColor1;
+
+document.getElementById("shirtColor2").value=
+jugador.colores.shirtColor2;
+
+document.getElementById("hairColor1").value=
+jugador.colores.hairColor1;
+
+document.getElementById("skinColor1").value=
+jugador.colores.skinColor1;
+
+document.getElementById("logoColor1").value=
+jugador.colores.logoColor1;
+
+document.getElementById("shortsColor1").value=
+jugador.colores.shortsColor1;
+
+dibujarJugador();
+
+/* STATS */
+
+document.querySelectorAll(".stat").forEach(stat=>{
+
+const id=stat.dataset.stat;
+const input=stat.querySelector("input");
+
+input.value=jugador.stats[id] ?? 0;
+
+input.dispatchEvent(
+new Event("input")
+);
+});
+}
+
+/* ==================================================
+   SISTEMA DE JUGADORES GUARDADOS
+================================================== */
+
+const listaJugadores=
+document.getElementById("listaJugadores");
+
+const mensajeJugadores=
+document.getElementById("mensajeJugadores");
+
+const botonNuevoJugador=
+document.getElementById("nuevoJugador");
+
+const botonGuardarJugador=
+document.getElementById("guardarJugador");
+
+const botonCargarJugador=
+document.getElementById("cargarJugador");
+
+let jugadoresGuardados=
+JSON.parse(
+localStorage.getItem("PSDX_JUGADORES")
+)||[];
+
+let jugadorSeleccionado=null;
+
+function mostrarMensaje(texto){
+
+mensajeJugadores.innerHTML="";
+mensajeJugadores.appendChild(crearTexto(texto));
+
+setTimeout(()=>{
+mensajeJugadores.innerHTML="";
+},2000);
+}
+
+function obtenerDatosJugador(){
+
+const stats={};
+
+document.querySelectorAll(".stat").forEach(stat=>{
+
+const id=stat.dataset.stat;
+const input=stat.querySelector("input");
+
+stats[id]=Number(input.value);
+});
+
+return{
+
+id:Date.now(),
+
+nombre:
+nombreInput.value.trim()||"PLAYER",
+
+pais:paisActual,
+
+posicion:posicionActual,
+
+colores:{
+shirtColor1:
+document.getElementById("shirtColor1").value,
+
+shirtColor2:
+document.getElementById("shirtColor2").value,
+
+hairColor1:
+document.getElementById("hairColor1").value,
+
+skinColor1:
+document.getElementById("skinColor1").value,
+
+logoColor1:
+document.getElementById("logoColor1").value,
+
+shortsColor1:
+document.getElementById("shortsColor1").value
+},
+
+stats:stats
+};
+}
+
+function guardarEnLocalStorage(){
+
+localStorage.setItem(
+"PSDX_JUGADORES",
+JSON.stringify(jugadoresGuardados)
+);
+}
+
+function renderizarJugadores(){
+
+listaJugadores.innerHTML="";
+
+if(jugadoresGuardados.length===0){
+
+const vacio=document.createElement("div");
+vacio.style.padding="10px";
+vacio.style.textAlign="center";
+
+vacio.appendChild(
+crearTexto("NO SAVED PLAYERS")
+);
+
+listaJugadores.appendChild(vacio);
+
+return;
+}
+
+jugadoresGuardados.forEach(jugador=>{
+
+const elemento=document.createElement("div");
+
+elemento.className="jugador-guardado";
+
+if(jugador.id===jugadorSeleccionado)
+elemento.classList.add("seleccionado");
+
+const informacion=document.createElement("div");
+informacion.className="jugador-guardado-info";
+
+const nombre=document.createElement("div");
+nombre.className="jugador-guardado-nombre";
+nombre.appendChild(crearTexto(jugador.nombre));
+
+const pais=document.createElement("div");
+pais.className="jugador-guardado-pais";
+pais.appendChild(crearTexto(jugador.pais));
+
+const posicion=document.createElement("div");
+posicion.className="jugador-guardado-posicion";
+posicion.appendChild(crearTexto(jugador.posicion));
+
+informacion.appendChild(nombre);
+informacion.appendChild(pais);
+informacion.appendChild(posicion);
+
+elemento.appendChild(informacion);
+
+const eliminar=document.createElement("button");
+
+eliminar.className="boton-eliminar-jugador";
+eliminar.textContent="X";
+
+eliminar.addEventListener("click",e=>{
+
+e.stopPropagation();
+eliminarJugador(jugador.id);
+});
+
+elemento.appendChild(eliminar);
+
+elemento.addEventListener("click",()=>{
+
+jugadorSeleccionado=jugador.id;
+renderizarJugadores();
+});
+
+listaJugadores.appendChild(elemento);
+});
+}
+
+function eliminarJugador(id){
+
+jugadoresGuardados=
+jugadoresGuardados.filter(
+jugador=>jugador.id!==id
+);
+
+if(jugadorSeleccionado===id)
+jugadorSeleccionado=null;
+
+guardarEnLocalStorage();
+renderizarJugadores();
+
+mostrarMensaje("PLAYER DELETED");
+}
+
+function cargarDatosJugador(jugador){
+
+if(!jugador)return;
+
+nombreInput.value=jugador.nombre;
+actualizarNombre();
+
+const pais=paises.find(
+p=>p.nombre===jugador.pais
+);
+
+if(pais)
+seleccionarPais(pais);
+
+posicionActual=jugador.posicion;
+posicionTemporal=jugador.posicion;
+
+mostrarPosicion(
+posicionActualElemento,
+posicionActual
+);
+
+mostrarPosicion(
+posicionSeleccionada,
+posicionTemporal
+);
+
+marcarPosicion(posicionActual);
+
+if(jugador.colores){
+
+document.getElementById("shirtColor1").value=
+jugador.colores.shirtColor1;
+
+document.getElementById("shirtColor2").value=
+jugador.colores.shirtColor2;
+
+document.getElementById("hairColor1").value=
+jugador.colores.hairColor1;
+
+document.getElementById("skinColor1").value=
+jugador.colores.skinColor1;
+
+document.getElementById("logoColor1").value=
+jugador.colores.logoColor1;
+
+document.getElementById("shortsColor1").value=
+jugador.colores.shortsColor1;
+}
+
+if(jugador.stats){
+
+document.querySelectorAll(".stat").forEach(stat=>{
+
+const id=stat.dataset.stat;
+const input=stat.querySelector("input");
+
+if(jugador.stats[id]!==undefined){
+
+input.value=jugador.stats[id];
+
+input.dispatchEvent(
+new Event("input")
+);
+}
+else if(id==="kep"){
+
+input.value=0;
+
+input.dispatchEvent(
+new Event("input")
+);
+}
+});
+}
+
+dibujarJugador();
+}
+
+botonGuardarJugador.addEventListener("click",()=>{
+
+const datos=obtenerDatosJugador();
+
+if(jugadorSeleccionado!==null){
+
+const indice=
+jugadoresGuardados.findIndex(
+j=>j.id===jugadorSeleccionado
+);
+
+if(indice!==-1){
+
+datos.id=jugadorSeleccionado;
+jugadoresGuardados[indice]=datos;
+
+guardarEnLocalStorage();
+renderizarJugadores();
+
+mostrarMensaje("PLAYER SAVED");
+
+return;
+}
+}
+
+jugadoresGuardados.push(datos);
+jugadorSeleccionado=datos.id;
+
+guardarEnLocalStorage();
+renderizarJugadores();
+
+mostrarMensaje("PLAYER SAVED");
+});
+
+botonCargarJugador.addEventListener("click",()=>{
+
+if(jugadorSeleccionado===null){
+
+mostrarMensaje("SELECT A PLAYER");
+return;
+}
+
+const jugador=
+jugadoresGuardados.find(
+j=>j.id===jugadorSeleccionado
+);
+
+if(!jugador){
+
+mostrarMensaje("PLAYER NOT FOUND");
+return;
+}
+
+cargarDatosJugador(jugador);
+mostrarMensaje("PLAYER LOADED");
+});
+
+/* ==================================================
+   GENERADOR DE STATS SEGÚN POSICIÓN
+================================================== */
+
+/*
+   Cada posición tiene sus propios rangos.
+
+   GK:
+   DEF + KEP
+
+   CB:
+   POW + STA + DEF
+
+   LB/RB:
+   SPD + STA + DEF
+
+   CDM:
+   STA + DEF + TEC
+
+   CM:
+   STA + DRI + TEC
+
+   LM/RM:
+   SPD + STA + DRI
+
+   CAM:
+   DRI + TEC + POW
+
+   LW/RW:
+   SPD + DRI + TEC
+
+   ST:
+   SPD + POW + DRI + TEC
+*/
+
+const perfilesPosicion={
+
+GK:{
+spd:[2,6],
+pow:[3,7],
+sta:[3,7],
+dri:[1,5],
+def:[5,9],
+tec:[3,7],
+kep:[6,10]
+},
+
+LB:{
+spd:[6,9],
+pow:[4,7],
+sta:[6,9],
+dri:[5,8],
+def:[5,8],
+tec:[4,7],
+kep:[0,0]
+},
+
+CB:{
+spd:[3,7],
+pow:[6,9],
+sta:[6,9],
+dri:[2,5],
+def:[7,10],
+tec:[3,7],
+kep:[0,0]
+},
+
+RB:{
+spd:[6,9],
+pow:[4,7],
+sta:[6,9],
+dri:[5,8],
+def:[5,8],
+tec:[4,7],
+kep:[0,0]
+},
+
+CDM:{
+spd:[4,7],
+pow:[5,8],
+sta:[7,9],
+dri:[5,8],
+def:[6,9],
+tec:[6,9],
+kep:[0,0]
+},
+
+LM:{
+spd:[7,10],
+pow:[4,7],
+sta:[6,9],
+dri:[6,9],
+def:[3,6],
+tec:[5,8],
+kep:[0,0]
+},
+
+CM:{
+spd:[5,8],
+pow:[4,7],
+sta:[6,9],
+dri:[6,9],
+def:[4,7],
+tec:[7,9],
+kep:[0,0]
+},
+
+RM:{
+spd:[7,10],
+pow:[4,7],
+sta:[6,9],
+dri:[6,9],
+def:[3,6],
+tec:[5,8],
+kep:[0,0]
+},
+
+CAM:{
+spd:[5,8],
+pow:[5,8],
+sta:[4,7],
+dri:[7,10],
+def:[2,5],
+tec:[7,10],
+kep:[0,0]
+},
+
+LW:{
+spd:[7,10],
+pow:[5,8],
+sta:[5,8],
+dri:[7,10],
+def:[2,5],
+tec:[7,10],
+kep:[0,0]
+},
+
+RW:{
+spd:[7,10],
+pow:[5,8],
+sta:[5,8],
+dri:[7,10],
+def:[2,5],
+tec:[7,10],
+kep:[0,0]
+},
+
+ST:{
+spd:[7,10],
+pow:[7,10],
+sta:[6,9],
+dri:[6,9],
+def:[1,4],
+tec:[6,9],
+kep:[0,0]
+}
+
+};
+
+function numeroAleatorio(min,max){
+
+return Math.floor(
+Math.random()*(max-min+1)
+)+min;
+}
+
+function generarStatsSegunPosicion(posicion){
+
+const perfil=perfilesPosicion[posicion];
+
+const stats={};
+
+for(const stat in perfil){
+
+const rango=perfil[stat];
+
+stats[stat]=numeroAleatorio(
+rango[0],
+rango[1]
+);
+}
+
+return stats;
+}
+
+function aplicarStats(stats){
+
+document.querySelectorAll(".stat").forEach(stat=>{
+
+const id=stat.dataset.stat;
+const input=stat.querySelector("input");
+
+input.value=stats[id] ?? 0;
+
+input.dispatchEvent(
+new Event("input")
+);
+});
+}
+
+/* ==================================================
+   NUEVO JUGADOR
+================================================== */
+
+botonNuevoJugador.addEventListener("click",()=>{
+
+/*
+   NUEVO JUGADOR
+
+   El país NO se modifica.
+   Se conserva el país que ya estaba seleccionado.
+*/
+
+/* ==================================================
+   POSICIÓN ALEATORIA
+================================================== */
+
+const posiciones=[
+"GK",
+"LB",
+"CB",
+"RB",
+"CDM",
+"LM",
+"CM",
+"RM",
+"CAM",
+"LW",
+"RW",
+"ST"
+];
+
+const nuevaPosicion=
+posiciones[
+Math.floor(
+Math.random()*posiciones.length
+)
+];
+
+posicionActual=nuevaPosicion;
+posicionTemporal=nuevaPosicion;
+
+mostrarPosicion(
+posicionActualElemento,
+nuevaPosicion
+);
+
+mostrarPosicion(
+posicionSeleccionada,
+nuevaPosicion
+);
+
+marcarPosicion(nuevaPosicion);
+
+/* ==================================================
+   NOMBRE
+================================================== */
+
+nombreInput.value="NEW PLAYER";
+actualizarNombre();
+
+/* ==================================================
+   COLORES ALEATORIOS
+================================================== */
+
+/*
+   Estos colores se usan para:
+   - SHIRT 1
+   - SHIRT 2
+   - LOGO
+   - SHORTS
+*/
+
+const coloresGenerales=[
+"#FFFFFF",
+"#000000",
+"#D62828",
+"#1565C0",
+"#F2C94C",
+"#2E7D32",
+"#7B1FA2",
+"#FF7A00",
+"#00A8A8",
+"#795548",
+"#E91E63",
+"#607D8B"
+];
+
+function colorAleatorio(){
+
+return coloresGenerales[
+Math.floor(
+Math.random()*coloresGenerales.length
+)
+];
+
+}
+
+/* CAMISA */
+
+document.getElementById("shirtColor1").value=
+colorAleatorio();
+
+document.getElementById("shirtColor2").value=
+colorAleatorio();
+
+/* LOGO */
+
+document.getElementById("logoColor1").value=
+colorAleatorio();
+
+/* SHORTS */
+
+document.getElementById("shortsColor1").value=
+colorAleatorio();
+
+/* ==================================================
+   PELO
+================================================== */
+
+/*
+   El pelo queda libre porque un jugador
+   puede habérselo teñido.
+*/
+
+const coloresPelo=[
+"#000000",
+"#1B1617",
+"#2D1D18",
+"#4A2C20",
+"#704832",
+"#8A5A3B",
+"#B88955",
+"#CECDAE",
+
+/* COLORES DE TINTE */
+
+"#D62828",
+"#E91E63",
+"#7B1FA2",
+"#1565C0",
+"#00A8A8",
+"#2E7D32",
+"#F2C94C",
+"#FF7A00"
+];
+
+function colorPeloAleatorio(){
+
+return coloresPelo[
+Math.floor(
+Math.random()*coloresPelo.length
+)
+];
+
+}
+
+document.getElementById("hairColor1").value=
+colorPeloAleatorio();
+
+/* ==================================================
+   PIEL
+================================================== */
+
+/*
+   SOLO tonos de piel y marrones.
+   No se utilizan colores artificiales.
+*/
+
+const coloresPiel=[
+"#F1C6A8",
+"#E8B08F",
+"#DDA07E",
+"#D99A78",
+"#C9825F",
+"#B86F4F",
+"#A85F43",
+"#8F4F38",
+"#70402F",
+"#5A3326",
+"#43281F"
+];
+
+function colorPielAleatorio(){
+
+return coloresPiel[
+Math.floor(
+Math.random()*coloresPiel.length
+)
+];
+
+}
+
+document.getElementById("skinColor1").value=
+colorPielAleatorio();
+
+dibujarJugador();
+
+/* ==================================================
+   STATS SEGÚN POSICIÓN
+================================================== */
+
+const statsGeneradas=
+generarStatsSegunPosicion(
+nuevaPosicion
+);
+
+aplicarStats(statsGeneradas);
+
+/* ==================================================
+   SELECCIÓN DE JUGADOR GUARDADO
+================================================== */
+
+jugadorSeleccionado=null;
+
+renderizarJugadores();
+
+mostrarMensaje("NEW PLAYER");
+
+});
+
+/* ==================================================
+   INICIO
+================================================== */
+
+renderizarJugadores();
+
+/*
+   AL ABRIR EL HTML:
+   se selecciona aleatoriamente
+   UNO de los jugadores predeterminados.
+*/
+
+const jugadorInicial=
+jugadoresPredeterminados[
+Math.floor(
+Math.random()*jugadoresPredeterminados.length
+)
+];
+
+cargarJugadorPredeterminado(
+jugadorInicial
+);
+
+};
+
+})
+.catch(error=>{
+console.error(error);
+});
+
+</script>
+
+</body>
+</html>

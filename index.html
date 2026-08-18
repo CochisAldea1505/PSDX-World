@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>PSDX World</title>
+
+<style>
+
+body{
+    background:#3E3546;
+    margin:0;
+    padding:40px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    font-family:Arial,sans-serif;
+}
+
+.panel{
+    width:1000px;
+    min-height:700px;
+    background:#694F62;
+    border:4px solid #2E222F;
+    box-shadow:6px 6px 0 #2E222F;
+    padding:20px;
+    box-sizing:border-box;
+}
+
+/* ==================================================
+   TÍTULO
+================================================== */
+
+.titulo{
+    width:100%;
+    height:70px;
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* ==================================================
+   CONTENIDO
+================================================== */
+
+.menu{
+    width:100%;
+    margin-top:25px;
+    background:#514859;
+    border:3px solid #2E222F;
+    padding:20px;
+    box-sizing:border-box;
+}
+
+/* ==================================================
+   BOTONES
+================================================== */
+
+.botones{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.boton{
+    width:100%;
+    height:58px;
+
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-shadow:4px 4px 0 #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+    box-sizing:border-box;
+}
+
+.boton:hover{
+    background:#453B4C;
+}
+
+.boton:active{
+    box-shadow:none;
+    transform:translate(4px,4px);
+}
+
+.boton.desactivado{
+    opacity:.45;
+    cursor:default;
+}
+
+.boton.desactivado:hover{
+    background:#3E3546;
+}
+
+.boton.desactivado:active{
+    box-shadow:4px 4px 0 #2E222F;
+    transform:none;
+}
+
+/* ==================================================
+   SEPARADOR
+================================================== */
+
+.separador{
+    width:100%;
+    height:3px;
+    background:#2E222F;
+    margin:20px 0;
+}
+
+/* ==================================================
+   INFORMACIÓN
+================================================== */
+
+.info{
+    width:100%;
+    min-height:45px;
+
+    background:#3E3546;
+    border:2px solid #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-sizing:border-box;
+    padding:8px;
+}
+
+/* ==================================================
+   PIE
+================================================== */
+
+.pie{
+    margin-top:25px;
+    width:100%;
+    min-height:38px;
+
+    background:#3E3546;
+    border:2px solid #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-sizing:border-box;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+
+    <!-- TÍTULO -->
+
+    <div class="titulo" id="titulo"></div>
+
+
+    <!-- MENÚ -->
+
+    <div class="menu">
+
+        <div class="botones">
+
+            <div class="boton" id="botonMundial">
+                <div id="textoMundial"></div>
+            </div>
+
+            <div class="boton" id="botonSeleccion">
+                <div id="textoSeleccion"></div>
+            </div>
+
+            <div class="boton" id="botonEditor">
+                <div id="textoEditor"></div>
+            </div>
+
+            <div class="boton desactivado" id="botonClubs">
+                <div id="textoClubs"></div>
+            </div>
+
+            <div class="boton desactivado" id="botonHistorial">
+                <div id="textoHistorial"></div>
+            </div>
+
+            <div class="boton desactivado" id="botonAcerca">
+                <div id="textoAcerca"></div>
+            </div>
+
+        </div>
+
+        <div class="separador"></div>
+
+        <div class="info" id="mensaje"></div>
+
+    </div>
+
+
+    <!-- PIE -->
+
+    <div class="pie" id="pie"></div>
+
+</div>
+
+
+<script>
+
+/* ==================================================
+   FUENTE PSDX
+================================================== */
+
+fetch("PSDX_Font1.fnt")
+.then(response=>response.text())
+.then(data=>{
+
+const lineas=data.split("\n");
+
+const imagen=new Image();
+imagen.src="PSDX_Font1.png";
+
+imagen.onload=()=>{
+
+const ESCALA=.25;
+
+
+/* ==================================================
+   OBTENER GLIFOS
+================================================== */
+
+function obtenerGlifos(texto){
+
+const glifos={};
+
+for(const caracter of texto){
+
+if(glifos[caracter]) continue;
+
+const id=caracter.charCodeAt(0);
+
+const linea=lineas.find(
+l=>l.startsWith(`char id=${id} `)
+);
+
+if(!linea) continue;
+
+const datos={};
+
+linea.match(/(\w+)=([^\s]+)/g).forEach(parte=>{
+
+const [clave,valor]=parte.split("=");
+
+datos[clave]=Number(valor);
+
+});
+
+glifos[caracter]=datos;
+
+}
+
+return glifos;
+
+}
+
+
+/* ==================================================
+   CREAR TEXTO PIXEL
+================================================== */
+
+function crearTexto(texto){
+
+const glifos=obtenerGlifos(texto);
+
+let anchoTotal=0;
+let cursorCalculo=0;
+
+for(const caracter of texto){
+
+const datos=glifos[caracter];
+
+if(!datos) continue;
+
+const derecha=
+cursorCalculo+
+datos.xoffset+
+datos.width;
+
+if(derecha>anchoTotal)
+anchoTotal=derecha;
+
+cursorCalculo+=datos.xadvance;
+
+}
+
+
+const canvas=document.createElement("canvas");
+
+canvas.width=
+Math.max(1,anchoTotal*ESCALA);
+
+canvas.height=
+112*ESCALA;
+
+
+const ctx=canvas.getContext("2d");
+
+ctx.imageSmoothingEnabled=false;
+
+let cursorX=0;
+
+
+for(const caracter of texto){
+
+const datos=glifos[caracter];
+
+if(!datos) continue;
+
+ctx.drawImage(
+imagen,
+datos.x,
+datos.y,
+datos.width,
+datos.height,
+
+cursorX+
+datos.xoffset*ESCALA,
+
+datos.yoffset*ESCALA,
+
+datos.width*ESCALA,
+datos.height*ESCALA
+);
+
+cursorX+=datos.xadvance*ESCALA;
+
+}
+
+return canvas;
+
+}
+
+
+/* ==================================================
+   TEXTOS DEL MENÚ
+================================================== */
+
+document
+.getElementById("titulo")
+.appendChild(
+crearTexto("PSDX WORLD")
+);
+
+
+document
+.getElementById("textoMundial")
+.appendChild(
+crearTexto("PLAY WORLD CUP")
+);
+
+
+document
+.getElementById("textoSeleccion")
+.appendChild(
+crearTexto("MY NATIONAL TEAM")
+);
+
+
+document
+.getElementById("textoEditor")
+.appendChild(
+crearTexto("PLAYER EDITOR")
+);
+
+
+document
+.getElementById("textoClubs")
+.appendChild(
+crearTexto("CLUBS")
+);
+
+
+document
+.getElementById("textoHistorial")
+.appendChild(
+crearTexto("HISTORY")
+);
+
+
+document
+.getElementById("textoAcerca")
+.appendChild(
+crearTexto("ABOUT")
+);
+
+
+document
+.getElementById("mensaje")
+.appendChild(
+crearTexto("SELECT AN OPTION")
+);
+
+
+document
+.getElementById("pie")
+.appendChild(
+crearTexto("NO OFFICIAL - INSPIRED BY PSDX")
+);
+
+
+/* ==================================================
+   NAVEGACIÓN
+================================================== */
+
+document
+.getElementById("botonEditor")
+.addEventListener("click",()=>{
+
+window.location.href="editor.html";
+
+});
+
+
+document
+.getElementById("botonSeleccion")
+.addEventListener("click",()=>{
+
+window.location.href="team.html";
+
+});
+
+
+/* ==================================================
+   BOTONES TODAVÍA NO IMPLEMENTADOS
+================================================== */
+
+document
+.getElementById("botonMundial")
+.addEventListener("click",()=>{
+
+mostrarMensaje("WORLD CUP - COMING SOON");
+
+});
+
+
+document
+.getElementById("botonClubs")
+.addEventListener("click",()=>{
+
+mostrarMensaje("CLUBS - COMING SOON");
+
+});
+
+
+document
+.getElementById("botonHistorial")
+.addEventListener("click",()=>{
+
+mostrarMensaje("HISTORY - COMING SOON");
+
+});
+
+
+document
+.getElementById("botonAcerca")
+.addEventListener("click",()=>{
+
+mostrarMensaje("ABOUT - COMING SOON");
+
+});
+
+
+/* ==================================================
+   MENSAJE
+================================================== */
+
+function mostrarMensaje(texto){
+
+const contenedor=
+document.getElementById("mensaje");
+
+contenedor.innerHTML="";
+
+contenedor.appendChild(
+crearTexto(texto)
+);
+
+}
+
+
+/* ==================================================
+   FIN
+================================================== */
+
+};
+
+})
+.catch(error=>{
+
+console.error(
+"ERROR AL CARGAR LA FUENTE:",
+error
+);
+
+});
+
+</script>
+
+</body>
+</html>
+```
