@@ -1,0 +1,71 @@
+{
+    "country": "MEX",
+    "players": [
+        {
+            "number": 13,
+            "column": 0,
+            "row": 3,
+            "status": "natural"
+        },
+        {
+            "number": 23,
+            "column": 2,
+            "row": 0,
+            "status": "natural"
+        },
+        {
+            "number": 5,
+            "column": 1,
+            "row": 2,
+            "status": "natural"
+        },
+        {
+            "number": 3,
+            "column": 1,
+            "row": 4,
+            "status": "natural"
+        },
+        {
+            "number": 2,
+            "column": 2,
+            "row": 6,
+            "status": "natural"
+        },
+        {
+            "number": 4,
+            "column": 4,
+            "row": 2,
+            "status": "natural"
+        },
+        {
+            "number": 17,
+            "column": 4,
+            "row": 4,
+            "status": "natural"
+        },
+        {
+            "number": 24,
+            "column": 3,
+            "row": 3,
+            "status": "natural"
+        },
+        {
+            "number": 21,
+            "column": 6,
+            "row": 0,
+            "status": "natural"
+        },
+        {
+            "number": 25,
+            "column": 6,
+            "row": 6,
+            "status": "natural"
+        },
+        {
+            "number": 11,
+            "column": 7,
+            "row": 3,
+            "status": "natural"
+        }
+    ]
+}

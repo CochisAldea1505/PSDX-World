@@ -1,0 +1,369 @@
+{
+    "country": "ENG",
+    "players": [
+	{
+            "name": "Pickfordn",
+            "number": 1,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 9,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 7,
+                "TEC": 4,
+                "KEP": 9
+            }
+        },
+	{
+            "name": "D. Hendersont",
+            "number": 13,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 8,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 6,
+                "TEC": 4,
+                "KEP": 8
+            }
+        },
+	{
+            "name": "Traffordn",
+            "number": 23,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 5,
+                "TEC": 5,
+                "KEP": 7
+            }
+        },
+	{
+            "name": "Konsan",
+            "number": 2,
+            "position": ["CB", "RB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "O'Reillyn",
+            "number": 3,
+            "position": ["LB", "CM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Stonesn",
+            "number": 5,
+            "position": ["CB", "CDM"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 9,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Guehin",
+            "number": 6,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 9,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Livramenton",
+            "number": 12,
+            "position": ["RB", "LB"],
+            "stats": {
+                "SPD": 8,
+                "POW": 6,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Burnt",
+            "number": 15,
+            "position": ["CB", "LB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 5,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Jamesn",
+            "number": 24,
+            "position": ["RB", "RM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 8,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Spencen",
+            "number": 25,
+            "position": ["RB", "LB", "RM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Quansahn",
+            "number": 26,
+            "position": ["CB", "RB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Ricen",
+            "number": 4,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 9,
+                "DRI": 8,
+                "DEF": 8,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Andersont",
+            "number": 8,
+            "position": ["CM", "CDM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Bellinghamn",
+            "number": 10,
+            "position": ["CM", "CAM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 9,
+                "DRI": 9,
+                "DEF": 7,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "J. Hendersont",
+            "number": 14,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Mainoon",
+            "number": 16,
+            "position": ["CM", "CDM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Rogersn",
+            "number": 17,
+            "position": ["CAM", "LW", "RW"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Ezen",
+            "number": 21,
+            "position": ["CAM", "LW"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 5,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Sakan",
+            "number": 7,
+            "position": ["RW", "LW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Kanen",
+            "number": 9,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 6,
+                "POW": 9,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Rashfordn",
+            "number": 11,
+            "position": ["LW", "ST"],
+            "stats": {
+                "SPD": 9,
+                "POW": 9,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 2,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Gordont",
+            "number": 18,
+            "position": ["LW"],
+            "stats": {
+                "SPD": 9,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Watkinsn",
+            "number": 19,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 3,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Madueken",
+            "number": 20,
+            "position": ["RW", "LW"],
+            "stats": {
+                "SPD": 9,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Toneyn",
+            "number": 22,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 3,
+                "TEC": 7,
+                "KEP": 0
+            }
+        }
+    ]
+}

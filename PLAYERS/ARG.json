@@ -1,0 +1,369 @@
+{
+    "country": "ARG",
+    "players": [
+	{
+            "name": "Musson",
+            "number": 1,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 6,
+                "TEC": 5,
+                "KEP": 7
+            }
+        },
+	{
+            "name": "Rullin",
+            "number": 12,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 8
+            }
+        },
+	{
+            "name": "E. Martinezn",
+            "number": 23,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 8,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 8,
+                "TEC": 5,
+                "KEP": 9
+            }
+        },
+	{
+            "name": "Balerdin",
+            "number": 2,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Tagliaficon",
+            "number": 3,
+            "position": ["LB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 8,
+                "DRI": 6,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Montieln",
+            "number": 4,
+            "position": ["RB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Martinezn",
+            "number": 6,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 8,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Romeron",
+            "number": 13,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Otamendin",
+            "number": 19,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Medinan",
+            "number": 25,
+            "position": ["CB", "LB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Molinan",
+            "number": 26,
+            "position": ["RB", "RM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Paredesn",
+            "number": 5,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 6,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "De Pauln",
+            "number": 7,
+            "position": ["CM", "RM", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 9,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Barcon",
+            "number": 8,
+            "position": ["CM", "LW", "LB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Lo Celson",
+            "number": 11,
+            "position": ["CM", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Palaciosn",
+            "number": 14,
+            "position": ["CM", "CDM", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "N. Gonzalezn",
+            "number": 15,
+            "position": ["ST", "LW", "RW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 5,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Mac Allistern",
+            "number": 20,
+            "position": ["CM", "CDM", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "E. Fernandezn",
+            "number": 24,
+            "position": ["CM", "CDM", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "J. Alvarezn",
+            "number": 9,
+            "position": ["ST", "LW", "RW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 9,
+                "DRI": 8,
+                "DEF": 4,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Messin",
+            "number": 10,
+            "position": ["RW", "CAM", "ST"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 6,
+                "DRI": 10,
+                "DEF": 2,
+                "TEC": 10,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Almadan",
+            "number": 16,
+            "position": ["CAM", "LW", "RW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Simeonen",
+            "number": 17,
+            "position": ["ST", "LW", "RW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 3,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Nico Pazn",
+            "number": 18,
+            "position": ["CAM", "RW", "ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 2,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Lopezn",
+            "number": 21,
+            "position": ["CAM", "ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 2,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Lautaron",
+            "number": 22,
+            "position": ["CAM", "ST"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 8,
+                "KEP": 0
+            }
+        }
+    ]
+}

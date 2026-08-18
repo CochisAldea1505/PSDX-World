@@ -1,0 +1,369 @@
+{
+    "country": "FRA",
+    "players": [
+	{
+            "name": "Samban",
+            "number": 1,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 7,
+                "TEC": 5,
+                "KEP": 7
+            }
+        },
+	{
+            "name": "Maignant",
+            "number": 16,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 9
+            }
+        },
+	{
+            "name": "Rissern",
+            "number": 23,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 5,
+                "POW": 6,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 6,
+                "TEC": 5,
+                "KEP": 7
+            }
+        },
+	{
+            "name": "Guston",
+            "number": 2,
+            "position": ["RB", "RM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 6,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Dignen",
+            "number": 3,
+            "position": ["LB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Upamecanon",
+            "number": 4,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Kounden",
+            "number": 5,
+            "position": ["RB", "CB"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 8,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Konaten",
+            "number": 15,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Saliban",
+            "number": 17,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 9,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "T. Hernandezn",
+            "number": 19,
+            "position": ["LB", "LM", "LW"],
+            "stats": {
+                "SPD": 9,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "L. Hernandezn",
+            "number": 21,
+            "position": ["CB", "LB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Lacroixn",
+            "number": 26,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Konen",
+            "number": 6,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Tchouamenin",
+            "number": 8,
+            "position": ["CDM", "CM", "CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 8,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Kanten",
+            "number": 13,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 9,
+                "DRI": 7,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Rabiotn",
+            "number": 14,
+            "position": ["CM", "LM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 9,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Zaire-Emeryn",
+            "number": 18,
+            "position": ["CM", "CDM", "CAM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Cherkin",
+            "number": 24,
+            "position": ["CAM", "RW", "LW"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 9,
+                "DEF": 6,
+                "TEC": 9,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Akliouchen",
+            "number": 25,
+            "position": ["CAM", "RW", "LW"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Dembelen",
+            "number": 7,
+            "position": ["RW", "LW"],
+            "stats": {
+                "SPD": 9,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 9,
+                "DEF": 3,
+                "TEC": 9,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Thuramn",
+            "number": 9,
+            "position": ["ST", "LW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Mbappen",
+            "number": 10,
+            "position": ["LW", "ST"],
+            "stats": {
+                "SPD": 10,
+                "POW": 9,
+                "STA": 8,
+                "DRI": 9,
+                "DEF": 2,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Olisen",
+            "number": 11,
+            "position": ["RW", "CAM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 9,
+                "DEF": 3,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Barcolan",
+            "number": 12,
+            "position": ["LW", "RW"],
+            "stats": {
+                "SPD": 9,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 2,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Douen",
+            "number": 20,
+            "position": ["LW", "CAM", "RW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 9,
+                "DEF": 3,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+	{
+            "name": "Matetan",
+            "number": 22,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 2,
+                "TEC": 7,
+                "KEP": 0
+            }
+        }
+    ]
+}
