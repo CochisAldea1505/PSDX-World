@@ -1,0 +1,71 @@
+{
+    "country": "ITA",
+    "players": [
+        {
+            "number": 1,
+            "column": 0,
+            "row": 3,
+            "status": "natural"
+        },
+        {
+            "number": 20,
+            "column": 0,
+            "row": 1,
+            "status": "natural"
+        },
+        {
+            "number": 6,
+            "column": 0,
+            "row": 2,
+            "status": "natural"
+        },
+        {
+            "number": 3,
+            "column": 0,
+            "row": 3,
+            "status": "natural"
+        },
+        {
+            "number": 5,
+            "column": 0,
+            "row": 4,
+            "status": "natural"
+        },
+        {
+            "number": 18,
+            "column": 3,
+            "row": 2,
+            "status": "natural"
+        },
+        {
+            "number": 23,
+            "column": 0,
+            "row": 0,
+            "status": "natural"
+        },
+        {
+            "number": 2,
+            "column": 0,
+            "row": 5,
+            "status": "natural"
+        },
+        {
+            "number": 4,
+            "column": 3,
+            "row": 4,
+            "status": "natural"
+        },
+        {
+            "number": 15,
+            "column": 0,
+            "row": 6,
+            "status": "natural"
+        },
+        {
+            "number": 7,
+            "column": 2,
+            "row": 3,
+            "status": "natural"
+        }
+    ]
+}
