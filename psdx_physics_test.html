@@ -1,0 +1,5395 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0"
+>
+
+<title>PSDX World — Physical Match Engine</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+    padding:25px;
+
+    background:#3E3546;
+
+    color:#EEE;
+
+    font-family:Arial,sans-serif;
+
+}
+
+.container{
+
+    width:100%;
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+h1{
+
+    margin:0 0 15px;
+
+    font-size:24px;
+
+}
+
+.controls{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-bottom:15px;
+
+}
+
+button{
+
+    padding:10px 14px;
+
+    background:#594656;
+
+    color:white;
+
+    border:3px solid #241C25;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+button:hover{
+
+    background:#70586B;
+
+}
+
+.info{
+
+    background:#241C25;
+
+    border:3px solid #1A141B;
+
+    padding:10px;
+
+    margin-bottom:15px;
+
+    font-family:monospace;
+
+    font-size:13px;
+
+}
+
+#field{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:950px;
+
+    aspect-ratio:2 / 1;
+
+    margin:auto;
+
+    background:#47704C;
+
+    border:4px solid white;
+
+    overflow:hidden;
+
+}
+
+.midline{
+
+    position:absolute;
+
+    width:3px;
+
+    height:100%;
+
+    left:50%;
+
+    top:0;
+
+    background:white;
+
+    transform:translateX(-50%);
+
+}
+
+.center-circle{
+
+    position:absolute;
+
+    width:120px;
+
+    height:120px;
+
+    left:50%;
+
+    top:50%;
+
+    border:3px solid white;
+
+    border-radius:50%;
+
+    transform:translate(-50%,-50%);
+
+}
+
+.center-point{
+
+    position:absolute;
+
+    width:8px;
+
+    height:8px;
+
+    background:white;
+
+    border-radius:50%;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+}
+
+.penalty{
+
+    position:absolute;
+
+    width:15%;
+
+    height:50%;
+
+    top:25%;
+
+    border:3px solid white;
+
+}
+
+.penalty.left{
+
+    left:-3px;
+
+    border-left:0;
+
+}
+
+.penalty.right{
+
+    right:-3px;
+
+    border-right:0;
+
+}
+
+.goal{
+
+    position:absolute;
+
+    width:4%;
+
+    height:22%;
+
+    top:39%;
+
+    border:3px solid white;
+
+}
+
+.goal.left{
+
+    left:-4px;
+
+    border-left:0;
+
+}
+
+.goal.right{
+
+    right:-4px;
+
+    border-right:0;
+
+}
+
+.player{
+
+    position:absolute;
+
+    width:28px;
+
+    height:28px;
+
+    border-radius:50%;
+
+    border:2px solid white;
+
+    transform:translate(-50%,-50%);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    z-index:5;
+
+    user-select:none;
+
+}
+
+.home{
+
+    background:#25805A;
+
+}
+
+.away{
+
+    background:#4389B7;
+
+}
+
+.ball{
+
+    position:absolute;
+
+    width:11px;
+
+    height:11px;
+
+    border-radius:50%;
+
+    background:white;
+
+    border:2px solid #222;
+
+    transform:translate(-50%,-50%);
+
+    z-index:10;
+
+}
+
+.log{
+
+    height:220px;
+
+    overflow:auto;
+
+    margin-top:15px;
+
+    background:#181318;
+
+    border:3px solid #241C25;
+
+    padding:10px;
+
+    font-family:monospace;
+
+    font-size:12px;
+
+    white-space:pre-wrap;
+
+}
+
+.legend{
+
+    margin-top:8px;
+
+    font-size:12px;
+
+    opacity:.8;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<h1>
+PSDX World — Physical Match Engine
+</h1>
+
+<div
+    class="info"
+    id="status"
+>
+Motor detenido.
+</div>
+
+<div class="controls">
+
+<button id="startButton">
+INICIAR
+</button>
+
+<button id="pauseButton">
+PAUSAR
+</button>
+
+<button id="resetButton">
+REINICIAR
+</button>
+
+<button id="advanceButton">
+AVANZAR
+</button>
+
+<button id="passButton">
+PASAR
+</button>
+
+<button id="shootButton">
+PATEAR / DESPEJAR
+</button>
+
+</div>
+
+<div id="field">
+
+<div class="midline"></div>
+
+<div class="center-circle"></div>
+
+<div class="center-point"></div>
+
+<div class="penalty left"></div>
+
+<div class="penalty right"></div>
+
+<div class="goal left"></div>
+
+<div class="goal right"></div>
+
+</div>
+
+<div class="legend">
+
+Verde = Local |
+Azul = Visitante |
+La posición base funciona como referencia, no como límite.
+
+</div>
+
+<div
+    class="log"
+    id="log"
+></div>
+
+</div>
+
+
+<script>
+
+/*
+================================================================
+
+    PSDX WORLD
+    PHYSICAL MATCH ENGINE
+
+    IA DE POSICIONAMIENTO v2
+
+    PRINCIPIOS:
+
+    1. Cada jugador tiene una posición natural.
+    2. Esa posición funciona como centro de referencia.
+    3. Los jugadores pueden abandonar temporalmente su zona.
+    4. Solo jugadores con responsabilidad real persiguen.
+    5. Los defensores se distribuyen.
+    6. El balón libre se analiza mediante trayectoria.
+    7. Los jugadores pueden anticipar pases.
+    8. El regreso a la posición es progresivo.
+    9. El portador decide entre avanzar, pasar y disparar.
+   10. Los duelos utilizan variación ±1.
+
+================================================================
+*/
+
+
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
+
+const CONFIG={
+
+    playerRadius:0.018,
+
+    ballRadius:0.008,
+
+    acceleration:0.95,
+
+    braking:1.35,
+
+    ballFriction:0.18,
+
+    passPower:0.34,
+
+    shotPower:0.62,
+
+    tackleDistance:0.040,
+
+    possessionDistance:0.032,
+
+    decisionInterval:0.32,
+
+    aiInterval:0.08,
+
+    looseBallReaction:0.12,
+
+    returnStrength:0.18,
+
+    anticipationDistance:0.16,
+
+    defensiveReactionDistance:0.32
+
+};
+
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+
+function clamp(
+    value,
+    min,
+    max
+){
+
+    return Math.max(
+        min,
+        Math.min(
+            max,
+            value
+        )
+    );
+
+}
+
+
+function lerp(
+    a,
+    b,
+    amount
+){
+
+    return a+
+        (b-a)*
+        amount;
+
+}
+
+
+function distance(
+    a,
+    b
+){
+
+    return Math.hypot(
+        a.x-b.x,
+        a.y-b.y
+    );
+
+}
+
+
+function normalize(
+    x,
+    y
+){
+
+    const length=
+        Math.hypot(
+            x,
+            y
+        )||1;
+
+
+    return{
+
+        x:x/length,
+
+        y:y/length
+
+    };
+
+}
+
+
+function rotate(
+    vector,
+    angle
+){
+
+    const cos=
+        Math.cos(angle);
+
+    const sin=
+        Math.sin(angle);
+
+
+    return{
+
+        x:
+            vector.x*cos-
+            vector.y*sin,
+
+        y:
+            vector.x*sin+
+            vector.y*cos
+
+    };
+
+}
+
+
+/*
+    Variación pequeña.
+
+    NO determina automáticamente
+    quién gana.
+
+    Solo evita que el mismo
+    enfrentamiento produzca
+    siempre el mismo resultado.
+*/
+
+function randomStatModifier(){
+
+    return Math.floor(
+        Math.random()*3
+    )-1;
+
+}
+
+
+/* =========================================================
+   MODIFICADORES DE POSICIÓN
+========================================================= */
+
+function applyPositionModifier(
+    stats,
+    marker
+){
+
+    let factor=1;
+
+
+    if(
+        marker==="yellow"
+    ){
+
+        factor=0.90;
+
+    }
+
+
+    if(
+        marker==="red"
+    ){
+
+        factor=0.78;
+
+    }
+
+
+    const result={};
+
+
+    for(
+        const stat of Object.keys(stats)
+    ){
+
+        result[stat]=clamp(
+
+            Math.round(
+                stats[stat]*factor
+            ),
+
+            0,
+            10
+
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   ZONAS NATURALES
+========================================================= */
+
+function getRoleWidth(
+    position
+){
+
+    switch(position){
+
+        case "GK":
+            return 0.07;
+
+        case "LB":
+        case "RB":
+            return 0.115;
+
+        case "CB":
+            return 0.14;
+
+        case "CM":
+            return 0.19;
+
+        case "LW":
+        case "RW":
+            return 0.14;
+
+        case "AM":
+            return 0.19;
+
+        case "ST":
+            return 0.17;
+
+        default:
+            return 0.17;
+
+    }
+
+}
+
+
+function getRoleDepth(
+    position
+){
+
+    switch(position){
+
+        case "GK":
+            return 0.045;
+
+        case "CB":
+            return 0.105;
+
+        case "LB":
+        case "RB":
+            return 0.15;
+
+        case "CM":
+            return 0.19;
+
+        case "LW":
+        case "RW":
+            return 0.19;
+
+        case "AM":
+            return 0.21;
+
+        case "ST":
+            return 0.19;
+
+        default:
+            return 0.18;
+
+    }
+
+}
+
+
+/* =========================================================
+   XI DE PRUEBA
+========================================================= */
+
+const XI=[
+
+    [
+        "GK",
+        0.06,
+        0.50,
+        "GK",
+        7,6,7,2,7,5,8,
+        "green"
+    ],
+
+    [
+        "LB",
+        0.18,
+        0.20,
+        "LB",
+        7,6,7,5,7,6,0,
+        "green"
+    ],
+
+    [
+        "CB",
+        0.16,
+        0.40,
+        "CB1",
+        6,8,8,3,8,6,0,
+        "green"
+    ],
+
+    [
+        "CB",
+        0.16,
+        0.60,
+        "CB2",
+        6,8,8,3,8,6,0,
+        "green"
+    ],
+
+    [
+        "RB",
+        0.18,
+        0.80,
+        "RB",
+        7,6,7,5,7,6,0,
+        "green"
+    ],
+
+    [
+        "CM",
+        0.38,
+        0.35,
+        "CM1",
+        7,6,8,6,6,7,0,
+        "green"
+    ],
+
+    [
+        "CM",
+        0.40,
+        0.65,
+        "CM2",
+        7,6,8,6,6,7,0,
+        "green"
+    ],
+
+    [
+        "LW",
+        0.60,
+        0.15,
+        "LW",
+        8,6,7,8,3,7,0,
+        "yellow"
+    ],
+
+    [
+        "AM",
+        0.58,
+        0.50,
+        "AM",
+        8,6,7,8,3,8,0,
+        "green"
+    ],
+
+    [
+        "RW",
+        0.60,
+        0.85,
+        "RW",
+        8,6,7,8,3,7,0,
+        "yellow"
+    ],
+
+    [
+        "ST",
+        0.76,
+        0.50,
+        "ST",
+        9,8,8,9,2,8,0,
+        "green"
+    ]
+
+];
+
+
+/* =========================================================
+   CREAR JUGADOR
+========================================================= */
+
+function createPlayer(
+    data,
+    team
+){
+
+    const [
+
+        position,
+        x,
+        y,
+        name,
+
+        SPD,
+        POW,
+        STA,
+        DRI,
+        DEF,
+        TEC,
+        KEP,
+
+        marker
+
+    ]=data;
+
+
+    const stats=
+        applyPositionModifier(
+
+            {
+                SPD,
+                POW,
+                STA,
+                DRI,
+                DEF,
+                TEC,
+                KEP
+            },
+
+            marker
+
+        );
+
+
+    const physicalX=
+        team==="HOME"
+        ? x
+        : 1-x;
+
+
+    return{
+
+        id:
+            crypto.randomUUID(),
+
+        team,
+
+        position,
+
+        name,
+
+        marker,
+
+        stats,
+
+        baseX:physicalX,
+
+        baseY:y,
+
+        x:physicalX,
+
+        y,
+
+        vx:0,
+
+        vy:0,
+
+        targetX:physicalX,
+
+        targetY:y,
+
+        roleWidth:
+            getRoleWidth(
+                position
+            ),
+
+        roleDepth:
+            getRoleDepth(
+                position
+            ),
+
+        hasBall:false,
+
+        state:"formation",
+
+        element:null,
+
+        /*
+            Defensa:
+
+            quién está siendo
+            marcado actualmente.
+        */
+
+        assignedAttacker:null,
+
+        /*
+            Si está participando
+            activamente en una jugada.
+        */
+
+        activeDuty:false,
+
+        /*
+            Tiempo desde que tomó
+            una responsabilidad defensiva.
+        */
+
+        dutyTimer:0
+
+    };
+
+}
+
+
+/* =========================================================
+   CREAR EQUIPOS
+========================================================= */
+
+const players=[];
+
+
+for(
+    const data of XI
+){
+
+    players.push(
+
+        createPlayer(
+            data,
+            "HOME"
+        )
+
+    );
+
+}
+
+
+for(
+    const data of XI
+){
+
+    players.push(
+
+        createPlayer(
+            data,
+            "AWAY"
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   BALÓN
+========================================================= */
+
+const ball={
+
+    x:0.50,
+
+    y:0.50,
+
+    vx:0,
+
+    vy:0,
+
+    owner:null,
+
+    flight:false,
+
+    lastTeam:null,
+
+    type:null,
+
+    target:null,
+
+    state:"kickoff",
+
+    element:null
+
+};
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let running=false;
+
+let lastTime=0;
+
+let aiTimer=0;
+
+let decisionTimer=0;
+
+let eventNumber=0;
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const field=
+    document.getElementById(
+        "field"
+    );
+
+
+const status=
+    document.getElementById(
+        "status"
+    );
+
+
+const logElement=
+    document.getElementById(
+        "log"
+    );
+
+
+/* =========================================================
+   LOG
+========================================================= */
+
+function log(
+    message
+){
+
+    eventNumber++;
+
+
+    logElement.textContent+=
+
+        "["+
+        String(eventNumber)
+            .padStart(3,"0")+
+        "] "+
+        message+
+        "\n";
+
+
+    logElement.scrollTop=
+        logElement.scrollHeight;
+
+}
+
+
+/* =========================================================
+   VISUALES
+========================================================= */
+
+function createVisuals(){
+
+    for(
+        const player of players
+    ){
+
+        const element=
+            document.createElement(
+                "div"
+            );
+
+
+        element.className=
+            "player "+
+            (
+                player.team==="HOME"
+                ? "home"
+                : "away"
+            );
+
+
+        element.textContent=
+            player.position;
+
+
+        field.appendChild(
+            element
+        );
+
+
+        player.element=
+            element;
+
+    }
+
+
+    const ballElement=
+        document.createElement(
+            "div"
+        );
+
+
+    ballElement.className=
+        "ball";
+
+
+    field.appendChild(
+        ballElement
+    );
+
+
+    ball.element=
+        ballElement;
+
+}
+
+
+createVisuals();
+
+
+/* =========================================================
+   VISUAL
+========================================================= */
+
+function updateVisual(){
+
+    for(
+        const player of players
+    ){
+
+        player.element.style.left=
+            (
+                player.x*100
+            )+"%";
+
+
+        player.element.style.top=
+            (
+                player.y*100
+            )+"%";
+
+    }
+
+
+    ball.element.style.left=
+        (
+            ball.x*100
+        )+"%";
+
+
+    ball.element.style.top=
+        (
+            ball.y*100
+        )+"%";
+
+}
+
+
+/* =========================================================
+   POSESIÓN
+========================================================= */
+
+function giveBallTo(
+    player
+){
+
+    if(
+        ball.owner
+    ){
+
+        ball.owner.hasBall=
+            false;
+
+    }
+
+
+    ball.owner=
+        player;
+
+
+    player.hasBall=
+        true;
+
+
+    player.state=
+        "possession";
+
+
+    player.activeDuty=true;
+
+
+    ball.flight=false;
+
+    ball.state=
+        "possession";
+
+
+    ball.vx=0;
+
+    ball.vy=0;
+
+
+    ball.x=
+        player.x;
+
+    ball.y=
+        player.y;
+
+}
+
+
+/* =========================================================
+   DIRECCIÓN
+========================================================= */
+
+function attackDirection(
+    player
+){
+
+    return player.team==="HOME"
+        ? 1
+        : -1;
+
+}
+
+
+/* =========================================================
+   VELOCIDAD
+========================================================= */
+
+function getPlayerMaxSpeed(
+    player
+){
+
+    return (
+
+        0.045+
+
+        player.stats.SPD*
+        0.0175
+
+    );
+
+}
+
+
+/* =========================================================
+   MOVIMIENTO FÍSICO
+========================================================= */
+
+function movePlayer(
+    player,
+    targetX,
+    targetY,
+    delta
+){
+
+    const dx=
+        targetX-player.x;
+
+    const dy=
+        targetY-player.y;
+
+
+    const d=
+        Math.hypot(
+            dx,
+            dy
+        );
+
+
+    if(
+        d<
+        0.004
+    ){
+
+        player.vx*=
+            Math.max(
+                0,
+                1-
+                CONFIG.braking*
+                delta
+            );
+
+
+        player.vy*=
+            Math.max(
+                0,
+                1-
+                CONFIG.braking*
+                delta
+            );
+
+
+        player.x+=
+            player.vx*
+            delta;
+
+
+        player.y+=
+            player.vy*
+            delta;
+
+
+        return;
+
+    }
+
+
+    const direction=
+        normalize(
+            dx,
+            dy
+        );
+
+
+    const acceleration=
+
+        CONFIG.acceleration*
+        (
+            0.55+
+            player.stats.STA*
+            0.055
+        );
+
+
+    player.vx+=
+        direction.x*
+        acceleration*
+        delta;
+
+
+    player.vy+=
+        direction.y*
+        acceleration*
+        delta;
+
+
+    const speed=
+        Math.hypot(
+            player.vx,
+            player.vy
+        );
+
+
+    const maxSpeed=
+        getPlayerMaxSpeed(
+            player
+        );
+
+
+    if(
+        speed>
+        maxSpeed
+    ){
+
+        player.vx=
+            player.vx/
+            speed*
+            maxSpeed;
+
+
+        player.vy=
+            player.vy/
+            speed*
+            maxSpeed;
+
+    }
+
+
+    player.x+=
+        player.vx*
+        delta;
+
+
+    player.y+=
+        player.vy*
+        delta;
+
+
+    player.x=
+        clamp(
+            player.x,
+            CONFIG.playerRadius,
+            1-CONFIG.playerRadius
+        );
+
+
+    player.y=
+        clamp(
+            player.y,
+            CONFIG.playerRadius,
+            1-CONFIG.playerRadius
+        );
+
+}
+
+
+/* =========================================================
+   COMPAÑEROS
+========================================================= */
+
+function teammatesOf(
+    player
+){
+
+    return players.filter(
+
+        other =>
+
+            other.team===
+            player.team &&
+
+            other!==player
+
+    );
+
+}
+
+
+/* =========================================================
+   OPONENTES
+========================================================= */
+
+function opponentsOf(
+    player
+){
+
+    return players.filter(
+
+        other =>
+
+            other.team!==
+            player.team
+
+    );
+
+}
+
+
+/* =========================================================
+   OPONENTE MÁS CERCANO
+========================================================= */
+
+function nearestOpponent(
+    player
+){
+
+    let nearest=null;
+
+    let nearestDistance=
+        Infinity;
+
+
+    for(
+        const other of players
+    ){
+
+        if(
+            other.team===
+            player.team
+        ){
+
+            continue;
+
+        }
+
+
+        const d=
+            distance(
+                player,
+                other
+            );
+
+
+        if(
+            d<
+            nearestDistance
+        ){
+
+            nearest=
+                other;
+
+            nearestDistance=
+                d;
+
+        }
+
+    }
+
+
+    return{
+
+        player:nearest,
+
+        distance:nearestDistance
+
+    };
+
+}
+
+
+/* =========================================================
+   POSICIÓN BASE
+========================================================= */
+
+function getFormationAnchor(
+    player
+){
+
+    return{
+
+        x:player.baseX,
+
+        y:player.baseY
+
+    };
+
+}
+
+
+/* =========================================================
+   DISTANCIA A BASE
+========================================================= */
+
+function distanceFromBase(
+    player
+){
+
+    return Math.hypot(
+
+        player.x-
+        player.baseX,
+
+        player.y-
+        player.baseY
+
+    );
+
+}
+
+
+/* =========================================================
+   LIMITAR ZONA NATURAL
+========================================================= */
+
+function limitTargetToRoleZone(
+    player,
+    x,
+    y
+){
+
+    const base=
+        getFormationAnchor(
+            player
+        );
+
+
+    /*
+        IMPORTANTE:
+
+        Esto ya NO es un muro.
+
+        Solamente limita objetivos
+        normales de apoyo.
+
+        Un jugador que tiene balón
+        puede salir de aquí.
+    */
+
+    const xRange=
+        player.roleDepth+
+        0.10;
+
+
+    const yRange=
+        player.roleWidth+
+        0.10;
+
+
+    return{
+
+        x:
+            clamp(
+                x,
+                base.x-xRange,
+                base.x+xRange
+            ),
+
+        y:
+            clamp(
+                y,
+                base.y-yRange,
+                base.y+yRange
+            )
+
+    };
+
+}
+
+
+/* =========================================================
+   ZONA DE RESPONSABILIDAD
+========================================================= */
+
+function isInsideNaturalZone(
+    player,
+    x,
+    y
+){
+
+    const dx=
+        Math.abs(
+            x-player.baseX
+        );
+
+
+    const dy=
+        Math.abs(
+            y-player.baseY
+        );
+
+
+    return (
+
+        dx<
+        player.roleDepth+
+        0.08 &&
+
+        dy<
+        player.roleWidth+
+        0.08
+
+    );
+
+}
+
+
+/* =========================================================
+   REGRESO NATURAL
+========================================================= */
+
+function shouldReturnToFormation(
+    player
+){
+
+    /*
+        El balón le da permiso
+        para abandonar la zona.
+    */
+
+    if(
+        player.hasBall
+    ){
+
+        return false;
+
+    }
+
+
+    /*
+        Si está persiguiendo
+        una trayectoria,
+        todavía está participando.
+    */
+
+    if(
+        player.state===
+        "chasingBall" ||
+
+        player.state===
+        "anticipating" ||
+
+        player.state===
+        "defending"
+    ){
+
+        return false;
+
+    }
+
+
+    /*
+        Si tiene una responsabilidad
+        defensiva activa, permanece.
+    */
+
+    if(
+        player.assignedAttacker
+    ){
+
+        return false;
+
+    }
+
+
+    const d=
+        distanceFromBase(
+            player
+        );
+
+
+    /*
+        Solo vuelve cuando
+        realmente se ha alejado.
+    */
+
+    const limit=
+
+        Math.max(
+            player.roleDepth,
+            player.roleWidth
+        )+
+        0.12;
+
+
+    return d>limit;
+
+}
+
+
+/* =========================================================
+   OBJETIVO DE AVANCE
+========================================================= */
+
+function chooseForwardTarget(
+    player
+){
+
+    const direction=
+        attackDirection(
+            player
+        );
+
+
+    /*
+        El jugador quiere avanzar
+        desde SU posición actual.
+
+        No desde la base.
+
+        Esto evita que un LB
+        que tiene el balón sea
+        jalado constantemente
+        hacia atrás.
+    */
+
+    let targetX=
+
+        player.x+
+        direction*
+        0.14;
+
+
+    let targetY=
+        player.y;
+
+
+    /*
+        Pequeña búsqueda lateral.
+    */
+
+    const options=[
+
+        {
+            x:targetX,
+            y:player.y
+        },
+
+        {
+            x:targetX,
+            y:
+                player.y-
+                0.08
+        },
+
+        {
+            x:targetX,
+            y:
+                player.y+
+                0.08
+        }
+
+    ];
+
+
+    let best=
+        options[0];
+
+    let bestScore=
+        -Infinity;
+
+
+    for(
+        const option of options
+    ){
+
+        let score=0;
+
+
+        /*
+            Preferimos espacio.
+        */
+
+        for(
+            const opponent of opponentsOf(
+                player
+            )
+        ){
+
+            score+=
+                clamp(
+
+                    distance(
+                        option,
+                        opponent
+                    ),
+
+                    0,
+                    0.25
+
+                );
+
+        }
+
+
+        /*
+            Preferimos avanzar.
+        */
+
+        score+=
+
+            (
+                option.x-
+                player.x
+            )*
+            direction*
+            1.5;
+
+
+        if(
+            score>
+            bestScore
+        ){
+
+            bestScore=
+                score;
+
+            best=
+                option;
+
+        }
+
+    }
+
+
+    return{
+
+        x:
+            clamp(
+                best.x,
+                0.04,
+                0.96
+            ),
+
+        y:
+            clamp(
+                best.y,
+                0.05,
+                0.95
+            )
+
+    };
+
+}
+
+
+/* =========================================================
+   PREDICCIÓN DE TRAYECTORIA
+========================================================= */
+
+function predictBallPosition(
+    seconds
+){
+
+    return{
+
+        x:
+            ball.x+
+            ball.vx*
+            seconds,
+
+        y:
+            ball.y+
+            ball.vy*
+            seconds
+
+    };
+
+}
+
+
+/* =========================================================
+   DISTANCIA DE UN PUNTO A LA TRAYECTORIA
+========================================================= */
+
+function distanceToBallTrajectory(
+    player
+){
+
+    const speed=
+        Math.hypot(
+            ball.vx,
+            ball.vy
+        );
+
+
+    if(
+        speed<
+        0.001
+    ){
+
+        return distance(
+            player,
+            ball
+        );
+
+    }
+
+
+    const direction=
+        normalize(
+            ball.vx,
+            ball.vy
+        );
+
+
+    const relativeX=
+        player.x-
+        ball.x;
+
+
+    const relativeY=
+        player.y-
+        ball.y;
+
+
+    const projection=
+
+        relativeX*
+        direction.x+
+
+        relativeY*
+        direction.y;
+
+
+    const closestX=
+        ball.x+
+        direction.x*
+        projection;
+
+
+    const closestY=
+        ball.y+
+        direction.y*
+        projection;
+
+
+    return Math.hypot(
+
+        player.x-
+        closestX,
+
+        player.y-
+        closestY
+
+    );
+
+}
+
+
+/* =========================================================
+   ¿BALÓN VIENE HACIA EL JUGADOR?
+========================================================= */
+
+function ballApproachesPlayer(
+    player
+){
+
+    const speed=
+        Math.hypot(
+            ball.vx,
+            ball.vy
+        );
+
+
+    if(
+        speed<
+        0.02
+    ){
+
+        return false;
+
+    }
+
+
+    const direction=
+        normalize(
+            ball.vx,
+            ball.vy
+        );
+
+
+    const toPlayer=
+        normalize(
+
+            player.x-
+            ball.x,
+
+            player.y-
+            ball.y
+
+        );
+
+
+    const dot=
+
+        direction.x*
+        toPlayer.x+
+
+        direction.y*
+        toPlayer.y;
+
+
+    return dot>0.55;
+
+}
+
+
+/* =========================================================
+   ELEGIR RESPONSABLE DEL BALÓN
+========================================================= */
+
+function chooseBallChaser(){
+
+    if(
+        !ball.flight
+    ){
+
+        return null;
+
+    }
+
+
+    let best=null;
+
+    let bestScore=
+        Infinity;
+
+
+    const ballSpeed=
+        Math.hypot(
+            ball.vx,
+            ball.vy
+        );
+
+
+    for(
+        const player of players
+    ){
+
+        const directDistance=
+            distance(
+                player,
+                ball
+            );
+
+
+        const trajectoryDistance=
+            distanceToBallTrajectory(
+                player
+            );
+
+
+        const approach=
+            ballApproachesPlayer(
+                player
+            );
+
+
+        const speed=
+            getPlayerMaxSpeed(
+                player
+            );
+
+
+        /*
+            Estimamos cuánto tardaría
+            en llegar.
+        */
+
+        const estimatedTime=
+
+            directDistance/
+            Math.max(
+                speed,
+                0.001
+            );
+
+
+        /*
+            Trayectoria más limpia
+            = mejor candidato.
+        */
+
+        let score=
+            estimatedTime;
+
+
+        score+=
+            trajectoryDistance*
+            1.8;
+
+
+        /*
+            Si ya está mirando
+            hacia el balón,
+            obtiene ventaja.
+        */
+
+        if(
+            approach
+        ){
+
+            score-=
+                0.08;
+
+        }
+
+
+        /*
+            GK no debería abandonar
+            su área por un balón normal.
+        */
+
+        if(
+            player.position===
+            "GK"
+        ){
+
+            score+=
+                0.20;
+
+        }
+
+
+        /*
+            Un jugador muy alejado
+            de su zona necesita
+            una razón más fuerte.
+        */
+
+        if(
+            !isInsideNaturalZone(
+
+                player,
+
+                ball.x,
+
+                ball.y
+
+            )
+        ){
+
+            score+=
+                0.10;
+
+        }
+
+
+        /*
+            SPD realmente influye.
+        */
+
+        score-=
+            player.stats.SPD*
+            0.006;
+
+
+        /*
+            Si el balón es muy rápido,
+            favorecemos jugadores
+            con mejor velocidad.
+        */
+
+        if(
+            ballSpeed>
+            0.25
+        ){
+
+            score-=
+                player.stats.SPD*
+                0.010;
+
+        }
+
+
+        if(
+            score<
+            bestScore
+        ){
+
+            bestScore=
+                score;
+
+            best=
+                player;
+
+        }
+
+    }
+
+
+    return best;
+
+}
+
+
+/* =========================================================
+   MOVIMIENTO HACIA BALÓN
+========================================================= */
+
+function updateBallChaser(){
+
+    if(
+        !ball.flight
+    ){
+
+        return;
+
+    }
+
+
+    const chaser=
+        chooseBallChaser();
+
+
+    if(
+        !chaser
+    ){
+
+        return;
+
+    }
+
+
+    /*
+        Solo uno persigue directamente.
+    */
+
+    for(
+        const player of players
+    ){
+
+        if(
+            player===chaser
+        ){
+
+            player.state=
+                "chasingBall";
+
+            player.activeDuty=
+                true;
+
+
+            /*
+                Interceptar un poco adelante
+                si el balón tiene trayectoria.
+            */
+
+            if(
+                ballApproachesPlayer(
+                    player
+                )
+            ){
+
+                const prediction=
+                    predictBallPosition(
+                        0.15
+                    );
+
+
+                player.targetX=
+                    clamp(
+                        prediction.x,
+                        0.03,
+                        0.97
+                    );
+
+
+                player.targetY=
+                    clamp(
+                        prediction.y,
+                        0.03,
+                        0.97
+                    );
+
+
+                player.state=
+                    "anticipating";
+
+            }
+
+            else{
+
+                player.targetX=
+                    ball.x;
+
+                player.targetY=
+                    ball.y;
+
+            }
+
+        }
+
+        else if(
+            player.state===
+            "chasingBall" ||
+
+            player.state===
+            "anticipating"
+        ){
+
+            /*
+                Ya no es el responsable.
+            */
+
+            player.state=
+                "support";
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   ASIGNAR DEFENSOR PRINCIPAL
+========================================================= */
+
+function assignDefensiveResponsibility(
+    attackingTeam
+){
+
+    if(
+        !ball.owner
+    ){
+
+        return;
+
+    }
+
+
+    const attacker=
+        ball.owner;
+
+
+    if(
+        attacker.team!==
+        attackingTeam
+    ){
+
+        return;
+
+    }
+
+
+    const defenders=
+        players.filter(
+
+            player =>
+
+                player.team!==
+                attackingTeam &&
+
+                player.position!==
+                "GK"
+
+        );
+
+
+    /*
+        Primero limpiamos
+        responsabilidades anteriores.
+    */
+
+    for(
+        const defender of defenders
+    ){
+
+        defender.assignedAttacker=
+            null;
+
+    }
+
+
+    /*
+        Buscar defensores cercanos.
+    */
+
+    const candidates=
+        defenders
+        .map(
+
+            defender => ({
+
+                player:defender,
+
+                distance:
+                    distance(
+                        defender,
+                        attacker
+                    ),
+
+                zoneDistance:
+                    distance(
+
+                        {
+                            x:defender.baseX,
+                            y:defender.baseY
+                        },
+
+                        {
+                            x:attacker.x,
+                            y:attacker.y
+                        }
+
+                    )
+
+            })
+
+        )
+        .sort(
+
+            (a,b)=>
+
+                a.distance-
+                b.distance
+
+        );
+
+
+    /*
+        Solo el mejor candidato
+        recibe la responsabilidad
+        directa.
+
+        El resto cubre.
+    */
+
+    if(
+        candidates.length
+    ){
+
+        const primary=
+            candidates[0].player;
+
+
+        primary.assignedAttacker=
+            attacker;
+
+
+        primary.activeDuty=
+            true;
+
+
+        primary.state=
+            "defending";
+
+    }
+
+
+    /*
+        Segundo defensor:
+
+        no va directamente
+        al atacante.
+
+        Solamente cubre.
+    */
+
+    if(
+        candidates.length>1
+    ){
+
+        const cover=
+            candidates[1].player;
+
+
+        cover.assignedAttacker=
+            null;
+
+
+        cover.activeDuty=
+            true;
+
+
+        cover.state=
+            "covering";
+
+    }
+
+}
+
+
+/* =========================================================
+   DEFENSA
+========================================================= */
+
+function updateDefenseAI(
+    attackingTeam
+){
+
+    if(
+        !ball.owner
+    ){
+
+        return;
+
+    }
+
+
+    const attacker=
+        ball.owner;
+
+
+    if(
+        attacker.team!==
+        attackingTeam
+    ){
+
+        return;
+
+    }
+
+
+    assignDefensiveResponsibility(
+        attackingTeam
+    );
+
+
+    const defenders=
+        players.filter(
+
+            player =>
+
+                player.team!==
+                attackingTeam
+
+        );
+
+
+    for(
+        const defender of defenders
+    ){
+
+        /*
+            GK:
+            permanece cerca
+            de la portería.
+        */
+
+        if(
+            defender.position===
+            "GK"
+        ){
+
+            defender.targetX=
+                defender.baseX;
+
+
+            defender.targetY=
+                lerp(
+
+                    defender.baseY,
+
+                    clamp(
+                        ball.y,
+                        0.35,
+                        0.65
+                    ),
+
+                    0.35
+
+                );
+
+
+            defender.state=
+                "goalkeeping";
+
+
+            continue;
+
+        }
+
+
+        /*
+        =====================================================
+            DEFENSOR PRINCIPAL
+        =====================================================
+        */
+
+        if(
+            defender.assignedAttacker===
+            attacker
+        ){
+
+            const direction=
+                attackDirection(
+                    attacker
+                );
+
+
+            /*
+                No se pega al atacante.
+
+                Se coloca ligeramente
+                delante.
+            */
+
+            const targetX=
+
+                attacker.x-
+                direction*
+                0.045;
+
+
+            const targetY=
+                attacker.y;
+
+
+            defender.targetX=
+                clamp(
+                    targetX,
+                    0.04,
+                    0.96
+                );
+
+
+            defender.targetY=
+                clamp(
+                    targetY,
+                    0.06,
+                    0.94
+                );
+
+
+            defender.state=
+                "defending";
+
+
+            continue;
+
+        }
+
+
+        /*
+        =====================================================
+            DEFENSOR DE COBERTURA
+        =====================================================
+        */
+
+        if(
+            defender.state===
+            "covering"
+        ){
+
+            const direction=
+                attackDirection(
+                    attacker
+                );
+
+
+            /*
+                Se acerca un poco,
+                pero no abandona
+                completamente su zona.
+            */
+
+            let targetX=
+
+                lerp(
+
+                    defender.baseX,
+
+                    attacker.x-
+                    direction*
+                    0.12,
+
+                    0.25
+
+                );
+
+
+            let targetY=
+
+                lerp(
+
+                    defender.baseY,
+
+                    attacker.y,
+
+                    0.18
+
+                );
+
+
+            const limited=
+                limitTargetToRoleZone(
+
+                    defender,
+
+                    targetX,
+
+                    targetY
+
+                );
+
+
+            defender.targetX=
+                limited.x;
+
+
+            defender.targetY=
+                limited.y;
+
+
+            continue;
+
+        }
+
+
+        /*
+        =====================================================
+            OTROS DEFENSORES
+        =====================================================
+        */
+
+        /*
+            Si la trayectoria del balón
+            se aproxima a su zona,
+            dan un pequeño paso.
+        */
+
+        const trajectoryDistance=
+            distanceToBallTrajectory(
+                defender
+            );
+
+
+        if(
+
+            ball.owner===null &&
+
+            trajectoryDistance<
+            0.12
+
+        ){
+
+            const prediction=
+                predictBallPosition(
+                    0.18
+                );
+
+
+            const limited=
+                limitTargetToRoleZone(
+
+                    defender,
+
+                    prediction.x,
+
+                    prediction.y
+
+                );
+
+
+            defender.targetX=
+                limited.x;
+
+
+            defender.targetY=
+                limited.y;
+
+
+            defender.state=
+                "anticipating";
+
+
+            continue;
+
+        }
+
+
+        /*
+            Si el balón está
+            muy lejos de su zona,
+            vuelve.
+        */
+
+        defender.targetX=
+            defender.baseX;
+
+
+        defender.targetY=
+            defender.baseY;
+
+
+        defender.state=
+            "formation";
+
+    }
+
+}
+
+
+/* =========================================================
+   APOYO OFENSIVO
+========================================================= */
+
+function updateSupportAI(
+    team
+){
+
+    const owner=
+        ball.owner;
+
+
+    for(
+        const player of players
+    ){
+
+        if(
+            player.team!==team
+        ){
+
+            continue;
+
+        }
+
+
+        /*
+            Portador.
+        */
+
+        if(
+            player===owner
+        ){
+
+            continue;
+
+        }
+
+
+        /*
+            Si está persiguiendo
+            un balón libre,
+            no interferimos.
+        */
+
+        if(
+
+            player.state===
+            "chasingBall" ||
+
+            player.state===
+            "anticipating"
+
+        ){
+
+            continue;
+
+        }
+
+
+        const base=
+            getFormationAnchor(
+                player
+            );
+
+
+        let targetX=
+            base.x;
+
+
+        let targetY=
+            base.y;
+
+
+        /*
+        =====================================================
+            BALÓN DEL PROPIO EQUIPO
+        =====================================================
+        */
+
+        if(
+
+            owner &&
+
+            owner.team===
+            team
+
+        ){
+
+            const direction=
+                attackDirection(
+                    player
+                );
+
+
+            /*
+                DISTANCIA AL PORTADOR
+            */
+
+            const d=
+                distance(
+                    player,
+                    owner
+                );
+
+
+            /*
+                No queremos que todos
+                vayan hacia él.
+            */
+
+            switch(
+                player.position
+            ){
+
+                case "GK":
+
+                    targetX=
+                        base.x;
+
+                    targetY=
+                        base.y;
+
+                    break;
+
+
+                case "CB":
+
+                    /*
+                        Mantiene su línea.
+
+                        Solo avanza
+                        ligeramente.
+                    */
+
+                    targetX=
+                        base.x+
+                        direction*
+                        0.018;
+
+
+                    targetY=
+                        base.y;
+
+                    break;
+
+
+                case "LB":
+                case "RB":
+
+                    /*
+                        Laterales:
+
+                        acompañan,
+                        pero principalmente
+                        por su banda.
+                    */
+
+                    targetX=
+                        base.x+
+                        direction*
+                        0.055;
+
+
+                    targetY=
+                        base.y;
+
+                    break;
+
+
+                case "CM":
+
+                    /*
+                        Los CM sí pueden
+                        acercarse algo
+                        a la jugada.
+
+                        Pero no siguen
+                        al portador.
+                    */
+
+                    targetX=
+                        base.x+
+                        direction*
+                        0.065;
+
+
+                    targetY=
+                        lerp(
+
+                            base.y,
+
+                            owner.y,
+
+                            0.12
+
+                        );
+
+                    break;
+
+
+                case "LW":
+                case "RW":
+
+                    /*
+                        Extremos:
+
+                        mantienen anchura.
+                    */
+
+                    targetX=
+                        base.x+
+                        direction*
+                        0.075;
+
+
+                    targetY=
+                        base.y;
+
+                    break;
+
+
+                case "AM":
+
+                    /*
+                        El mediapunta
+                        tiene más libertad.
+                    */
+
+                    targetX=
+                        base.x+
+                        direction*
+                        0.08;
+
+
+                    targetY=
+                        lerp(
+
+                            base.y,
+
+                            owner.y,
+
+                            0.18
+
+                        );
+
+                    break;
+
+
+                case "ST":
+
+                    /*
+                        El delantero
+                        ataca espacio,
+                        no corre hacia
+                        el balón.
+                    */
+
+                    targetX=
+                        base.x+
+                        direction*
+                        0.10;
+
+
+                    targetY=
+                        lerp(
+
+                            base.y,
+
+                            owner.y,
+
+                            0.08
+
+                        );
+
+                    break;
+
+
+                default:
+
+                    targetX=
+                        base.x;
+
+                    targetY=
+                        base.y;
+
+            }
+
+
+            /*
+                Si está demasiado cerca
+                del portador,
+                se aleja un poco.
+
+                Esto evita el amontonamiento.
+            */
+
+            if(
+                d<
+                0.09
+            ){
+
+                const away=
+                    normalize(
+
+                        player.x-
+                        owner.x,
+
+                        player.y-
+                        owner.y
+
+                    );
+
+
+                targetX+=
+                    away.x*
+                    0.08;
+
+
+                targetY+=
+                    away.y*
+                    0.08;
+
+            }
+
+        }
+
+
+        /*
+        =====================================================
+            SIN BALÓN
+        =====================================================
+        */
+
+        else{
+
+            /*
+                Regreso suave.
+            */
+
+            targetX=
+                lerp(
+
+                    player.x,
+
+                    base.x,
+
+                    0.10
+
+                );
+
+
+            targetY=
+                lerp(
+
+                    player.y,
+
+                    base.y,
+
+                    0.10
+
+                );
+
+        }
+
+
+        /*
+        =====================================================
+            LIMITACIÓN NATURAL
+        =====================================================
+        */
+
+        const limited=
+            limitTargetToRoleZone(
+
+                player,
+
+                targetX,
+
+                targetY
+
+            );
+
+
+        player.targetX=
+            limited.x;
+
+
+        player.targetY=
+            limited.y;
+
+
+        /*
+            No lo llamamos "formation"
+            constantemente.
+
+            Eso permite que mantenga
+            pequeños desplazamientos.
+        */
+
+        player.state=
+            "support";
+
+    }
+
+}
+
+
+/* =========================================================
+   ERROR DE PASE
+========================================================= */
+
+function passErrorFromTEC(
+    TEC
+){
+
+    const quality=
+        clamp(
+            TEC/10,
+            0,
+            1
+        );
+
+
+    const maximumError=
+
+        (
+            1-quality
+        )*
+        0.42;
+
+
+    return(
+
+        Math.random()*2-1
+
+    )*
+    maximumError;
+
+}
+
+
+/* =========================================================
+   PASE
+========================================================= */
+
+function passBall(
+    passer,
+    receiver
+){
+
+    if(
+        ball.owner!==passer
+    ){
+
+        return false;
+
+    }
+
+
+    const rawDirection={
+
+        x:
+            receiver.x-
+            passer.x,
+
+        y:
+            receiver.y-
+            passer.y
+
+    };
+
+
+    const baseDirection=
+        normalize(
+            rawDirection.x,
+            rawDirection.y
+        );
+
+
+    const error=
+        passErrorFromTEC(
+            passer.stats.TEC
+        );
+
+
+    const direction=
+        rotate(
+            baseDirection,
+            error
+        );
+
+
+    const distanceToReceiver=
+        distance(
+            passer,
+            receiver
+        );
+
+
+    const power=
+
+        CONFIG.passPower*
+        (
+            0.55+
+            passer.stats.POW*
+            0.075
+        );
+
+
+    const speed=
+
+        power*
+        (
+            0.70+
+            clamp(
+                distanceToReceiver,
+                0.05,
+                0.75
+            )
+        );
+
+
+    passer.hasBall=false;
+
+    passer.state=
+        "passing";
+
+
+    ball.owner=null;
+
+    ball.flight=true;
+
+    ball.state=
+        "pass";
+
+
+    ball.x=
+        passer.x;
+
+    ball.y=
+        passer.y;
+
+
+    ball.vx=
+        direction.x*
+        speed;
+
+
+    ball.vy=
+        direction.y*
+        speed;
+
+
+    ball.lastTeam=
+        passer.team;
+
+
+    ball.type=
+        "pass";
+
+
+    ball.target=
+        receiver;
+
+
+    log(
+
+        passer.name+
+        " PASA a "+
+        receiver.name+
+        " | TEC "+
+        passer.stats.TEC+
+        " | POW "+
+        passer.stats.POW
+
+    );
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   TIRO
+========================================================= */
+
+function shootBall(
+    player
+){
+
+    if(
+        ball.owner!==player
+    ){
+
+        return false;
+
+    }
+
+
+    const goalX=
+        player.team==="HOME"
+        ? 1.03
+        : -0.03;
+
+
+    const rawDirection={
+
+        x:
+            goalX-player.x,
+
+        y:
+            0.50-player.y
+
+    };
+
+
+    const baseDirection=
+        normalize(
+            rawDirection.x,
+            rawDirection.y
+        );
+
+
+    const error=
+        passErrorFromTEC(
+            player.stats.TEC
+        );
+
+
+    const direction=
+        rotate(
+            baseDirection,
+            error*
+            0.75
+        );
+
+
+    const speed=
+
+        CONFIG.shotPower*
+        (
+            0.70+
+            player.stats.POW*
+            0.075
+        );
+
+
+    player.hasBall=false;
+
+    player.state=
+        "shooting";
+
+
+    ball.owner=null;
+
+    ball.flight=true;
+
+    ball.state=
+        "shot";
+
+
+    ball.x=
+        player.x;
+
+    ball.y=
+        player.y;
+
+
+    ball.vx=
+        direction.x*
+        speed;
+
+
+    ball.vy=
+        direction.y*
+        speed;
+
+
+    ball.lastTeam=
+        player.team;
+
+
+    ball.type=
+        "shot";
+
+
+    ball.target=null;
+
+
+    log(
+
+        player.name+
+        " PATEA | TEC "+
+        player.stats.TEC+
+        " | POW "+
+        player.stats.POW
+
+    );
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   FACTOR DE INTERCEPCIÓN
+========================================================= */
+
+function approachFactor(
+    player
+){
+
+    const directionToBall=
+        normalize(
+
+            ball.x-
+            player.x,
+
+            ball.y-
+            player.y
+
+        );
+
+
+    const speed=
+        Math.hypot(
+            player.vx,
+            player.vy
+        );
+
+
+    if(
+        speed<
+        0.001
+    ){
+
+        return 0;
+
+    }
+
+
+    return(
+
+        player.vx*
+        directionToBall.x+
+
+        player.vy*
+        directionToBall.y
+
+    )/
+    speed;
+
+}
+
+
+/* =========================================================
+   INTERCEPCIÓN
+========================================================= */
+
+function checkBallInterceptions(){
+
+    if(
+        !ball.flight
+    ){
+
+        return;
+
+    }
+
+
+    const ballSpeed=
+        Math.hypot(
+            ball.vx,
+            ball.vy
+        );
+
+
+    /*
+        Revisamos todos los jugadores.
+
+        Pero solo aquel que realmente
+        está llegando a la trayectoria
+        puede ganar el balón.
+    */
+
+    let bestPlayer=null;
+
+    let bestScore=
+        Infinity;
+
+
+    for(
+        const player of players
+    ){
+
+        const d=
+            distance(
+                player,
+                ball
+            );
+
+
+        if(
+            d>
+            CONFIG.possessionDistance+
+            0.012
+        ){
+
+            continue;
+
+        }
+
+
+        const approach=
+            approachFactor(
+                player
+            );
+
+
+        const speed=
+            Math.hypot(
+                player.vx,
+                player.vy
+            );
+
+
+        const reach=
+
+            speed*
+            0.70+
+
+            player.stats.SPD*
+            0.004+
+
+            player.stats.DEF*
+            0.003+
+
+            Math.max(
+                0,
+                approach
+            )*
+            0.014;
+
+
+        if(
+
+            reach>
+            ballSpeed*
+            0.42
+
+            ||
+
+            ballSpeed<
+            0.08
+
+        ){
+
+            /*
+                Menor distancia
+                y mayor velocidad
+                = mejor control.
+            */
+
+            const score=
+
+                d-
+
+                speed*
+                0.04-
+
+                player.stats.SPD*
+                0.002;
+
+
+            if(
+                score<
+                bestScore
+            ){
+
+                bestScore=
+                    score;
+
+                bestPlayer=
+                    player;
+
+            }
+
+        }
+
+    }
+
+
+    if(
+        bestPlayer
+    ){
+
+        giveBallTo(
+            bestPlayer
+        );
+
+
+        log(
+
+            bestPlayer.name+
+            " CONTROLA / INTERCEPTA el balón."
+
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FÍSICA DEL BALÓN
+========================================================= */
+
+function updateBall(
+    delta
+){
+
+    if(
+        ball.owner
+    ){
+
+        ball.x=
+            ball.owner.x;
+
+        ball.y=
+            ball.owner.y;
+
+        return;
+
+    }
+
+
+    if(
+        !ball.flight
+    ){
+
+        return;
+
+    }
+
+
+    ball.x+=
+        ball.vx*
+        delta;
+
+
+    ball.y+=
+        ball.vy*
+        delta;
+
+
+    const friction=
+        Math.max(
+
+            0,
+
+            1-
+            CONFIG.ballFriction*
+            delta
+
+        );
+
+
+    ball.vx*=
+        friction;
+
+
+    ball.vy*=
+        friction;
+
+
+    /*
+    ========================================================
+        PARED SUPERIOR
+    ========================================================
+    */
+
+    if(
+        ball.y<=
+        CONFIG.ballRadius
+    ){
+
+        ball.y=
+            CONFIG.ballRadius;
+
+
+        ball.vy=
+            Math.abs(
+                ball.vy
+            )*
+            0.65;
+
+    }
+
+
+    /*
+    ========================================================
+        PARED INFERIOR
+    ========================================================
+    */
+
+    if(
+        ball.y>=
+        1-CONFIG.ballRadius
+    ){
+
+        ball.y=
+            1-CONFIG.ballRadius;
+
+
+        ball.vy=
+            -Math.abs(
+                ball.vy
+            )*
+            0.65;
+
+    }
+
+
+    const GOAL_TOP=
+        0.39;
+
+
+    const GOAL_BOTTOM=
+        0.61;
+
+
+    /*
+    ========================================================
+        IZQUIERDA
+    ========================================================
+    */
+
+    if(
+        ball.x<=
+        CONFIG.ballRadius
+    ){
+
+        if(
+
+            ball.y>=
+            GOAL_TOP &&
+
+            ball.y<=
+            GOAL_BOTTOM
+
+        ){
+
+            scoreGoal(
+                ball.lastTeam
+            );
+
+            return;
+
+        }
+
+
+        ball.x=
+            CONFIG.ballRadius;
+
+
+        ball.vx=
+            Math.abs(
+                ball.vx
+            )*
+            0.65;
+
+    }
+
+
+    /*
+    ========================================================
+        DERECHA
+    ========================================================
+    */
+
+    if(
+        ball.x>=
+        1-CONFIG.ballRadius
+    ){
+
+        if(
+
+            ball.y>=
+            GOAL_TOP &&
+
+            ball.y<=
+            GOAL_BOTTOM
+
+        ){
+
+            scoreGoal(
+                ball.lastTeam
+            );
+
+            return;
+
+        }
+
+
+        ball.x=
+            1-CONFIG.ballRadius;
+
+
+        ball.vx=
+            -Math.abs(
+                ball.vx
+            )*
+            0.65;
+
+    }
+
+
+    /*
+        Intercepción física.
+    */
+
+    checkBallInterceptions();
+
+
+    /*
+        Si sigue libre,
+        buscamos responsable.
+    */
+
+    if(
+        !ball.owner
+    ){
+
+        updateBallChaser();
+
+    }
+
+
+    const speed=
+        Math.hypot(
+            ball.vx,
+            ball.vy
+        );
+
+
+    if(
+        speed<
+        0.018
+    ){
+
+        ball.vx=0;
+
+        ball.vy=0;
+
+        ball.flight=false;
+
+        ball.state=
+            "loose";
+
+
+        updateBallChaser();
+
+    }
+
+}
+
+
+/* =========================================================
+   GOL
+========================================================= */
+
+function scoreGoal(
+    team
+){
+
+    if(
+        !team
+    ){
+
+        return;
+
+    }
+
+
+    log(
+
+        "⚽ ¡GOL DE "+
+        (
+            team==="HOME"
+            ? "LOCAL"
+            : "VISITANTE"
+        )+
+        "!"
+
+    );
+
+
+    if(
+        ball.owner
+    ){
+
+        ball.owner.hasBall=
+            false;
+
+    }
+
+
+    ball.owner=null;
+
+    ball.vx=0;
+
+    ball.vy=0;
+
+    ball.flight=false;
+
+    ball.state=
+        "kickoff";
+
+    ball.x=0.50;
+
+    ball.y=0.50;
+
+
+    const restartTeam=
+        team==="HOME"
+        ? "AWAY"
+        : "HOME";
+
+
+    let restartPlayer=
+        players.find(
+
+            player =>
+
+                player.team===
+                restartTeam &&
+
+                player.position===
+                "CM"
+
+        );
+
+
+    if(
+        !restartPlayer
+    ){
+
+        restartPlayer=
+            players.find(
+
+                player =>
+
+                    player.team===
+                    restartTeam &&
+
+                    player.position===
+                    "AM"
+
+            );
+
+    }
+
+
+    if(
+        restartPlayer
+    ){
+
+        restartPlayer.x=
+            0.50;
+
+        restartPlayer.y=
+            0.50;
+
+
+        restartPlayer.vx=0;
+
+        restartPlayer.vy=0;
+
+
+        giveBallTo(
+            restartPlayer
+        );
+
+
+        log(
+
+            "Saque de "+
+            restartPlayer.name
+
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   1 VS 1
+========================================================= */
+
+function resolveOneVsOne(
+    attacker,
+    defender
+){
+
+    const attackerDRI=
+
+        attacker.stats.DRI+
+
+        randomStatModifier();
+
+
+    const defenderDEF=
+
+        defender.stats.DEF+
+
+        randomStatModifier();
+
+
+    log(
+
+        "1v1: "+
+        attacker.name+
+        " DRI "+
+        attackerDRI+
+        " VS "+
+        defender.name+
+        " DEF "+
+        defenderDEF
+
+    );
+
+
+    if(
+        attackerDRI>
+        defenderDEF
+    ){
+
+        log(
+
+            attacker.name+
+            " supera a "+
+            defender.name
+
+        );
+
+
+        const target=
+            chooseForwardTarget(
+                attacker
+            );
+
+
+        attacker.targetX=
+            target.x;
+
+
+        attacker.targetY=
+            target.y;
+
+
+        return true;
+
+    }
+
+
+    giveBallTo(
+        defender
+    );
+
+
+    log(
+
+        defender.name+
+        " recupera el balón."
+
+    );
+
+
+    return false;
+
+}
+
+
+/* =========================================================
+   DUELOS
+========================================================= */
+
+function checkDuels(){
+
+    if(
+        !ball.owner
+    ){
+
+        return;
+
+    }
+
+
+    const attacker=
+        ball.owner;
+
+
+    const defenders=
+        opponentsOf(
+            attacker
+        )
+        .filter(
+
+            player =>
+                player.position!==
+                "GK"
+
+        );
+
+
+    /*
+        El defensor principal
+        es el único que puede
+        iniciar inmediatamente
+        el duelo.
+    */
+
+    const defender=
+        defenders.find(
+
+            player =>
+
+                player.assignedAttacker===
+                attacker
+
+        );
+
+
+    if(
+        !defender
+    ){
+
+        return;
+
+    }
+
+
+    const d=
+        distance(
+            attacker,
+            defender
+        );
+
+
+    if(
+        d<
+        CONFIG.tackleDistance
+    ){
+
+        if(
+            attacker.state!==
+            "dueling"
+        ){
+
+            attacker.state=
+                "dueling";
+
+
+            resolveOneVsOne(
+
+                attacker,
+
+                defender
+
+            );
+
+
+            if(
+                ball.owner===
+                attacker
+            ){
+
+                attacker.state=
+                    "possession";
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   ELEGIR PASE
+========================================================= */
+
+function choosePassTarget(
+    passer
+){
+
+    const teammates=
+        teammatesOf(
+            passer
+        )
+        .filter(
+
+            player =>
+                player.position!==
+                "GK"
+
+        );
+
+
+    let best=null;
+
+    let bestScore=
+        -Infinity;
+
+
+    const direction=
+        attackDirection(
+            passer
+        );
+
+
+    for(
+        const teammate of teammates
+    ){
+
+        const d=
+            distance(
+                passer,
+                teammate
+            );
+
+
+        if(
+            d<
+            0.06
+        ){
+
+            continue;
+
+        }
+
+
+        if(
+            d>
+            0.55
+        ){
+
+            continue;
+
+        }
+
+
+        let score=0;
+
+
+        /*
+            Avance.
+        */
+
+        score+=
+
+            (
+                teammate.x-
+                passer.x
+            )*
+            direction*
+            1.8;
+
+
+        /*
+            Distancia razonable.
+        */
+
+        score+=
+            clamp(
+                0.40-d,
+                -0.20,
+                0.40
+            );
+
+
+        /*
+            Espacio.
+        */
+
+        for(
+            const opponent of opponentsOf(
+                passer
+            )
+        ){
+
+            score+=
+                clamp(
+
+                    distance(
+                        teammate,
+                        opponent
+                    ),
+
+                    0,
+                    0.18
+
+                );
+
+        }
+
+
+        /*
+            Evitar pasarle a alguien
+            que esté completamente
+            fuera de posición.
+        */
+
+        if(
+            !isInsideNaturalZone(
+
+                teammate,
+
+                teammate.x,
+
+                teammate.y
+
+            )
+        ){
+
+            score-=0.08;
+
+        }
+
+
+        if(
+            score>
+            bestScore
+        ){
+
+            bestScore=
+                score;
+
+            best=
+                teammate;
+
+        }
+
+    }
+
+
+    return best;
+
+}
+
+
+/* =========================================================
+   DECISIÓN DEL PORTADOR
+========================================================= */
+
+function chooseAction(
+    player
+){
+
+    if(
+        ball.owner!==player
+    ){
+
+        return;
+
+    }
+
+
+    player.state=
+        "possession";
+
+
+    const goalDistance=
+        player.team==="HOME"
+        ? 1-player.x
+        : player.x;
+
+
+    /*
+    ========================================================
+        TIRO
+    ========================================================
+    */
+
+    if(
+
+        goalDistance<
+        0.22 &&
+
+        player.stats.TEC>=5
+
+    ){
+
+        const angleToGoal=
+            Math.abs(
+                player.y-
+                0.50
+            );
+
+
+        if(
+            angleToGoal<
+            0.22
+        ){
+
+            shootBall(
+                player
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+    ========================================================
+        DEFENSOR PRINCIPAL
+    ========================================================
+    */
+
+    const defender=
+        opponentsOf(
+            player
+        )
+        .filter(
+
+            opponent =>
+                opponent.position!==
+                "GK"
+
+        )
+        .sort(
+
+            (a,b)=>
+
+                distance(
+                    player,
+                    a
+                )-
+
+                distance(
+                    player,
+                    b
+                )
+
+        )[0];
+
+
+    if(
+        defender
+    ){
+
+        const d=
+            distance(
+                player,
+                defender
+            );
+
+
+        if(
+            d<
+            0.09
+        ){
+
+            const attackerDRI=
+
+                player.stats.DRI+
+                randomStatModifier();
+
+
+            const defenderDEF=
+
+                defender.stats.DEF+
+                randomStatModifier();
+
+
+            if(
+                attackerDRI>=
+                defenderDEF
+            ){
+
+                resolveOneVsOne(
+
+                    player,
+
+                    defender
+
+                );
+
+
+                return;
+
+            }
+
+
+            const passTarget=
+                choosePassTarget(
+                    player
+                );
+
+
+            if(
+                passTarget
+            ){
+
+                passBall(
+
+                    player,
+
+                    passTarget
+
+                );
+
+                return;
+
+            }
+
+        }
+
+    }
+
+
+    /*
+    ========================================================
+        PASE
+    ========================================================
+    */
+
+    const passTarget=
+        choosePassTarget(
+            player
+        );
+
+
+    /*
+        Si está relativamente seguro,
+        puede pasar.
+
+        No utilizamos una probabilidad
+        fija para decidir éxito del pase;
+        TEC ya determina el error físico.
+    */
+
+    if(
+        passTarget
+    ){
+
+        const nearest=
+            nearestOpponent(
+                player
+            );
+
+
+        if(
+
+            nearest.distance<
+            0.14 ||
+
+            player.position===
+            "CM" ||
+
+            player.position===
+            "AM"
+
+        ){
+
+            passBall(
+
+                player,
+
+                passTarget
+
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+    ========================================================
+        AVANZAR
+    ========================================================
+    */
+
+    const target=
+        chooseForwardTarget(
+            player
+        );
+
+
+    player.targetX=
+        target.x;
+
+
+    player.targetY=
+        target.y;
+
+
+    player.state=
+        "carrying";
+
+}
+
+
+/* =========================================================
+   IA GENERAL
+========================================================= */
+
+function updateAI(
+    delta
+){
+
+    aiTimer+=delta;
+
+    decisionTimer+=delta;
+
+
+    if(
+        aiTimer>=
+        CONFIG.aiInterval
+    ){
+
+        aiTimer=0;
+
+
+        /*
+            Apoyo ofensivo.
+        */
+
+        updateSupportAI(
+            "HOME"
+        );
+
+
+        updateSupportAI(
+            "AWAY"
+        );
+
+
+        /*
+            Defensa.
+        */
+
+        if(
+            ball.owner
+        ){
+
+            const attackingTeam=
+                ball.owner.team;
+
+
+            updateDefenseAI(
+                attackingTeam
+            );
+
+        }
+
+
+        /*
+            Balón libre.
+        */
+
+        if(
+            !ball.owner &&
+            ball.flight
+        ){
+
+            updateBallChaser();
+
+        }
+
+    }
+
+
+    /*
+    ========================================================
+        DECISIONES
+    ========================================================
+    */
+
+    if(
+        decisionTimer>=
+        CONFIG.decisionInterval
+    ){
+
+        decisionTimer=0;
+
+
+        if(
+            ball.owner
+        ){
+
+            chooseAction(
+                ball.owner
+            );
+
+        }
+
+    }
+
+
+    /*
+    ========================================================
+        MOVIMIENTO
+    ========================================================
+    */
+
+    for(
+        const player of players
+    ){
+
+        /*
+            El jugador NO regresa
+            automáticamente solo por
+            salir de su zona.
+
+            Primero comprobamos si
+            todavía tiene una razón
+            para estar ahí.
+        */
+
+        if(
+            shouldReturnToFormation(
+                player
+            )
+        ){
+
+            /*
+                Regreso progresivo.
+            */
+
+            player.targetX=
+                lerp(
+
+                    player.x,
+
+                    player.baseX,
+
+                    0.22
+
+                );
+
+
+            player.targetY=
+                lerp(
+
+                    player.y,
+
+                    player.baseY,
+
+                    0.22
+
+                );
+
+        }
+
+
+        movePlayer(
+
+            player,
+
+            player.targetX,
+
+            player.targetY,
+
+            delta
+
+        );
+
+    }
+
+
+    /*
+        Duelos.
+    */
+
+    checkDuels();
+
+}
+
+
+/* =========================================================
+   REINICIAR
+========================================================= */
+
+function resetMatch(){
+
+    for(
+        const player of players
+    ){
+
+        const original=
+            XI.find(
+
+                data =>
+                    data[3]===
+                    player.name
+
+            );
+
+
+        const originalX=
+
+            player.team==="HOME"
+
+            ? original[1]
+
+            : 1-original[1];
+
+
+        player.baseX=
+            originalX;
+
+
+        player.baseY=
+            original[2];
+
+
+        player.x=
+            originalX;
+
+
+        player.y=
+            original[2];
+
+
+        player.vx=0;
+
+        player.vy=0;
+
+
+        player.targetX=
+            originalX;
+
+
+        player.targetY=
+            original[2];
+
+
+        player.hasBall=false;
+
+        player.state=
+            "formation";
+
+        player.assignedAttacker=
+            null;
+
+        player.activeDuty=
+            false;
+
+        player.dutyTimer=
+            0;
+
+    }
+
+
+    ball.owner=null;
+
+    ball.flight=false;
+
+    ball.vx=0;
+
+    ball.vy=0;
+
+    ball.x=0.50;
+
+    ball.y=0.50;
+
+    ball.state=
+        "kickoff";
+
+    ball.lastTeam=
+        "HOME";
+
+
+    /*
+        Saque inicial.
+    */
+
+    const starter=
+        players.find(
+
+            player =>
+
+                player.team===
+                "HOME" &&
+
+                player.position===
+                "CM"
+
+        );
+
+
+    giveBallTo(
+        starter
+    );
+
+
+    running=false;
+
+    aiTimer=0;
+
+    decisionTimer=0;
+
+    eventNumber=0;
+
+
+    logElement.textContent="";
+
+
+    log(
+        "PARTIDO REINICIADO."
+    );
+
+
+    log(
+        "Saque inicial: "+
+        starter.name
+    );
+
+
+    updateVisual();
+
+}
+
+
+/* =========================================================
+   LOOP
+========================================================= */
+
+function gameLoop(
+    timestamp
+){
+
+    if(
+        !running
+    ){
+
+        lastTime=
+            timestamp;
+
+
+        requestAnimationFrame(
+            gameLoop
+        );
+
+
+        return;
+
+    }
+
+
+    const delta=
+        Math.min(
+
+            0.035,
+
+            (
+                timestamp-
+                lastTime
+            )/1000
+
+        );
+
+
+    lastTime=
+        timestamp;
+
+
+    updateAI(
+        delta
+    );
+
+
+    updateBall(
+        delta
+    );
+
+
+    updateVisual();
+
+
+    const ballSpeed=
+        Math.hypot(
+            ball.vx,
+            ball.vy
+        );
+
+
+    status.textContent=
+
+        "BALÓN: "+
+        ball.state+
+
+        " | POSESIÓN: "+
+
+        (
+
+            ball.owner
+
+            ?
+
+            ball.owner.name+
+            " ("+
+            (
+                ball.owner.team===
+                "HOME"
+                ? "LOCAL"
+                : "VISITANTE"
+            )+
+            ")"
+
+            :
+
+            "LIBRE"
+
+        )+
+
+        " | POS: "+
+
+        ball.x.toFixed(3)+
+        ", "+
+        ball.y.toFixed(3)+
+
+        " | VEL: "+
+
+        ballSpeed.toFixed(3);
+
+
+    requestAnimationFrame(
+        gameLoop
+    );
+
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+document
+.getElementById(
+    "startButton"
+)
+.onclick=function(){
+
+    if(
+        !running
+    ){
+
+        running=true;
+
+        lastTime=
+            performance.now();
+
+
+        log(
+            "▶ MOTOR INICIADO."
+        );
+
+    }
+
+};
+
+
+document
+.getElementById(
+    "pauseButton"
+)
+.onclick=function(){
+
+    running=false;
+
+
+    log(
+        "⏸ MOTOR PAUSADO."
+    );
+
+};
+
+
+document
+.getElementById(
+    "resetButton"
+)
+.onclick=function(){
+
+    resetMatch();
+
+};
+
+
+document
+.getElementById(
+    "advanceButton"
+)
+.onclick=function(){
+
+    if(
+        !ball.owner
+    ){
+
+        return;
+
+    }
+
+
+    const target=
+        chooseForwardTarget(
+            ball.owner
+        );
+
+
+    ball.owner.targetX=
+        target.x;
+
+
+    ball.owner.targetY=
+        target.y;
+
+
+    ball.owner.state=
+        "carrying";
+
+
+    log(
+
+        ball.owner.name+
+        " → AVANZAR"
+
+    );
+
+};
+
+
+document
+.getElementById(
+    "passButton"
+)
+.onclick=function(){
+
+    if(
+        !ball.owner
+    ){
+
+        return;
+
+    }
+
+
+    const target=
+        choosePassTarget(
+            ball.owner
+        );
+
+
+    if(
+        target
+    ){
+
+        passBall(
+
+            ball.owner,
+
+            target
+
+        );
+
+    }
+    else{
+
+        log(
+            "No hay receptor adecuado."
+        );
+
+    }
+
+};
+
+
+document
+.getElementById(
+    "shootButton"
+)
+.onclick=function(){
+
+    if(
+        ball.owner
+    ){
+
+        shootBall(
+            ball.owner
+        );
+
+    }
+
+};
+
+
+/* =========================================================
+   INICIO
+========================================================= */
+
+resetMatch();
+
+requestAnimationFrame(
+    gameLoop
+);
+
+</script>
+
+</body>
+
+</html>
