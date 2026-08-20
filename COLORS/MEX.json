@@ -1,0 +1,12 @@
+{
+    "country": "MEX",
+
+    "HOME": {
+        "hex": "#3a9663",
+        "color": "GREEN"
+    },
+    "VISITOR": {
+        "hex": "#fffbff",
+        "color": "WHITE"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "country": "ESP",
+
+    "HOME": {
+        "hex": "#df282a",
+        "color": "RED"
+    },
+    "VISITOR": {
+        "hex": "#efefe5",
+        "color": "WHITE"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "country": "ARG",
+
+    "HOME": {
+        "hex": "#6bbae5",
+        "color": "CYAN"
+    },
+
+    "VISITOR": {
+        "hex": "#31517a",
+        "color": "BLUE"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "country": "FRA",
+
+    "HOME": {
+        "hex": "#2a517c",
+        "color": "BLUE"
+    },
+    "VISITOR": {
+        "hex": "#DEEFE5",
+        "color": "WHITE"
+    }
+}

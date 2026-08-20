@@ -1,0 +1,12 @@
+{
+    "country": "BRA",
+
+    "HOME": {
+        "hex": "#f7da10",
+        "color": "YELLOW"
+    },
+    "VISITOR": {
+        "hex": "#31598c",
+        "color": "BLUE"
+    }
+}
