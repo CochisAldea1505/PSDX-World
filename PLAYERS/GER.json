@@ -1,0 +1,369 @@
+{
+    "country": "GER",
+    "players": [
+        {
+            "name": "Neuern",
+            "number": 1,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 8,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 8
+            }
+        },
+        {
+            "name": "Baumannt",
+            "number": 12,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 8
+            }
+        },
+        {
+            "name": "Nubeln",
+            "number": 21,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 7
+            }
+        },
+        {
+            "name": "Rudigern",
+            "number": 2,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Antont",
+            "number": 3,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Tahn",
+            "number": 4,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 9,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Kimmichn",
+            "number": 6,
+            "position": ["CDM", "CM", "RB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 10,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Schlotrbeckn",
+            "number": 15,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Brownt",
+            "number": 18,
+            "position": ["LB"],
+            "stats": {
+                "SPD": 8,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Raumn",
+            "number": 22,
+            "position": ["LB", "LM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 9,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Thiawn",
+            "number": 24,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Pavlovicn",
+            "number": 5,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Goretzkan",
+            "number": 8,
+            "position": ["CM", "CDM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Lewelingn",
+            "number": 9,
+            "position": ["RW", "RM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 5,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Musialan",
+            "number": 10,
+            "position": ["CAM", "LW", "CM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 9,
+                "DEF": 5,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Grossn",
+            "number": 13,
+            "position": ["CM", "CDM"],
+            "stats": {
+                "SPD": 6,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Stillern",
+            "number": 16,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Wirtzn",
+            "number": 17,
+            "position": ["CAM", "LW", "CM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 5,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Sanen",
+            "number": 19,
+            "position": ["LW", "RW"],
+            "stats": {
+                "SPD": 9,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 5,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Amirin",
+            "number": 20,
+            "position": ["CM", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Nmechan",
+            "number": 23,
+            "position": ["CM", "CDM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Karln",
+            "number": 25,
+            "position": ["CM", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 6,
+                "DRI": 8,
+                "DEF": 4,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Havertzn",
+            "number": 7,
+            "position": ["ST", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Woltemaden",
+            "number": 11,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Beiern",
+            "number": 14,
+            "position": ["ST", "RW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 3,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Undavn",
+            "number": 26,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 2,
+                "TEC": 7,
+                "KEP": 0
+            }
+        }
+    ]
+}
