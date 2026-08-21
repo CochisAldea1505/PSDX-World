@@ -1,0 +1,12 @@
+{
+    "country": "GER",
+
+    "HOME": {
+        "hex": "#ffffff",
+        "color": "WHITE"
+    },
+    "VISITOR": {
+        "hex": "#3a517b",
+        "color": "BLUE"
+    }
+}
