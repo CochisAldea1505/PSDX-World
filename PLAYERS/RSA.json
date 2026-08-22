@@ -1,0 +1,369 @@
+{
+    "country": "RSA",
+    "players": [
+        {
+            "name": "Williamsn",
+            "number": 1,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 5,
+                "TEC": 5,
+                "KEP": 6
+            }
+        },
+        {
+            "name": "Chainen",
+            "number": 16,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 6,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 4,
+                "TEC": 4,
+                "KEP": 5
+            }
+        },
+        {
+            "name": "Gossn",
+            "number": 22,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 5,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 5,
+                "TEC": 4,
+                "KEP": 5
+            }
+        },
+        {
+            "name": "Matulundin",
+            "number": 2,
+            "position": ["RB", "CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 5,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Ndamanen",
+            "number": 3,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 6,
+                "DRI": 5,
+                "DEF": 5,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Modiban",
+            "number": 6,
+            "position": ["LB", "LM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 5,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Mbokazin",
+            "number": 14,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 5,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Kabinin",
+            "number": 18,
+            "position": ["LB", "CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Sibisin",
+            "number": 19,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 5,
+                "DEF": 5,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Mudaun",
+            "number": 20,
+            "position": ["RB"],
+            "stats": {
+                "SPD": 8,
+                "POW": 6,
+                "STA": 8,
+                "DRI": 6,
+                "DEF": 5,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Okont",
+            "number": 21,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 6,
+                "STA": 6,
+                "DRI": 5,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Makhanyan",
+            "number": 24,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 6,
+                "DRI": 5,
+                "DEF": 6,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Crossn",
+            "number": 26,
+            "position": ["LB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 6,
+                "STA": 6,
+                "DRI": 5,
+                "DEF": 6,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Mokoenan",
+            "number": 4,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 6,
+                "DEF": 4,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Mbathan",
+            "number": 5,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 5,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Zwanen",
+            "number": 11,
+            "position": ["CAM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 5,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Sitholen",
+            "number": 13,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 6,
+                "DEF": 5,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Adamsn",
+            "number": 23,
+            "position": ["CM", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 5,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Appollisn",
+            "number": 7,
+            "position": ["RW", "LW"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 3,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Moremin",
+            "number": 8,
+            "position": ["RW", "LW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 2,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Fostern",
+            "number": 9,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 3,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Mofokengn",
+            "number": 10,
+            "position": ["LW", "RW", "CAM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 2,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Masekon",
+            "number": 12,
+            "position": ["RW", "LW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 2,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Raynersnt",
+            "number": 15,
+            "position": ["ST", "RW"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 6,
+                "DRI": 6,
+                "DEF": 2,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Makgopan",
+            "number": 17,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 3,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Sebelebelen",
+            "number": 25,
+            "position": ["RW", "LW"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 6,
+                "DRI": 7,
+                "DEF": 2,
+                "TEC": 6,
+                "KEP": 0
+            }
+        }
+    ]
+}
