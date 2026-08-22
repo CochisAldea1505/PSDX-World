@@ -24,6 +24,8 @@ body{
     box-shadow:6px 6px 0 #2E222F;
     padding:20px;
     box-sizing:border-box;
+
+    position:relative;
 }
 
 /* ==================================================
@@ -153,8 +155,241 @@ body{
     box-sizing:border-box;
 }
 
+/* ==================================================
+   BOTÓN INFORMACIÓN DE PAÍSES
+================================================== */
+
+.boton-paises{
+    position:absolute;
+
+    right:12px;
+    bottom:12px;
+
+    width:38px;
+    height:38px;
+
+    background:#3E3546;
+    border:3px solid #2E222F;
+    box-shadow:4px 4px 0 #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    box-sizing:border-box;
+}
+
+.boton-paises:hover{
+    background:#453B4C;
+}
+
+.boton-paises:active{
+    box-shadow:none;
+    transform:translate(4px,4px);
+}
+
+/* ==================================================
+   MODAL DE PAÍSES
+================================================== */
+
+.modal-paises{
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(46,34,47,.75);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    z-index:1000;
+}
+
+.modal-paises.activo{
+    display:flex;
+}
+
+.ventana-paises{
+    width:520px;
+    max-width:calc(100vw - 40px);
+    max-height:80vh;
+
+    background:#694F62;
+
+    border:4px solid #2E222F;
+    box-shadow:8px 8px 0 #2E222F;
+
+    padding:16px;
+
+    box-sizing:border-box;
+
+    display:flex;
+    flex-direction:column;
+}
+
+/* ==================================================
+   CABECERA DEL MODAL
+================================================== */
+
+.modal-paises-cabecera{
+    width:100%;
+    min-height:50px;
+
+    background:#3E3546;
+    border:3px solid #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    box-sizing:border-box;
+
+    padding-left:12px;
+    padding-right:8px;
+}
+
+.boton-cerrar-paises{
+    width:36px;
+    height:36px;
+
+    background:#514859;
+    border:3px solid #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+}
+
+.boton-cerrar-paises:hover{
+    background:#453B4C;
+}
+
+/* ==================================================
+   LISTA DE PAÍSES
+================================================== */
+
+.lista-paises{
+    margin-top:14px;
+
+    width:100%;
+
+    background:#514859;
+    border:3px solid #2E222F;
+
+    padding:12px;
+
+    box-sizing:border-box;
+
+    overflow-y:auto;
+
+    min-height:120px;
+    max-height:55vh;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(130px,1fr)
+        );
+
+    gap:8px;
+}
+
+.pais-item{
+    min-height:42px;
+
+    background:#3E3546;
+
+    border:2px solid #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-sizing:border-box;
+
+    padding:5px;
+}
+
+.pais-item canvas{
+    max-width:100%;
+    height:auto;
+}
+
+.paises-cargando{
+    width:100%;
+    min-height:60px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    grid-column:1 / -1;
+}
+
+/* ==================================================
+   CONTADOR
+================================================== */
+
+.contador-paises{
+    margin-top:10px;
+
+    width:100%;
+    min-height:38px;
+
+    background:#3E3546;
+    border:2px solid #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-sizing:border-box;
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media(max-width:700px){
+
+    body{
+        padding:15px;
+    }
+
+    .panel{
+        width:100%;
+        min-height:calc(100vh - 30px);
+        padding:14px;
+    }
+
+    .ventana-paises{
+        width:calc(100vw - 30px);
+    }
+
+    .lista-paises{
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(110px,1fr)
+            );
+    }
+
+}
+
 </style>
+
 <script src="favicon.js"></script>
+
 </head>
 
 <body>
@@ -209,6 +444,71 @@ body{
 
     <div class="pie" id="pie"></div>
 
+
+    <!-- ==================================================
+         BOTÓN DE PAÍSES
+    ================================================== -->
+
+    <div
+        class="boton-paises"
+        id="botonPaises"
+        title="Countries"
+    >
+
+        <div id="textoBotonPaises"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     MODAL DE PAÍSES
+================================================== -->
+
+<div
+    class="modal-paises"
+    id="modalPaises"
+>
+
+    <div class="ventana-paises">
+
+        <div class="modal-paises-cabecera">
+
+            <div id="tituloModalPaises"></div>
+
+            <div
+                class="boton-cerrar-paises"
+                id="botonCerrarPaises"
+            >
+
+                <div id="textoCerrarPaises"></div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="lista-paises"
+            id="listaPaisesDisponibles"
+        >
+
+            <div
+                class="paises-cargando"
+                id="paisesCargando"
+            ></div>
+
+        </div>
+
+
+        <div
+            class="contador-paises"
+            id="contadorPaises"
+        ></div>
+
+    </div>
+
 </div>
 
 
@@ -219,13 +519,17 @@ body{
 ================================================== */
 
 fetch("PSDX_Font1.fnt")
+
 .then(response=>response.text())
+
 .then(data=>{
 
 const lineas=data.split("\n");
 
 const imagen=new Image();
+
 imagen.src="PSDX_Font1.png";
+
 
 imagen.onload=()=>{
 
@@ -242,21 +546,31 @@ const glifos={};
 
 for(const caracter of texto){
 
-if(glifos[caracter]) continue;
+if(glifos[caracter])
+    continue;
 
-const id=caracter.charCodeAt(0);
+const id=
+    caracter.charCodeAt(0);
 
-const linea=lineas.find(
-l=>l.startsWith(`char id=${id} `)
-);
+const linea=
+    lineas.find(
+        l =>
+        l.startsWith(
+            `char id=${id} `
+        )
+    );
 
-if(!linea) continue;
+if(!linea)
+    continue;
 
 const datos={};
 
-linea.match(/(\w+)=([^\s]+)/g).forEach(parte=>{
+linea
+.match(/(\w+)=([^\s]+)/g)
+.forEach(parte=>{
 
-const [clave,valor]=parte.split("=");
+const [clave,valor]=
+    parte.split("=");
 
 datos[clave]=Number(valor);
 
@@ -277,73 +591,117 @@ return glifos;
 
 function crearTexto(texto){
 
-const glifos=obtenerGlifos(texto);
+const glifos=
+    obtenerGlifos(texto);
 
 let anchoTotal=0;
+
 let cursorCalculo=0;
+
 
 for(const caracter of texto){
 
-const datos=glifos[caracter];
+const datos=
+    glifos[caracter];
 
-if(!datos) continue;
+if(!datos)
+    continue;
 
 const derecha=
-cursorCalculo+
-datos.xoffset+
-datos.width;
+    cursorCalculo+
+    datos.xoffset+
+    datos.width;
 
 if(derecha>anchoTotal)
-anchoTotal=derecha;
+    anchoTotal=derecha;
 
-cursorCalculo+=datos.xadvance;
+cursorCalculo+=
+    datos.xadvance;
 
 }
 
 
-const canvas=document.createElement("canvas");
+const canvas=
+    document.createElement(
+        "canvas"
+    );
+
 
 canvas.width=
-Math.max(1,anchoTotal*ESCALA);
+    Math.max(
+        1,
+        anchoTotal*ESCALA
+    );
+
 
 canvas.height=
-112*ESCALA;
+    112*ESCALA;
 
 
-const ctx=canvas.getContext("2d");
+const ctx=
+    canvas.getContext("2d");
 
 ctx.imageSmoothingEnabled=false;
+
 
 let cursorX=0;
 
 
 for(const caracter of texto){
 
-const datos=glifos[caracter];
+const datos=
+    glifos[caracter];
 
-if(!datos) continue;
+if(!datos)
+    continue;
+
 
 ctx.drawImage(
-imagen,
-datos.x,
-datos.y,
-datos.width,
-datos.height,
 
-cursorX+
-datos.xoffset*ESCALA,
+    imagen,
 
-datos.yoffset*ESCALA,
+    datos.x,
+    datos.y,
+    datos.width,
+    datos.height,
 
-datos.width*ESCALA,
-datos.height*ESCALA
+    cursorX+
+    datos.xoffset*ESCALA,
+
+    datos.yoffset*ESCALA,
+
+    datos.width*ESCALA,
+
+    datos.height*ESCALA
+
 );
 
-cursorX+=datos.xadvance*ESCALA;
+
+cursorX+=
+    datos.xadvance*ESCALA;
 
 }
 
+
 return canvas;
+
+}
+
+
+/* ==================================================
+   COLOCAR TEXTO
+================================================== */
+
+function colocarTexto(
+    elemento,
+    texto
+){
+
+elemento.innerHTML="";
+
+elemento.appendChild(
+    crearTexto(texto)
+);
 
 }
 
@@ -352,66 +710,424 @@ return canvas;
    TEXTOS DEL MENÚ
 ================================================== */
 
-document
-.getElementById("titulo")
-.appendChild(
-crearTexto("PSDX WORLD")
+colocarTexto(
+    document.getElementById("titulo"),
+    "PSDX WORLD"
 );
 
 
-document
-.getElementById("textoMundial")
-.appendChild(
-crearTexto("PLAY WORLD CUP")
+colocarTexto(
+    document.getElementById("textoMundial"),
+    "PLAY WORLD CUP"
 );
 
 
-document
-.getElementById("textoSeleccion")
-.appendChild(
-crearTexto("MY NATIONAL TEAM")
+colocarTexto(
+    document.getElementById("textoSeleccion"),
+    "MY NATIONAL TEAM"
 );
 
 
-document
-.getElementById("textoEditor")
-.appendChild(
-crearTexto("PLAYER EDITOR")
+colocarTexto(
+    document.getElementById("textoEditor"),
+    "PLAYER EDITOR"
 );
 
 
-document
-.getElementById("textoClubs")
-.appendChild(
-crearTexto("CLUBS")
+colocarTexto(
+    document.getElementById("textoClubs"),
+    "CLUBS"
 );
 
 
-document
-.getElementById("textoHistorial")
-.appendChild(
-crearTexto("HISTORY")
+colocarTexto(
+    document.getElementById("textoHistorial"),
+    "HISTORY"
 );
 
 
-document
-.getElementById("textoAcerca")
-.appendChild(
-crearTexto("ABOUT")
+colocarTexto(
+    document.getElementById("textoAcerca"),
+    "ABOUT"
 );
 
 
-document
-.getElementById("mensaje")
-.appendChild(
-crearTexto("SELECT AN OPTION")
+colocarTexto(
+    document.getElementById("mensaje"),
+    "SELECT AN OPTION"
 );
 
 
-document
-.getElementById("pie")
-.appendChild(
-crearTexto("NO OFFICIAL - INSPIRED BY PSDX")
+colocarTexto(
+    document.getElementById("pie"),
+    "NO OFFICIAL - INSPIRED BY PSDX"
+);
+
+
+/* ==================================================
+   BOTÓN !
+================================================== */
+
+colocarTexto(
+    document.getElementById(
+        "textoBotonPaises"
+    ),
+    "!"
+);
+
+
+/* ==================================================
+   TEXTOS DEL MODAL
+================================================== */
+
+colocarTexto(
+    document.getElementById(
+        "tituloModalPaises"
+    ),
+    "COUNTRIES"
+);
+
+
+colocarTexto(
+    document.getElementById(
+        "textoCerrarPaises"
+    ),
+    "X"
+);
+
+
+colocarTexto(
+    document.getElementById(
+        "paisesCargando"
+    ),
+    "LOADING..."
+);
+
+
+/* ==================================================
+   PAÍSES
+================================================== */
+
+/*
+   Estos son los códigos que se comprobarán.
+
+   Un país aparecerá si existe:
+
+   PLAYERS/CODIGO.json
+
+   O:
+
+   Team_XI/CODIGO.json
+*/
+
+const paises=[
+
+    "ALG",
+    "ARG",
+    "AUS",
+    "AUT",
+    "BEL",
+    "BIH",
+    "BRA",
+    "CAN",
+    "CHI",
+    "CIV",
+    "CMR",
+    "COD",
+    "COL",
+    "CPV",
+    "CRC",
+    "CRO",
+    "CUW",
+    "CZE",
+    "DEN",
+    "ECU",
+    "EGY",
+    "ENG",
+    "ESP",
+    "FRA",
+    "GER",
+    "GHA",
+    "GRE",
+    "HAI",
+    "HON",
+    "IRN",
+    "IRQ",
+    "ISL",
+    "ITA",
+    "JOR",
+    "JPN",
+    "KOR",
+    "KSA",
+    "MAR",
+    "MEX",
+    "NED",
+    "NGA",
+    "NOR",
+    "NZL",
+    "PAN",
+    "PAR",
+    "PER",
+    "POL",
+    "POR",
+    "PRK",
+    "QAT",
+    "RSA",
+    "RUS",
+    "SCO",
+    "SEN",
+    "SRB",
+    "SUI",
+    "SVK",
+    "SVN",
+    "SWE",
+    "TUN",
+    "TUR",
+    "URU",
+    "USA",
+    "UZB",
+    "WAL"
+
+];
+
+
+/* ==================================================
+   COMPROBAR ARCHIVO
+================================================== */
+
+async function existeArchivo(
+    ruta
+){
+
+try{
+
+const respuesta=
+    await fetch(
+        ruta,
+        {
+            method:"HEAD",
+            cache:"no-store"
+        }
+    );
+
+return respuesta.ok;
+
+}
+catch(error){
+
+return false;
+
+}
+
+}
+
+
+/* ==================================================
+   COMPROBAR PAÍS
+================================================== */
+
+async function comprobarPais(
+    codigo
+){
+
+const players=
+    await existeArchivo(
+        `PLAYERS/${codigo}.json`
+    );
+
+const xi=
+    await existeArchivo(
+        `Team_XI/${codigo}.json`
+    );
+
+return{
+
+    codigo:codigo,
+
+    players:players,
+
+    xi:xi,
+
+    disponible:
+        players || xi
+
+};
+
+}
+
+
+/* ==================================================
+   CARGAR PAÍSES DISPONIBLES
+================================================== */
+
+async function cargarPaises(){
+
+const lista=
+    document.getElementById(
+        "listaPaisesDisponibles"
+    );
+
+const cargando=
+    document.getElementById(
+        "paisesCargando"
+    );
+
+const contador=
+    document.getElementById(
+        "contadorPaises"
+    );
+
+
+lista.innerHTML="";
+
+lista.appendChild(
+    cargando
+);
+
+colocarTexto(
+    cargando,
+    "LOADING..."
+);
+
+
+const resultados=
+    await Promise.all(
+        paises.map(
+            codigo =>
+            comprobarPais(codigo)
+        )
+    );
+
+
+const disponibles=
+    resultados.filter(
+        pais =>
+        pais.disponible
+    );
+
+
+lista.innerHTML="";
+
+
+if(disponibles.length===0){
+
+const vacio=
+    document.createElement("div");
+
+vacio.className=
+    "paises-cargando";
+
+lista.appendChild(vacio);
+
+colocarTexto(
+    vacio,
+    "NO COUNTRIES"
+);
+
+}
+else{
+
+for(
+    const pais
+    of disponibles
+){
+
+const elemento=
+    document.createElement("div");
+
+elemento.className=
+    "pais-item";
+
+lista.appendChild(
+    elemento
+);
+
+colocarTexto(
+    elemento,
+    pais.codigo
+);
+
+}
+
+}
+
+
+contador.innerHTML="";
+
+colocarTexto(
+    contador,
+    `${disponibles.length} COUNTRIES`
+);
+
+}
+
+
+/* ==================================================
+   MODAL
+================================================== */
+
+const botonPaises=
+    document.getElementById(
+        "botonPaises"
+    );
+
+const modalPaises=
+    document.getElementById(
+        "modalPaises"
+    );
+
+const botonCerrarPaises=
+    document.getElementById(
+        "botonCerrarPaises"
+    );
+
+
+botonPaises.addEventListener(
+    "click",
+    ()=>{
+
+        modalPaises.classList.add(
+            "activo"
+        );
+
+        cargarPaises();
+
+    }
+);
+
+
+botonCerrarPaises.addEventListener(
+    "click",
+    ()=>{
+
+        modalPaises.classList.remove(
+            "activo"
+        );
+
+    }
+);
+
+
+/* ==================================================
+   CERRAR AL HACER CLICK FUERA
+================================================== */
+
+modalPaises.addEventListener(
+    "click",
+    evento=>{
+
+        if(
+            evento.target===
+            modalPaises
+        ){
+
+            modalPaises.classList.remove(
+                "activo"
+            );
+
+        }
+
+    }
 );
 
 
@@ -421,61 +1137,87 @@ crearTexto("NO OFFICIAL - INSPIRED BY PSDX")
 
 document
 .getElementById("botonEditor")
-.addEventListener("click",()=>{
+.addEventListener(
+    "click",
+    ()=>{
 
-window.location.href="editor.html";
+        window.location.href=
+            "editor.html";
 
-});
+    }
+);
 
 
 document
 .getElementById("botonSeleccion")
-.addEventListener("click",()=>{
+.addEventListener(
+    "click",
+    ()=>{
 
-window.location.href="team.html";
+        window.location.href=
+            "team.html";
 
-});
+    }
+);
 
 
 document
 .getElementById("botonMundial")
-.addEventListener("click",()=>{
+.addEventListener(
+    "click",
+    ()=>{
 
-window.location.href="PSDX_World_Physical_Match_Field_v2_3_SMART_AI_WINGERS_PLAYER_SPRITES_FIXED.html";
+        window.location.href=
+            "PSDX_World_Physical_Match_Field_v2_3_SMART_AI_WINGERS_PLAYER_SPRITES_FIXED.html";
 
-});
+    }
+);
 
 
 /* ==================================================
    BOTONES TODAVÍA NO IMPLEMENTADOS
 ================================================== */
 
-
 document
 .getElementById("botonClubs")
-.addEventListener("click",()=>{
+.addEventListener(
+    "click",
+    ()=>{
 
-mostrarMensaje("CLUBS - COMING SOON");
+        mostrarMensaje(
+            "CLUBS - COMING SOON"
+        );
 
-});
+    }
+);
 
 
 document
 .getElementById("botonHistorial")
-.addEventListener("click",()=>{
+.addEventListener(
+    "click",
+    ()=>{
 
-mostrarMensaje("HISTORY - COMING SOON");
+        mostrarMensaje(
+            "HISTORY - COMING SOON"
+        );
 
-});
+    }
+);
 
 
 document
 .getElementById("botonAcerca")
-.addEventListener("click",()=>{
+.addEventListener(
+    "click",
+    ()=>{
 
-mostrarMensaje("ABOUT - COMING SOON");
+        mostrarMensaje(
+            "ABOUT - COMING SOON"
+        );
 
-});
+    }
+);
 
 
 /* ==================================================
@@ -485,12 +1227,14 @@ mostrarMensaje("ABOUT - COMING SOON");
 function mostrarMensaje(texto){
 
 const contenedor=
-document.getElementById("mensaje");
+    document.getElementById(
+        "mensaje"
+    );
 
 contenedor.innerHTML="";
 
 contenedor.appendChild(
-crearTexto(texto)
+    crearTexto(texto)
 );
 
 }
@@ -503,11 +1247,12 @@ crearTexto(texto)
 };
 
 })
+
 .catch(error=>{
 
 console.error(
-"ERROR AL CARGAR LA FUENTE:",
-error
+    "ERROR AL CARGAR LA FUENTE:",
+    error
 );
 
 });
@@ -516,4 +1261,3 @@ error
 
 </body>
 </html>
-```
