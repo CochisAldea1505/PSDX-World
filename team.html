@@ -2920,6 +2920,95 @@ async function cambiarPais(codigo){
         codigo
     );
 
+    /*
+       Después de cargar los jugadores, intentamos cargar
+       automáticamente el XI guardado para este país.
+       Si no existe un XI válido, simplemente dejamos la
+       cancha vacía.
+    */
+    await cargarXIAutomatico(
+        codigo
+    );
+
+}
+
+
+/* ==================================================
+   CARGAR XI AUTOMÁTICAMENTE
+================================================== */
+
+async function cargarXIAutomatico(codigo){
+
+    try{
+
+        const respuesta =
+            await fetch(
+                "Team_XI/" +
+                codigo +
+                "_XI.json"
+            );
+
+        /*
+           Si el país no tiene XI guardado, no hacemos
+           absolutamente nada. La cancha permanece vacía.
+        */
+        if(!respuesta.ok){
+
+            console.log(
+                "No hay XI guardado para:",
+                codigo
+            );
+
+            return;
+
+        }
+
+        const datos =
+            await respuesta.json();
+
+        /*
+           Solo importamos si realmente existe un once.
+           El primer jugador sigue siendo el GK.
+        */
+        if(
+            !datos ||
+            !Array.isArray(datos.players) ||
+            datos.players.length !== 11
+        ){
+
+            console.log(
+                "No hay un XI completo para:",
+                codigo
+            );
+
+            return;
+
+        }
+
+        await importarXI(
+            datos,
+            false
+        );
+
+        console.log(
+            "XI cargado automáticamente:",
+            codigo
+        );
+
+    }
+    catch(error){
+
+        /*
+           Un país sin archivo XI no debe provocar ningún
+           error visible ni impedir seleccionar el país.
+        */
+        console.log(
+            "No se pudo cargar XI automático para:",
+            codigo
+        );
+
+    }
+
 }
 
 
@@ -5170,7 +5259,7 @@ function asignarJugadorImportado(
    IMPORTAR XI
 ================================================== */
 
-async function importarXI(datos){
+async function importarXI(datos, cambiarPaisAntes = true){
 
     if(
         !datos ||
@@ -5187,7 +5276,10 @@ async function importarXI(datos){
        El país del XI importado pasa a ser
        el país actual.
     */
-    if(datos.country){
+    if(
+        cambiarPaisAntes &&
+        datos.country
+    ){
 
         const codigo =
             String(
