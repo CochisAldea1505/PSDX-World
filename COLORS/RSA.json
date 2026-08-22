@@ -1,0 +1,12 @@
+{
+    "country": "RSA",
+
+    "HOME": {
+        "hex": "#debf29",
+        "color": "YELLOW"
+    },
+    "VISITOR": {
+        "hex": "#308e52",
+        "color": "GREEN"
+    }
+}

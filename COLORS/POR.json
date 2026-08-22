@@ -1,0 +1,12 @@
+{
+    "country": "POR",
+
+    "HOME": {
+        "hex": "#c43d3a",
+        "color": "RED"
+    },
+    "VISITOR": {
+        "hex": "#bde7e6",
+        "color": "WHITE"
+    }
+}
