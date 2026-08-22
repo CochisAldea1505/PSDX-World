@@ -962,102 +962,141 @@ return{
 
 async function cargarPaises(){
 
-const lista=
-    document.getElementById(
-        "listaPaisesDisponibles"
+    const lista =
+        document.getElementById(
+            "listaPaisesDisponibles"
+        );
+
+    const contador =
+        document.getElementById(
+            "contadorPaises"
+        );
+
+
+    /*
+       LIMPIAR COMPLETAMENTE
+       LA LISTA ANTERIOR
+    */
+
+    lista.innerHTML = "";
+
+
+    /*
+       CREAR NUEVO MENSAJE
+       DE CARGA CADA VEZ
+    */
+
+    const cargando =
+        document.createElement("div");
+
+    cargando.className =
+        "paises-cargando";
+
+    lista.appendChild(
+        cargando
     );
 
-const cargando=
-    document.getElementById(
-        "paisesCargando"
-    );
-
-const contador=
-    document.getElementById(
-        "contadorPaises"
-    );
-
-
-lista.innerHTML="";
-
-lista.appendChild(
-    cargando
-);
-
-colocarTexto(
-    cargando,
-    "LOADING..."
-);
-
-
-const resultados=
-    await Promise.all(
-        paises.map(
-            codigo =>
-            comprobarPais(codigo)
-        )
-    );
-
-
-const disponibles=
-    resultados.filter(
-        pais =>
-        pais.disponible
+    colocarTexto(
+        cargando,
+        "LOADING..."
     );
 
 
-lista.innerHTML="";
+    /*
+       COMPROBAR TODOS LOS PAÍSES
+    */
+
+    const resultados =
+        await Promise.all(
+            paises.map(
+                codigo =>
+                    comprobarPais(codigo)
+            )
+        );
 
 
-if(disponibles.length===0){
-
-const vacio=
-    document.createElement("div");
-
-vacio.className=
-    "paises-cargando";
-
-lista.appendChild(vacio);
-
-colocarTexto(
-    vacio,
-    "NO COUNTRIES"
-);
-
-}
-else{
-
-for(
-    const pais
-    of disponibles
-){
-
-const elemento=
-    document.createElement("div");
-
-elemento.className=
-    "pais-item";
-
-lista.appendChild(
-    elemento
-);
-
-colocarTexto(
-    elemento,
-    pais.codigo
-);
-
-}
-
-}
+    const disponibles =
+        resultados.filter(
+            pais =>
+                pais.disponible
+        );
 
 
-contador.innerHTML="";
+    /*
+       VOLVER A LIMPIAR
+       LA LISTA
+    */
 
-colocarTexto(
-    contador,
-    `${disponibles.length} COUNTRIES`
-);
+    lista.innerHTML = "";
+
+
+    /*
+       SI NO HAY PAÍSES
+    */
+
+    if(
+        disponibles.length === 0
+    ){
+
+        const vacio =
+            document.createElement("div");
+
+        vacio.className =
+            "paises-cargando";
+
+        lista.appendChild(
+            vacio
+        );
+
+        colocarTexto(
+            vacio,
+            "NO COUNTRIES"
+        );
+
+    }
+
+
+    /*
+       CREAR LOS PAÍSES
+    */
+
+    else{
+
+        for(
+            const pais
+            of disponibles
+        ){
+
+            const elemento =
+                document.createElement("div");
+
+            elemento.className =
+                "pais-item";
+
+            lista.appendChild(
+                elemento
+            );
+
+            colocarTexto(
+                elemento,
+                pais.codigo
+            );
+
+        }
+
+    }
+
+
+    /*
+       CONTADOR
+    */
+
+    contador.innerHTML = "";
+
+    colocarTexto(
+        contador,
+        `${disponibles.length} COUNTRIES`
+    );
 
 }
 
