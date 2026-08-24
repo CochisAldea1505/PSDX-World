@@ -1214,6 +1214,18 @@ colocarTexto(
 */
 
 
+/*
+   ACTIVAR / DESACTIVAR EL AVISO DE NOVEDAD
+
+   true  = el aviso aparece al abrir index.html
+   false = el aviso NO aparece al abrir index.html
+
+   Cambia solamente este valor cuando quieras
+   publicar o retirar una novedad.
+*/
+const NEWS_ENABLED = false;
+
+
 const NEWS_ID =
     "psdx-news-002";
 
@@ -1953,6 +1965,15 @@ function calcularAnchoNovedad(){
 ================================================== */
 
 function mostrarNovedad(){
+
+    /*
+       Si las novedades están desactivadas,
+       no mostramos el cuadro.
+    */
+    if(!NEWS_ENABLED){
+        return;
+    }
+
 
     const modal =
         document.getElementById(
