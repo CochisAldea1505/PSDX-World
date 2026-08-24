@@ -1,0 +1,12 @@
+{
+    "country": "CPV",
+
+    "HOME": {
+        "hex": "#2130ad",
+        "color": "BLUE"
+    },
+    "VISITOR": {
+        "hex": "#f6fbf7",
+        "color": "WHITE"
+    }
+}
