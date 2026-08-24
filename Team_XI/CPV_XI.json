@@ -1,0 +1,71 @@
+{
+    "country": "CPV",
+    "players": [
+        {
+            "number": 1,
+            "column": -0.5,
+            "row": 3,
+            "status": "natural"
+        },
+        {
+            "number": 2,
+            "column": 2,
+            "row": 0,
+            "status": "yellow"
+        },
+        {
+            "number": 5,
+            "column": 1,
+            "row": 2,
+            "status": "natural"
+        },
+        {
+            "number": 4,
+            "column": 1,
+            "row": 4,
+            "status": "natural"
+        },
+        {
+            "number": 24,
+            "column": 2,
+            "row": 6,
+            "status": "natural"
+        },
+        {
+            "number": 6,
+            "column": 3,
+            "row": 2,
+            "status": "natural"
+        },
+        {
+            "number": 10,
+            "column": 3,
+            "row": 4,
+            "status": "yellow"
+        },
+        {
+            "number": 18,
+            "column": 5,
+            "row": 3,
+            "status": "natural"
+        },
+        {
+            "number": 20,
+            "column": 6,
+            "row": 0,
+            "status": "natural"
+        },
+        {
+            "number": 11,
+            "column": 6,
+            "row": 6,
+            "status": "natural"
+        },
+        {
+            "number": 19,
+            "column": 7,
+            "row": 3,
+            "status": "natural"
+        }
+    ]
+}
