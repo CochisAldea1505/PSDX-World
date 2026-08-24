@@ -1,0 +1,369 @@
+{
+    "country": "JPN",
+    "players": [
+        {
+            "name": "Z. Suzukin",
+            "number": 1,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 8,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 8
+            }
+        },
+        {
+            "name": "Osakon",
+            "number": 12,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 6,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 6
+            }
+        },
+        {
+            "name": "Hayakawan",
+            "number": 23,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 6,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 6
+            }
+        },
+        {
+            "name": "Sugawaran",
+            "number": 2,
+            "position": ["RB", "RM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 6,
+                "DEF": 6,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Taniguchin",
+            "number": 3,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 7,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Itakuran",
+            "number": 4,
+            "position": ["CB", "RB", "CDM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Nagatomon",
+            "number": 5,
+            "position": ["LB", "LM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 8,
+                "DRI": 6,
+                "DEF": 6,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Watanaben",
+            "number": 16,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 5,
+                "DEF": 8,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Sekon",
+            "number": 20,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 6,
+                "STA": 8,
+                "DRI": 6,
+                "DEF": 7,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "H. Iton",
+            "number": 21,
+            "position": ["CB", "LB"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 6,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Tomiyasun",
+            "number": 22,
+            "position": ["CB", "RB", "LB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "J. Suzukin",
+            "number": 25,
+            "position": ["CB", "RB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Endon",
+            "number": 6,
+            "position": ["CDM", "CM", "CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Tanakan",
+            "number": 7,
+            "position": ["CM", "CDM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Kubon",
+            "number": 8,
+            "position": ["RW", "CAM", "RM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 9,
+                "DEF": 5,
+                "TEC": 9,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Doant",
+            "number": 10,
+            "position": ["RW", "CAM", "RM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Nakamuran",
+            "number": 13,
+            "position": ["LW", "LM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 5,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "J. Iton",
+            "number": 14,
+            "position": ["RW", "RM", "ST"],
+            "stats": {
+                "SPD": 9,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 5,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Kamadan",
+            "number": 15,
+            "position": ["CAM", "CM", "ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 8,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Y. Suzukin",
+            "number": 17,
+            "position": ["ST", "CAM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 5,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Sanon",
+            "number": 24,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 9,
+                "DRI": 7,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Goton",
+            "number": 9,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 3,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Maedan",
+            "number": 11,
+            "position": ["LW", "ST"],
+            "stats": {
+                "SPD": 9,
+                "POW": 7,
+                "STA": 9,
+                "DRI": 7,
+                "DEF": 5,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Uedan",
+            "number": 18,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 3,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Ogawan",
+            "number": 19,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 3,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Shiogain",
+            "number": 26,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 2,
+                "TEC": 6,
+                "KEP": 0
+            }
+        }
+    ]
+}
