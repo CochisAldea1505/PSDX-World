@@ -1,0 +1,12 @@
+{
+    "country": "JPN",
+
+    "HOME": {
+        "hex": "#3a659c",
+        "color": "BLUE"
+    },
+    "VISITOR": {
+        "hex": "#ffffff",
+        "color": "WHITE"
+    }
+}
