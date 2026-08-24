@@ -117,6 +117,7 @@ body{
     margin:20px 0;
 }
 
+
 /* ==================================================
    INFORMACIÓN
 ================================================== */
@@ -219,7 +220,6 @@ body{
     max-height:80vh;
 
     background:#694F62;
-
     border:4px solid #2E222F;
     box-shadow:8px 8px 0 #2E222F;
 
@@ -245,7 +245,6 @@ body{
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     box-sizing:border-box;
 
     padding-left:12px;
@@ -356,6 +355,298 @@ body{
     box-sizing:border-box;
 }
 
+
+/* ==================================================
+   AVISO DE NOVEDAD
+================================================== */
+
+.modal-novedad{
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(46,34,47,.82);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    z-index:2000;
+
+    padding:20px;
+
+    box-sizing:border-box;
+
+    overflow-y:auto;
+}
+
+.modal-novedad.activo{
+    display:flex;
+}
+
+.ventana-novedad{
+    width:520px;
+    min-width:520px;
+
+    max-width:
+        calc(100vw - 40px);
+
+    max-height:
+        calc(100vh - 40px);
+
+    background:#694F62;
+
+    border:4px solid #2E222F;
+    box-shadow:8px 8px 0 #2E222F;
+
+    padding:16px;
+
+    box-sizing:border-box;
+
+    display:flex;
+    flex-direction:column;
+
+    overflow:hidden;
+}
+
+.novedad-cabecera{
+    width:100%;
+    min-height:58px;
+
+    background:#3E3546;
+
+    border:3px solid #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:10px;
+
+    box-sizing:border-box;
+
+    text-align:center;
+}
+
+.novedad-titulo{
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.novedad-contenido{
+    width:100%;
+
+    margin-top:14px;
+
+    background:#514859;
+
+    border:3px solid #2E222F;
+
+    padding:18px;
+
+    box-sizing:border-box;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    text-align:center;
+
+    overflow-y:auto;
+}
+
+.novedad-linea{
+    width:100%;
+
+    min-height:18px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    box-sizing:border-box;
+}
+
+.novedad-linea canvas{
+    display:block;
+
+    max-width:100%;
+    height:auto;
+}
+
+
+/* ==================================================
+   IMÁGENES DE NOVEDAD
+================================================== */
+
+.novedad-imagen{
+    display:block;
+
+    width:auto;
+    height:auto;
+
+    max-width:100%;
+
+    image-rendering:pixelated;
+
+    object-fit:contain;
+
+    margin:4px auto;
+}
+
+
+/* ==================================================
+   LÍNEA DE IMAGEN
+================================================== */
+
+.novedad-linea-imagen{
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    box-sizing:border-box;
+
+    padding:4px 0;
+}
+
+
+.novedad-pie{
+    margin-top:14px;
+
+    width:100%;
+
+    display:flex;
+
+    align-items:flex-end;
+    justify-content:space-between;
+
+    gap:14px;
+
+    box-sizing:border-box;
+}
+
+.novedad-recordar{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    flex-shrink:0;
+}
+
+.novedad-recordar input{
+    width:18px;
+    height:18px;
+
+    margin:0;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+}
+
+.novedad-recordar-texto{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.boton-novedad{
+    min-width:120px;
+    min-height:44px;
+
+    background:#3E3546;
+
+    border:3px solid #2E222F;
+    box-shadow:4px 4px 0 #2E222F;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    box-sizing:border-box;
+
+    flex-shrink:0;
+}
+
+.boton-novedad:hover{
+    background:#453B4C;
+}
+
+.boton-novedad:active{
+    box-shadow:none;
+    transform:translate(4px,4px);
+}
+
+/* ==================================================
+   SCROLLBAR PSDX
+================================================== */
+
+.lista-paises::-webkit-scrollbar,
+.novedad-contenido::-webkit-scrollbar,
+.modal-novedad::-webkit-scrollbar{
+    width:12px;
+}
+
+.lista-paises::-webkit-scrollbar-track,
+.novedad-contenido::-webkit-scrollbar-track,
+.modal-novedad::-webkit-scrollbar-track{
+    background:#2E222F;
+}
+
+.lista-paises::-webkit-scrollbar-thumb,
+.novedad-contenido::-webkit-scrollbar-thumb,
+.modal-novedad::-webkit-scrollbar-thumb{
+    background:#694F62;
+    border:2px solid #2E222F;
+    border-radius:0 !important;
+
+    min-height:30px;
+}
+
+.lista-paises::-webkit-scrollbar-thumb:hover,
+.novedad-contenido::-webkit-scrollbar-thumb:hover,
+.modal-novedad::-webkit-scrollbar-thumb:hover{
+    background:#694F62;
+}
+
+.lista-paises::-webkit-scrollbar-corner,
+.novedad-contenido::-webkit-scrollbar-corner,
+.modal-novedad::-webkit-scrollbar-corner{
+    background:#2E222F;
+}
+
+
+/* ==================================================
+   FIREFOX
+================================================== */
+
+.lista-paises,
+.novedad-contenido,
+.modal-novedad{
+    scrollbar-width:auto;
+    scrollbar-color:#694F62 #2E222F;
+}
+
+
 /* ==================================================
    RESPONSIVE
 ================================================== */
@@ -384,6 +675,27 @@ body{
             );
     }
 
+    .ventana-novedad{
+        width:100%;
+        min-width:0;
+
+        max-width:
+            calc(100vw - 30px);
+    }
+
+    .novedad-pie{
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .novedad-recordar{
+        justify-content:center;
+    }
+
+    .boton-novedad{
+        width:100%;
+    }
+
 }
 
 </style>
@@ -399,7 +711,6 @@ body{
     <!-- TÍTULO -->
 
     <div class="titulo" id="titulo"></div>
-
 
     <!-- MENÚ -->
 
@@ -456,6 +767,59 @@ body{
     >
 
         <div id="textoBotonPaises"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     AVISO DE NOVEDAD
+================================================== -->
+
+<div
+    class="modal-novedad"
+    id="modalNovedad"
+>
+
+    <div class="ventana-novedad">
+
+        <div class="novedad-cabecera">
+
+            <div
+                class="novedad-titulo"
+                id="novedadTitulo"
+            ></div>
+
+        </div>
+
+        <div
+            class="novedad-contenido"
+            id="novedadMensaje"
+        ></div>
+
+        <div class="novedad-pie">
+
+            <label class="novedad-recordar">
+
+                <input
+                    type="checkbox"
+                    id="novedadNoMostrar"
+                >
+
+                <span
+                    class="novedad-recordar-texto"
+                    id="novedadNoMostrarTexto"
+                ></span>
+
+            </label>
+
+            <div
+                class="boton-novedad"
+                id="botonCerrarNovedad"
+            ></div>
+
+        </div>
 
     </div>
 
@@ -805,6 +1169,1007 @@ colocarTexto(
 
 
 /* ==================================================
+   AVISO DE NOVEDAD
+================================================== */
+
+/*
+   ==================================================
+   CONFIGURACIÓN
+   ==================================================
+
+   CAMBIA SOLAMENTE ESTOS DATOS CUANDO
+   QUIERAS PUBLICAR UNA NUEVA NOVEDAD.
+
+   Si NEWS_ID cambia, el aviso volverá a
+   mostrarse aunque el usuario haya marcado
+   "NO VOLVER A MOSTRAR".
+
+
+   ==================================================
+   IMÁGENES
+   ==================================================
+
+   Para colocar una imagen dentro del mensaje,
+   escribe la ruta entre DOS ASTERISCOS:
+
+       **ruta/de/la/imagen.png**
+
+   También puedes controlar la escala
+   agregando |ESCALA al final:
+
+       **ruta/de/la/imagen.png|2**
+
+   Ejemplos:
+
+       **TROPHIES/COPA_MUNDIAL.png|2**
+
+       **TROPHIES/COPA_MUNDIAL.png|0.5**
+
+       **TROPHIES/COPA_MUNDIAL.png|1.5**
+
+   Si no especificas una escala,
+   se utiliza 1.
+
+   Puedes colocar tantas imágenes como quieras.
+*/
+
+
+const NEWS_ID =
+    "psdx-news-001";
+
+
+const NEWS_TITLE =
+    "¡NUEVO PAIS!";
+
+/* Se recomienda mensajes en lineas de 42 caracteres, sin contar los pasadores de renglon*/
+/*  "------------------------------------------"*/
+const NEWS_MESSAGE =
+    "**FLAGS PSDX/CPV.png|0.20**\n\n"+
+    "Cabo Verde es el nuevo pais añadido.\n\n"+
+    "\n\n"+
+    "Esperamos añadir mas paises en un futuro.";
+
+
+/* ==================================================
+   TEXTOS FIJOS DEL AVISO
+================================================== */
+
+colocarTexto(
+    document.getElementById(
+        "novedadNoMostrarTexto"
+    ),
+    "NO VOLVER A MOSTRAR"
+);
+
+
+colocarTexto(
+    document.getElementById(
+        "botonCerrarNovedad"
+    ),
+    "CONTINUAR"
+);
+
+
+/* ==================================================
+   MEDIR TEXTO PSDX
+================================================== */
+
+function medirTextoPSDX(texto){
+
+    const glifos =
+        obtenerGlifos(texto);
+
+    let anchoTotal = 0;
+
+    let cursorCalculo = 0;
+
+
+    for(
+        const caracter
+        of texto
+    ){
+
+        const datos =
+            glifos[caracter];
+
+        if(!datos)
+            continue;
+
+
+        const derecha =
+            cursorCalculo +
+            datos.xoffset +
+            datos.width;
+
+
+        if(
+            derecha >
+            anchoTotal
+        ){
+
+            anchoTotal =
+                derecha;
+
+        }
+
+
+        cursorCalculo +=
+            datos.xadvance;
+
+    }
+
+
+    return anchoTotal * ESCALA;
+
+}
+
+
+/* ==================================================
+   DIVIDIR TEXTO PSDX
+================================================== */
+
+function dividirLineaPSDX(
+    texto,
+    anchoMaximo
+){
+
+    if(
+        medirTextoPSDX(texto)
+        <= anchoMaximo
+    ){
+
+        return [texto];
+
+    }
+
+
+    const palabras =
+        texto.split(" ");
+
+    const resultado = [];
+
+    let lineaActual = "";
+
+
+    for(
+        const palabra
+        of palabras
+    ){
+
+        const prueba =
+            lineaActual.length > 0
+            ? lineaActual + " " + palabra
+            : palabra;
+
+
+        if(
+            medirTextoPSDX(prueba)
+            <= anchoMaximo
+        ){
+
+            lineaActual =
+                prueba;
+
+            continue;
+
+        }
+
+
+        /*
+           Si la palabra sola ya es demasiado
+           grande, también la dividimos por
+           caracteres.
+        */
+
+        if(
+            medirTextoPSDX(palabra)
+            > anchoMaximo
+        ){
+
+            if(
+                lineaActual.length > 0
+            ){
+
+                resultado.push(
+                    lineaActual
+                );
+
+                lineaActual = "";
+
+            }
+
+
+            let parte = "";
+
+
+            for(
+                const caracter
+                of palabra
+            ){
+
+                const pruebaParte =
+                    parte + caracter;
+
+
+                if(
+                    medirTextoPSDX(
+                        pruebaParte
+                    )
+                    <= anchoMaximo
+                ){
+
+                    parte =
+                        pruebaParte;
+
+                }
+
+                else{
+
+                    if(
+                        parte.length > 0
+                    ){
+
+                        resultado.push(
+                            parte
+                        );
+
+                    }
+
+                    parte =
+                        caracter;
+
+                }
+
+            }
+
+
+            if(
+                parte.length > 0
+            ){
+
+                lineaActual =
+                    parte;
+
+            }
+
+        }
+
+        else{
+
+            if(
+                lineaActual.length > 0
+            ){
+
+                resultado.push(
+                    lineaActual
+                );
+
+            }
+
+
+            lineaActual =
+                palabra;
+
+        }
+
+    }
+
+
+    if(
+        lineaActual.length > 0
+    ){
+
+        resultado.push(
+            lineaActual
+        );
+
+    }
+
+
+    return resultado;
+
+}
+
+
+/* ==================================================
+   COMPROBAR SI ES UNA IMAGEN
+================================================== */
+
+function esComandoImagen(texto){
+
+    return (
+        texto.length >= 4 &&
+        texto.startsWith("**") &&
+        texto.endsWith("**")
+    );
+
+}
+
+
+/* ==================================================
+   OBTENER CONFIGURACIÓN DE IMAGEN
+================================================== */
+
+function obtenerConfiguracionImagen(texto){
+
+    const contenido =
+        texto.slice(
+            2,
+            -2
+        ).trim();
+
+
+    const partes =
+        contenido.split("|");
+
+
+    const ruta =
+        partes[0].trim();
+
+
+    let escala = 1;
+
+
+    /*
+       Si existe |ESCALA,
+       intentamos convertirlo
+       a número.
+    */
+
+    if(
+        partes.length >= 2
+    ){
+
+        const valor =
+            Number(
+                partes[1].trim()
+            );
+
+
+        /*
+           Solo aceptamos valores
+           numéricos positivos.
+        */
+
+        if(
+            Number.isFinite(valor) &&
+            valor > 0
+        ){
+
+            escala =
+                valor;
+
+        }
+
+    }
+
+
+    return{
+
+        ruta: ruta,
+
+        escala: escala
+
+    };
+
+}
+
+
+/* ==================================================
+   CREAR IMAGEN DE NOVEDAD
+================================================== */
+
+function crearImagenNovedad(
+    configuracion,
+    elemento
+){
+
+    const contenedor =
+        document.createElement(
+            "div"
+        );
+
+    contenedor.className =
+        "novedad-linea-imagen";
+
+
+    const img =
+        document.createElement(
+            "img"
+        );
+
+    img.className =
+        "novedad-imagen";
+
+
+    img.alt =
+        "";
+
+
+    img.src =
+        configuracion.ruta;
+
+
+    const escala =
+        configuracion.escala;
+
+
+    /*
+       Aplicar la escala cuando
+       la imagen ya conozca
+       sus dimensiones reales.
+    */
+
+    img.onload =
+        ()=>{
+
+            const anchoOriginal =
+                img.naturalWidth;
+
+            const altoOriginal =
+                img.naturalHeight;
+
+
+            img.style.width =
+                (
+                    anchoOriginal *
+                    escala
+                ) + "px";
+
+
+            img.style.height =
+                (
+                    altoOriginal *
+                    escala
+                ) + "px";
+
+        };
+
+
+    /*
+       Si la imagen no existe,
+       simplemente no se muestra.
+    */
+
+    img.onerror =
+        ()=>{
+
+            contenedor.remove();
+
+        };
+
+
+    contenedor.appendChild(
+        img
+    );
+
+
+    elemento.appendChild(
+        contenedor
+    );
+
+}
+
+
+/* ==================================================
+   CREAR TEXTO DE NOVEDAD
+================================================== */
+
+function colocarTextoNovedad(
+    elemento,
+    texto,
+    anchoMaximo
+){
+
+    elemento.innerHTML = "";
+
+
+    const parrafos =
+        texto.split("\n");
+
+
+    for(
+        const parrafo
+        of parrafos
+    ){
+
+        /*
+           Línea vacía:
+           conserva el salto visual.
+        */
+
+        if(
+            parrafo.length === 0
+        ){
+
+            const espacio =
+                document.createElement(
+                    "div"
+                );
+
+            espacio.className =
+                "novedad-linea";
+
+            espacio.style.height =
+                "12px";
+
+            elemento.appendChild(
+                espacio
+            );
+
+            continue;
+
+        }
+
+
+        /*
+           ==================================================
+           IMAGEN
+           ==================================================
+
+           Si toda la línea tiene el formato:
+
+               **ruta/imagen.png**
+
+           o:
+
+               **ruta/imagen.png|2**
+
+           se convierte automáticamente
+           en una imagen.
+        */
+
+        if(
+            esComandoImagen(
+                parrafo.trim()
+            )
+        ){
+
+            crearImagenNovedad(
+                obtenerConfiguracionImagen(
+                    parrafo.trim()
+                ),
+                elemento
+            );
+
+            continue;
+
+        }
+
+
+        /*
+           ==================================================
+           TEXTO CON IMÁGENES
+           ==================================================
+
+           También permitimos que una línea
+           contenga texto y un comando de imagen.
+
+           Ejemplo:
+
+           "Mira esto **imagen.png|2**"
+
+           El texto y la imagen se colocarán
+           como elementos independientes.
+        */
+
+        const partes =
+            parrafo.split(
+                /(\*\*[^*]+\*\*)/g
+            );
+
+
+        for(
+            const parte
+            of partes
+        ){
+
+            if(
+                !parte
+            ){
+
+                continue;
+
+            }
+
+
+            if(
+                esComandoImagen(
+                    parte.trim()
+                )
+            ){
+
+                crearImagenNovedad(
+                    obtenerConfiguracionImagen(
+                        parte.trim()
+                    ),
+                    elemento
+                );
+
+                continue;
+
+            }
+
+
+            const lineas =
+                dividirLineaPSDX(
+                    parte,
+                    anchoMaximo
+                );
+
+
+            for(
+                const linea
+                of lineas
+            ){
+
+                if(
+                    linea.length === 0
+                ){
+
+                    continue;
+
+                }
+
+
+                const contenedor =
+                    document.createElement(
+                        "div"
+                    );
+
+                contenedor.className =
+                    "novedad-linea";
+
+
+                contenedor.appendChild(
+                    crearTexto(linea)
+                );
+
+
+                elemento.appendChild(
+                    contenedor
+                );
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* ==================================================
+   CALCULAR ANCHO DEL AVISO
+================================================== */
+
+function calcularAnchoNovedad(){
+
+    const margenPantalla =
+        40;
+
+    const anchoMaximoPantalla =
+        Math.max(
+            300,
+            window.innerWidth -
+            margenPantalla
+        );
+
+
+    /*
+       El aviso puede crecer hasta 900px
+       en pantallas grandes.
+    */
+
+    const limite =
+        Math.min(
+            900,
+            anchoMaximoPantalla
+        );
+
+
+    const anchoInteriorMaximo =
+        limite -
+        40;
+
+
+    const textos = [
+
+        NEWS_TITLE,
+
+        ...NEWS_MESSAGE
+            .split("\n")
+            .filter(
+                linea =>
+                    !esComandoImagen(
+                        linea.trim()
+                    )
+            )
+
+    ];
+
+
+    let mayor =
+        0;
+
+
+    for(
+        const texto
+        of textos
+    ){
+
+        /*
+           Quitamos los comandos de imagen
+           de la medición del texto.
+        */
+
+        const textoSinImagenes =
+            texto.replace(
+                /\*\*[^*]+\*\*/g,
+                ""
+            );
+
+
+        const ancho =
+            medirTextoPSDX(
+                textoSinImagenes
+            );
+
+
+        if(
+            ancho > mayor
+        ){
+
+            mayor =
+                ancho;
+
+        }
+
+    }
+
+
+    /*
+       Agregamos espacio para los bordes
+       y padding.
+    */
+
+    const anchoDeseado =
+        mayor + 80;
+
+
+    return Math.min(
+        limite,
+        Math.max(
+            520,
+            anchoDeseado
+        )
+    );
+
+}
+
+
+/* ==================================================
+   MOSTRAR NOVEDAD
+================================================== */
+
+function mostrarNovedad(){
+
+    const modal =
+        document.getElementById(
+            "modalNovedad"
+        );
+
+    const ventana =
+        document.querySelector(
+            ".ventana-novedad"
+        );
+
+    const titulo =
+        document.getElementById(
+            "novedadTitulo"
+        );
+
+    const mensaje =
+        document.getElementById(
+            "novedadMensaje"
+        );
+
+    const noMostrar =
+        document.getElementById(
+            "novedadNoMostrar"
+        );
+
+
+    const visto =
+        localStorage.getItem(
+            "PSDX_NEWS_ID"
+        );
+
+
+    if(
+        visto === NEWS_ID
+    ){
+
+        return;
+
+    }
+
+
+    /*
+       Calcular el ancho antes de mostrar.
+    */
+
+    const ancho =
+        calcularAnchoNovedad();
+
+
+    ventana.style.width =
+        ancho + "px";
+
+
+    /*
+       El espacio disponible para
+       el texto es menor que el
+       ancho total de la ventana.
+    */
+
+    const anchoTexto =
+        Math.max(
+            220,
+            ancho - 80
+        );
+
+
+    colocarTextoNovedad(
+        titulo,
+        NEWS_TITLE,
+        anchoTexto
+    );
+
+
+    colocarTextoNovedad(
+        mensaje,
+        NEWS_MESSAGE,
+        anchoTexto
+    );
+
+
+    noMostrar.checked =
+        false;
+
+
+    modal.classList.add(
+        "activo"
+    );
+
+}
+
+
+/* ==================================================
+   RECALCULAR AL CAMBIAR TAMAÑO
+================================================== */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+
+        const modal =
+            document.getElementById(
+                "modalNovedad"
+            );
+
+
+        if(
+            !modal.classList.contains(
+                "activo"
+            )
+        ){
+
+            return;
+
+        }
+
+
+        const ventana =
+            document.querySelector(
+                ".ventana-novedad"
+            );
+
+
+        const titulo =
+            document.getElementById(
+                "novedadTitulo"
+            );
+
+
+        const mensaje =
+            document.getElementById(
+                "novedadMensaje"
+            );
+
+
+        const ancho =
+            calcularAnchoNovedad();
+
+
+        ventana.style.width =
+            ancho + "px";
+
+
+        const anchoTexto =
+            Math.max(
+                220,
+                ancho - 80
+            );
+
+
+        colocarTextoNovedad(
+            titulo,
+            NEWS_TITLE,
+            anchoTexto
+        );
+
+
+        colocarTextoNovedad(
+            mensaje,
+            NEWS_MESSAGE,
+            anchoTexto
+        );
+
+    }
+);
+
+
+/* ==================================================
+   CERRAR NOVEDAD
+================================================== */
+
+document
+.getElementById(
+    "botonCerrarNovedad"
+)
+.addEventListener(
+    "click",
+    ()=>{
+
+        const noMostrar =
+            document.getElementById(
+                "novedadNoMostrar"
+            );
+
+
+        if(
+            noMostrar.checked
+        ){
+
+            localStorage.setItem(
+                "PSDX_NEWS_ID",
+                NEWS_ID
+            );
+
+        }
+
+
+        document
+        .getElementById(
+            "modalNovedad"
+        )
+        .classList.remove(
+            "activo"
+        );
+
+    }
+);
+
+
+/* ==================================================
+   MOSTRAR AL ABRIR INDEX
+================================================== */
+
+mostrarNovedad();
+
+
+/* ==================================================
    PAÍSES
 ================================================== */
 
@@ -913,6 +2278,7 @@ const respuesta=
 return respuesta.ok;
 
 }
+
 catch(error){
 
 return false;
