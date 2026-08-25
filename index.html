@@ -698,9 +698,85 @@ body{
 
 }
 
+
+/* ==================================================
+   CONTADOR DE USUARIOS ACTIVOS
+================================================== */
+
+.contador-online{
+    margin-top:10px;
+    width:100%;
+    min-height:34px;
+
+    background:#3E3546;
+    border:2px solid #2E222F;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-sizing:border-box;
+}
+
 </style>
 
 <script src="favicon.js"></script>
+
+<script type="module">
+/* ==================================================
+   CONTADOR DE USUARIOS ACTIVOS
+================================================== */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    onValue
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCgltcJmKz4CuhTrNm5McWzGRP5dsAFLfU",
+    authDomain: "psdx-world.firebaseapp.com",
+    databaseURL: "https://psdx-world-default-rtdb.firebaseio.com",
+    projectId: "psdx-world",
+    storageBucket: "psdx-world.firebasestorage.app",
+    messagingSenderId: "771773374810",
+    appId: "1:771773374810:web:c511db7d1662b90e3d9363"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+    const contadorOnline =
+        document.getElementById("contadorOnline");
+
+    if(!contadorOnline) return;
+
+    window.addEventListener(
+        "psdx-users-online",
+        evento => {
+
+            const cantidad =
+                evento.detail.count;
+
+            window.PSDX_ONLINE_COUNT =
+                cantidad;
+
+        }
+    );
+
+});
+</script>
+
+<script
+    type="module"
+    src="psdx-presence.js"
+></script>
 
 </head>
 
@@ -754,6 +830,9 @@ body{
     <!-- PIE -->
 
     <div class="pie" id="pie"></div>
+
+    <!-- CONTADOR DE USUARIOS ACTIVOS -->
+    <div class="contador-online" id="contadorOnline"></div>
 
 
     <!-- ==================================================
@@ -1127,7 +1206,22 @@ colocarTexto(
     "NO OFFICIAL - INSPIRED BY PSDX"
 );
 
+/* ==================================================
+   CONTADOR ONLINE — FUENTE PSDX
+================================================== */
 
+if(
+    typeof window.PSDX_USERS_ONLINE === "number"
+){
+
+    colocarTexto(
+        document.getElementById(
+            "contadorOnline"
+        ),
+        `ONLINE: ${window.PSDX_USERS_ONLINE}`
+    );
+
+}
 /* ==================================================
    BOTÓN !
 ================================================== */
@@ -1223,23 +1317,28 @@ colocarTexto(
    Cambia solamente este valor cuando quieras
    publicar o retirar una novedad.
 */
-const NEWS_ENABLED = false;
+const NEWS_ENABLED = true;
 
 
 const NEWS_ID =
-    "psdx-news-002";
+    "psdx-news-003";
 
 
 const NEWS_TITLE =
-    "¡NUEVO PAIS!";
+    "¡NUEVO CONTADOR DE USUARIOS!";
 
 /* Se recomienda mensajes en lineas de 42 caracteres, sin contar los pasadores de renglon*/
 /*  "------------------------------------------"*/
-const NEWS_MESSAGE =
-    "**FLAGS PSDX/JPN.png|0.20**\n\n"+
+/*  "**FLAGS PSDX/JPN.png|0.20**\n\n"+
     "Japón es el nuevo pais añadido.\n\n"+
     "\n\n"+
-    "Esperamos añadir mas paises mas adelante.";
+    "Esperamos añadir mas paises mas adelante.";*/
+const NEWS_MESSAGE =
+    "Se ha añadido un contador de usuarios\n\n"+
+    "en linea, esta funcion esta en forma\n\n"+
+    "BETA.\n\n"+
+    "\n\n"+
+    "Todo sujeto a cambios.";
 
 
 /* ==================================================
@@ -2665,6 +2764,39 @@ contenedor.appendChild(
 
 }
 
+/* ==================================================
+   MOSTRAR CONTADOR ONLINE CON FUENTE PSDX
+================================================== */
+
+function actualizarContadorOnline(){
+
+    const contador =
+        document.getElementById(
+            "contadorOnline"
+        );
+
+    const cantidad =
+        typeof window.PSDX_ONLINE_COUNT === "number"
+        ? window.PSDX_ONLINE_COUNT
+        : 0;
+
+    colocarTexto(
+        contador,
+        `ONLINE: ${cantidad}`
+    );
+
+}
+
+
+actualizarContadorOnline();
+
+
+window.addEventListener(
+    "psdx-users-online",
+    ()=>{
+        actualizarContadorOnline();
+    }
+);
 
 /* ==================================================
    FIN
