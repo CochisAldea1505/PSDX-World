@@ -1,0 +1,369 @@
+{
+    "country": "MAR",
+    "players": [
+        {
+            "name": "Bonon",
+            "number": 1,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 8
+            }
+        },
+        {
+            "name": "El Kajouin",
+            "number": 12,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 6,
+                "TEC": 5,
+                "KEP": 7
+            }
+        },
+        {
+            "name": "Tagnaoutin",
+            "number": 22,
+            "position": ["GK"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 5,
+                "DRI": 2,
+                "DEF": 7,
+                "TEC": 5,
+                "KEP": 7
+            }
+        },
+        {
+            "name": "Hakimin",
+            "number": 2,
+            "position": ["RB", "RM"],
+            "stats": {
+                "SPD": 10,
+                "POW": 8,
+                "STA": 9,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Mazraouin",
+            "number": 3,
+            "position": ["RB", "LB", "CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 6,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Aguerdn",
+            "number": 5,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 8,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "El Ouahdin",
+            "number": 13,
+            "position": ["RB", "RM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Diopn",
+            "number": 14,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 5,
+                "DEF": 7,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Riadn",
+            "number": 18,
+            "position": ["CB", "LB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Belammarin",
+            "number": 19,
+            "position": ["LB"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Halhaln",
+            "number": 25,
+            "position": ["CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 6,
+                "DEF": 6,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Salah-Edinen",
+            "number": 26,
+            "position": ["LB", "LM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Amrabatn",
+            "number": 4,
+            "position": ["CDM", "CM", "CB"],
+            "stats": {
+                "SPD": 6,
+                "POW": 8,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Bouaddin",
+            "number": 6,
+            "position": ["CM", "CDM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 7,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Talbin",
+            "number": 7,
+            "position": ["RW", "LW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 5,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Ounahin",
+            "number": 8,
+            "position": ["CM", "CAM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 5,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Saibarin",
+            "number": 11,
+            "position": ["CAM", "CM", "LW"],
+            "stats": {
+                "SPD": 7,
+                "POW": 8,
+                "STA": 8,
+                "DRI": 8,
+                "DEF": 5,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "El Mourabetn",
+            "number": 15,
+            "position": ["CDM", "CM"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Yassinen",
+            "number": 16,
+            "position": ["RW", "LW", "LM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 6,
+                "DRI": 7,
+                "DEF": 4,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "El Khannoussn",
+            "number": 23,
+            "position": ["CAM", "CM"],
+            "stats": {
+                "SPD": 7,
+                "POW": 6,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 4,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "El Aynaouin",
+            "number": 24,
+            "position": ["CM", "CDM"],
+            "stats": {
+                "SPD": 6,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 6,
+                "TEC": 6,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Rahimin",
+            "number": 9,
+            "position": ["ST", "LW"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 8,
+                "DRI": 7,
+                "DEF": 2,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Brahimin",
+            "number": 10,
+            "position": ["RW", "CAM", "LM"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 2,
+                "TEC": 9,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Ezzalzoulin",
+            "number": 17,
+            "position": ["LW", "RW", "ST"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 8,
+                "DEF": 2,
+                "TEC": 7,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "El Kaabin",
+            "number": 20,
+            "position": ["ST"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 2,
+                "TEC": 5,
+                "KEP": 0
+            }
+        },
+        {
+            "name": "Amaimounin",
+            "number": 21,
+            "position": ["RW", "RM", "ST"],
+            "stats": {
+                "SPD": 8,
+                "POW": 7,
+                "STA": 7,
+                "DRI": 7,
+                "DEF": 2,
+                "TEC": 6,
+                "KEP": 0
+            }
+        }
+    ]
+}
